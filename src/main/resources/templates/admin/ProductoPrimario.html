@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html  lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="css/styles.css" rel="stylesheet" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<title>Producto Primario</title>
+</head>
+<body>
+		<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            
+            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+                <div class="input-group float-right">
+                    <span class="text-white mx-2" sec:authentication="name"></span>
+                    <button class="btn btn-success my-2 my-sm-0" type="submit">Logout</button>
+                </div>
+            </form>
+            <!-- Navbar-->
+
+        </nav>
+        
+         <div class="container">
+
+      <div class="starter-template">
+        <h1 th:text="${productoprimario.id !=0}? 'Editar Producto':'Nuevo Producto'">Nuevo Producto</h1>
+       		<div class="row">
+       			<div class="col-md-offset-2 col-md-8">
+       				<form method="post" action="#" th:action="${productoprimario.id !=0}?@{/ProductoPrimario/edit/submit} : @{/ProductoPrimario/new/submit}" th:object="${productoprimario}">
+       				
+							<!-- Text input-->
+							<div class="form-group" th:classappend="${#fields.hasErrors('nombre_primario')}? 'has-error'">
+							  <label class="col-md-4 control-label" for="textinput">Nombre Primario</label>  
+							  <div class="col-md-4">
+							  <input id="nombre_primario" name="nombre_primario" type="text" placeholder="Nombre" class="form-control input-md" th:field="*{nombre_primario}" th:attrappend="readonly=${productoprimario.id!=0}? 'readonly':null">
+							  <span th:if="${#fields.hasErrors('nombre_primario')}" th:errors="*{nombre_primario}" class="help-block" id="id-error">Errores</span>  
+							  </div>
+							</div>
+							
+							<!-- Text input-->
+							<div class="form-group" th:classappend="${#fields.hasErrors('empresa')}? 'has-error'">
+							  <label class="col-md-4 control-label" for="nombre">Empresa</label>  
+							  <div class="col-md-4">
+							  <input id="empresa" name="empresa" type="text" placeholder="Empresa" class="form-control input-md" th:field="*{empresa}">
+							   <span th:if="${#fields.hasErrors('empresa')}" th:errors="*{empresa}" class="help-block" id="id-error">Errores</span> 
+							  </div>
+							</div>							
+							
+							<!-- Text input-->
+							<div class="form-group">
+							  <label class="col-md-4 control-label" for="email">Registro Sanitario</label>  
+							  <div class="col-md-4">
+							  <input id="reg_sanitario" name="reg_sanitario" type="text" placeholder="Reg.Sanitario" class="form-control input-md"th:field="*{reg_sanitario}" >
+							  <span class="help-block">help</span>  
+							  </div>
+							</div>
+							       		<!-- Text input-->
+							<div class="form-group">
+							  <label class="col-md-4 control-label" for="telefono">Fecha</label>  
+							  <div class="col-md-4">
+							  <input id="fech_alta" name="fech_alta" type="text" placeholder="Fecha" class="form-control input-md" th:field="*{fech_alta}" >
+							  <span class="help-block">help</span>  
+							  </div>
+							</div>	
+							<!-- Text input-->
+							<div class="form-group">
+							  <label class="col-md-4 control-label" for="telefono">Cantidad</label>  
+							  <div class="col-md-4">
+							  <input id="cantidad" name="cantidad" type="text" placeholder="Fecha" class="form-control input-md" th:field="*{cantidad}" >
+							  <span class="help-block">help</span>  
+							  </div>
+							</div>	
+							
+							<!-- Button -->
+							<div class="btn-toolbar">
+							<div class="col-md-4">
+							    <a href="#" class="btn btn-secondary btn-lg" th:href="@{/ListaProductosPrimarios}">Cancelar</a>
+							</div>
+							<div class="col-md-4">
+							    <button id="singlebutton" name="singlebutton" class="btn btn-primary btn-lg" type="submit">Enviar</button>
+							</div>
+							</div>		
+       				
+       				</form>
+       			
+       			</div>
+       		
+       		</div>
+      </div>
+
+    </div><!-- /.container -->
+        
+        
+</body>
+</html>
