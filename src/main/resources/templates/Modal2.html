@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="es" xmlns:th="https://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
@@ -36,7 +36,8 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Send message</button>
+        <a href="#" class="btn btn-primary" th:onclick="aceptar()">Send message</a>
+        <input type="hidden" id="id_producto" name="id_producto" value="">
       </div>
     </div>
   </div>
@@ -45,14 +46,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script type="text/javascript">
     $(document).ready(function() {
-    	alert("Carga");
+    	
     	$('#exampleModal').on('show.bs.modal', function (event) {
-    	alert("Dentro");
+    	
   		var button = $(event.relatedTarget); // Button that triggered the modal
-  		alert(button);
+  		
   		var recipient = button.data('whatever'); // Extract info from data-* attributes
- 		 alert(recipient);
- 		 
+ 		
+ 		 document.getElementById("id_producto").value=recipient;
  		 // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
  		 // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
  		 var modal = $(this);
@@ -60,6 +61,13 @@
   		modal.find('.modal-body input').val(recipient);
 	});
 	});
+	
+	function aceptar(){
+	
+		alert( document.getElementById("id_producto").value);
+		window.location.href = document.getElementById("recipient-name").value;
+		
+	}
 </script>
 </body>
 

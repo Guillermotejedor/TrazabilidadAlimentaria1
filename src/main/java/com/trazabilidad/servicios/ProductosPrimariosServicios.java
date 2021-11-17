@@ -23,7 +23,8 @@ public class ProductosPrimariosServicios {
 	}
 	
 	public void guardar(ProductoPrimario producto) {
-		repositorio.save(producto);
+		//repositorio.save(producto);
+		repositorio.saveAndFlush(producto);
 	}
 
 }
