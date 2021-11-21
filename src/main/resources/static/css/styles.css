@@ -11706,7 +11706,10 @@ body {
   position: relative;
   left: 80%;
 }
-
+.btn-cabecera-buscar{
+  position: relative;
+  left: 70%;
+}
 .has-error{
 	color:red;
 }

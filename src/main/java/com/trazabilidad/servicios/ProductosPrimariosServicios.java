@@ -22,9 +22,13 @@ public class ProductosPrimariosServicios {
 		return repositorio.findById(id);
 	}
 	
-	public void guardar(ProductoPrimario producto) {
+	public void Guardar(ProductoPrimario producto) {
 		//repositorio.save(producto);
-		repositorio.saveAndFlush(producto);
+		System.out.println("Guardar id -->"+producto.getId());
+		repositorio.save(producto);
 	}
 
+	public List<ProductoPrimario> TodosProductosPrimarios(){
+		return repositorio.findAll();
+	}
 }

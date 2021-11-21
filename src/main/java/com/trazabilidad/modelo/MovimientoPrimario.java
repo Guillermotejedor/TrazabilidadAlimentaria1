@@ -4,10 +4,15 @@ import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -18,13 +23,18 @@ public class MovimientoPrimario {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_movimiento_p")
 	private long id;
+	
 	private long id_primarias;
-	@JsonFormat(pattern = "yyyyMMdd")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate fech_ejecucion;
 	private float cantidad;
 	private String lote;
 	private String tipo_modificacion;
-	
+	/*
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_primarias", nullable=true)
+	private ProductoPrimario ProductoPrimario;
+	*/
 	public MovimientoPrimario() {
 		super();
 	}
@@ -86,7 +96,22 @@ public class MovimientoPrimario {
 	public void setTipo_modificacion(String tipomodificacion) {
 		this.tipo_modificacion = tipomodificacion;
 	}
+/*
+	public ProductoPrimario getProducto() {
+		return ProductoPrimario;
+	}
 
+	public void setProducto(ProductoPrimario producto) {
+		this.ProductoPrimario = producto;
+	}
+*/
+	@Override
+	public String toString() {
+		return "MovimientoPrimario [id=" + id + ", id_primarias=" + id_primarias + ", fech_ejecucion=" + fech_ejecucion
+				+ ", cantidad=" + cantidad + ", lote=" + lote + ", tipo_modificacion=" + tipo_modificacion
+				+  "]";
+	}
+//", ProductoPrimario=" + ProductoPrimario +
 	
 	
 }

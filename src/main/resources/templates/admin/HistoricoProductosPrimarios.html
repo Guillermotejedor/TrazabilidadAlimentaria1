@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>Historico Productos Primarios</title>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="/css/styles.css" rel="stylesheet" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            <!-- Navbar Brand-->
+            <a class="navbar-brand ps-3" href="/ListaProductosPrimarios">Productos Primarios</a>
+            <!-- Sidebar Toggle-->
+            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+                <div class="input-group">
+                    <span class="text-white mx-2" sec:authentication="name"></span>
+                    <button class="btn btn-success my-2 my-sm-0" type="submit">Logout</button>
+                </div>
+            </form>
+            <!-- Navbar-->
+
+        </nav>
+
+          <div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+                            <div class="sb-sidenav-menu-heading">Productos</div>
+                            <ul class="sb-sidenav-menu-heading">
+							  <li th:each="producto : ${productos}"  >
+							     <a class="nav-link" href="#"  th:href="@{/HistoricoProductoPrimario/{id}(id=${producto.id})}">
+                                <span th:text="${producto.nombre_primario}" > Prueba</span>	
+                                </a>							  
+							  </li>						
+							</ul>
+					</div> <!-- Cierro class=nav -->
+                    <div class="sb-sidenav-footer">
+                        <div class="small">Logged in as:</div>
+                        Start Bootstrap
+                    </div> <!-- Cierro footer -->
+                </nav>
+    </div> <!-- layoutSidenav_nav -->
+  
+                 <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid px-4">
+                   		<h1>Historico Productos Primarios</h1>
+                   		<div class="navbar-form navbar-right">
+                   		<a class="btn btn-success btn-cabecera-buscar"  href="#!" th:onclick="buscar()"><i>Buscar</i></a>
+                   		<input type="text"  class="btn-cabecera-buscar" id="buscar" sice=20 placeholder="Nombre Producto">
+                   		</div> <!-- Cierro container-xxl -->
+                   		<div class="container-xxl">
+                   		<h3><samp th:text="${producto}">Producto</samp></h3>
+						<div class="col-md-offset-2 col-md-10">
+						<table class="table table-striped">
+						<thead>
+						<tr>
+							<th>Fecha Ejecucion</th>
+							<th>Tipo Movimiento</th>
+							<th>Cantidad</th>
+							<th>Accion</th>
+						</tr>						
+						</thead>
+						<tbody>
+						<tr th:each="movimiento : ${movimientos}">
+							<td th:text="${movimiento.fech_ejecucion}">Fecha</td>
+							<td th:text="${movimiento.tipo_modificacion}">Movimiento</td>
+							<td th:text="${movimiento.cantidad}">1</td>
+							<td><a href="#" th:href="@{/ProductoPrimario}" class="btn btn-success">Abrir</a></td>			
+						</tr>
+						</tbody>
+						</table>
+						</div> <!-- col-md-offset-2 col-md-8 -->
+						</div> <!-- container-xxl -->
+                   		
+                   		
+                    </div> <!-- container-fluid px-4 -->
+
+                </main>
+
+</div> <!-- layoutSidenav_content -->
+              
+</div> <!-- layoutSidenav--> 
+    
+</body>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+ <script type="text/javascript">
+ 	function buscar(){
+ 		alert("Dentro2 ");
+		var buscar=document.getElementById('buscar').value;
+ 		var patron = /^[a-zA-Z\s]+$/;
+    	if (patron.test(buscar)){
+ 			window.location.href="/BuscarHistoricoProducto/"+buscar;
+ 		}else{
+ 		alert("Introduzca un valor valido");
+ 		
+ 		}
+ 	}
+ </script>
+</html>

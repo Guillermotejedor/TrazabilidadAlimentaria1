@@ -1,18 +1,27 @@
 package com.trazabilidad.modelo;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.trazabilidad.validacion.personalizada.RegSanitario;
 
@@ -32,10 +41,15 @@ public class ProductoPrimario {
 	@Pattern(regexp="[A-Z]{2}[0-9]{7}[A-Z]{2}",message="Debe tener este formato ES0000000XX")
 	@RegSanitario
 	private String reg_sanitario;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate fech_alta;
+	@Min(value=1,message="{ProductoPrimario.cantidad}")
 	private float cantidad;
 	private boolean activado;
-	
+	//@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER,mappedBy="ProductoPrimario")
+	@JoinColumn(name="id_primarias",referencedColumnName="id_primarias",insertable=false,updatable=false)
+	@OneToMany
+	private List<MovimientoPrimario> movimientos=new ArrayList<MovimientoPrimario>();
 	
 	public ProductoPrimario() {
 		super();
@@ -130,12 +144,36 @@ public class ProductoPrimario {
 	}
 
 
+
+
+
+	public List<MovimientoPrimario> getMovimientos() {
+		return movimientos;
+	}
+
+
+
+
+
+	public void setMovimientos(List<MovimientoPrimario> movimientos) {
+		this.movimientos = movimientos;
+	}
+	
+
+
+
+
+
 	@Override
 	public String toString() {
-		return "ProductosPrimarios [id_primarias=" + id + ", nombre=" + nombre_primario + ", empresa=" + empresa
+		return "ProductoPrimario [id=" + id + ", nombre_primario=" + nombre_primario + ", empresa=" + empresa
 				+ ", reg_sanitario=" + reg_sanitario + ", fech_alta=" + fech_alta + ", cantidad=" + cantidad
-				+ ", activado=" + activado + "]";
+				+ ", activado=" + activado + ", movimientos=" + movimientos + "]";
 	}
+	
+	
+
+
 
 
 }

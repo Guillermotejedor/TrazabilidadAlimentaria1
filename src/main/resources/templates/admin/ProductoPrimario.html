@@ -61,7 +61,7 @@
 							<div class="form-group" th:classappend="${#fields.hasErrors('reg_sanitario')}? 'has-error'">
 							  <label class="col-md-4 control-label" for="telefono">Cantidad</label>  
 							  <div class="col-md-4">
-							  <input id="cantidad" name="cantidad" type="text" placeholder="Fecha" class="form-control input-md" th:field="*{cantidad}" th:attrappend="readonly=${productoprimario.id !=0}? 'readonly':null" >
+							  <input id="cantidad" name="cantidad" type="text" placeholder="Cantidad" class="form-control input-md" th:field="*{cantidad}" th:attrappend="readonly=${productoprimario.id !=0}? 'readonly':null" >
 							  <span th:if="${#fields.hasErrors('cantidad')}" th:errors="*{cantidad}" class="help-block" id="id-error">Errores</span> 
 							  </div>
 							</div>	
