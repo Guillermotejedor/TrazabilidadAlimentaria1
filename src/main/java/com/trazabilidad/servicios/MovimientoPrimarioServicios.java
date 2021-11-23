@@ -12,8 +12,12 @@ public class MovimientoPrimarioServicios {
 	@Autowired
 	MovimientoPrimarioRepositorio  repositorio;
 	
-	public MovimientoPrimario actualizar(MovimientoPrimario movimiento) {
+	public MovimientoPrimario Actualizar(MovimientoPrimario movimiento) {
 		return repositorio.save(movimiento);
+	}
+	
+	public MovimientoPrimario BucarPorId(long id) {
+		return repositorio.findById(id);
 	}
 
 }

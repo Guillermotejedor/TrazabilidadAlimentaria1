@@ -2,6 +2,7 @@ package com.trazabilidad.servicios;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,17 +19,26 @@ public class ProductosPrimariosServicios {
 		return repositorio.findByActivadoTrue();
 	}
 	
-	public ProductoPrimario ProductoPrimarioId(long id) {
+	public ProductoPrimario ProductoPrimarioId(long id) throws Exception {
+	
 		return repositorio.findById(id);
+		
 	}
 	
-	public void Guardar(ProductoPrimario producto) {
-		//repositorio.save(producto);
-		System.out.println("Guardar id -->"+producto.getId());
-		repositorio.save(producto);
+	public void Guardar(ProductoPrimario producto)   {
+		
+			repositorio.save(producto);
 	}
 
 	public List<ProductoPrimario> TodosProductosPrimarios(){
 		return repositorio.findAll();
+	}
+	
+	public ProductoPrimario BuscarPorNombre(String nombre) {
+		return repositorio.findByNombreprimario(nombre);
+	}
+	
+	public List<Object[]> MovientosEmpresa(long id_primarias){
+		return repositorio.findMovimientoEmpresa(id_primarias);
 	}
 }

@@ -33,7 +33,7 @@
                             <ul class="sb-sidenav-menu-heading">
 							  <li th:each="producto : ${productos}"  >
 							     <a class="nav-link" href="#"  th:href="@{/HistoricoProductoPrimario/{id}(id=${producto.id})}">
-                                <span th:text="${producto.nombreprimario}" > Prueba</span>	
+                                <span th:text="${producto.nombre_primario}" > Prueba</span>	
                                 </a>							  
 							  </li>						
 							</ul>
@@ -50,7 +50,7 @@
                     <div class="container-fluid px-4">
                    		<h1>Historico Productos Primarios</h1>
                    		<div class="navbar-form navbar-right">
-                   		<a class="btn btn-primary btn-cabecera-buscar"  href="#!" th:onclick="buscar()"><i>Buscar</i></a>
+                   		<a class="btn btn-success btn-cabecera-buscar"  href="#!" th:onclick="buscar()"><i>Buscar</i></a>
                    		<input type="text"  class="btn-cabecera-buscar" id="buscar" sice=20 placeholder="Nombre Producto">
                    		</div> <!-- Cierro container-xxl -->
                    		<div class="container-xxl">
@@ -59,6 +59,7 @@
 						<table class="table table-striped">
 						<thead>
 						<tr>
+							<th>Empresa</th>
 							<th>Fecha Ejecucion</th>
 							<th>Tipo Movimiento</th>
 							<th>Cantidad</th>
@@ -67,10 +68,11 @@
 						</thead>
 						<tbody>
 						<tr th:each="movimiento : ${movimientos}">
-							<td th:text="${movimiento.fech_ejecucion}">Fecha</td>
-							<td th:text="${movimiento.tipo_modificacion}">Movimiento</td>
-							<td th:text="${movimiento.cantidad}">1</td>
-							<td><a href="#" th:href="@{/MovimientoProductoPrimario/{id}(id=${movimiento.id})}" class="btn btn-warning">Abrir</a></td>			
+							<td th:text="${movimiento(1)}">Empresa</td>
+							<td th:text="${movimiento(1)}">Fecha</td>
+							<td th:text="${movimiento(2)}">Movimiento</td>
+							<td th:text="${movimiento(3)}">1</td>
+							<td><a href="#" th:href="@{/ProductoPrimario}" class="btn btn-success">Abrir</a></td>			
 						</tr>
 						</tbody>
 						</table>
@@ -91,7 +93,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
  <script type="text/javascript">
  	function buscar(){
- 		var buscar=document.getElementById('buscar').value;
+ 		alert("Dentro2 ");
+		var buscar=document.getElementById('buscar').value;
  		var patron = /^[a-zA-Z\s]+$/;
     	if (patron.test(buscar)){
  			window.location.href="/BuscarHistoricoProducto/"+buscar;

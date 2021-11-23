@@ -27,16 +27,17 @@
         <h1 th:text="${productoprimario.id !=0}? 'Editar Producto':'Nuevo Producto'">Nuevo Producto</h1>
        		<div class="row">
        			<div class="col-md-offset-2 col-md-8">
+       				<span class="has-error" th:text="${errorduplicado}"></span>
        				<form method="post" action="#" th:action="${productoprimario.id !=0}?@{/ProductoPrimario/edit/submit} : @{/ProductoPrimario/new/submit}" th:object="${productoprimario}">
        						<input type="hidden" id="id" th:field="*{id}">
        						<input type="hidden" id="fech_alta" th:field="*{fech_alta}">
        						<input type="hidden" id="activado" th:field="*{activado}">
 							<!-- Text input-->
-							<div class="form-group" th:classappend="${#fields.hasErrors('nombre_primario')}? 'has-error'">
+							<div class="form-group" th:classappend="${#fields.hasErrors('nombreprimario')}? 'has-error'">
 							  <label class="col-md-4 control-label" for="textinput">Nombre Primario</label>  
 							  <div class="col-md-4">
-							  <input id="nombre_primario" name="nombre_primario" type="text" placeholder="Nombre" class="form-control input-md" th:field="*{nombre_primario}" th:attrappend="readonly=${productoprimario.id !=0}? 'readonly':null">
-							  <span th:if="${#fields.hasErrors('nombre_primario')}" th:errors="*{nombre_primario}" class="help-block" id="id-error">Errores</span>  
+							  <input id="nombreprimario" name="nombreprimario" type="text" placeholder="Nombre" class="form-control input-md" th:field="*{nombreprimario}" th:attrappend="readonly=${productoprimario.id !=0}? 'readonly':null">
+							  <span th:if="${#fields.hasErrors('nombreprimario')}" th:errors="*{nombreprimario}" class="help-block" id="id-error">Errores</span>  
 							  </div>
 							</div>
 							

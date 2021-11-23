@@ -81,13 +81,13 @@
 						</thead>
 						<tbody>
 						<tr th:each="producto : ${productos}">
-							<td th:text="${producto.nombre_primario}">Nombre</td>
+							<td th:text="${producto.nombreprimario}">Nombre</td>
 							<td th:text="${producto.empresa}">Empresa</td>
 							<td th:text="${producto.cantidad}">1</td>
 							<td><a href="#" th:href="@{/ProductoPrimario/{id}(id=${producto.id})}" class="btn btn-success">Actualizar</a>
-							<a data-toggle="modal" data-target="#delete-modal" th:id="${producto.id}" th:data-id="${producto.id}" th:data-nombre="${producto.nombre_primario}" class="btn btn-danger" >Eliminar</a>
-							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#añadir-modal" th:data-id="${producto.id}" th:data-nombre="${producto.nombre_primario}">Añadir</button>
-							<a data-toggle="modal" data-target="#disminuir-modal"  th:data-id="${producto.id}" th:data-nombre="${producto.nombre_primario}" th:data-cantidad="${producto.cantidad}" class="btn btn-warning" >Disminuir</a>
+							<a data-toggle="modal" data-target="#delete-modal" th:id="${producto.id}" th:data-id="${producto.id}" th:data-nombre="${producto.nombreprimario}" class="btn btn-danger" >Eliminar</a>
+							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#añadir-modal" th:data-id="${producto.id}" th:data-nombre="${producto.nombreprimario}">Añadir</button>
+							<a data-toggle="modal" data-target="#disminuir-modal"  th:data-id="${producto.id}" th:data-nombre="${producto.nombreprimario}" th:data-cantidad="${producto.cantidad}" class="btn btn-warning" >Disminuir</a>
 							</td>
 						</tr>
 						</tbody>

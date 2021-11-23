@@ -32,9 +32,10 @@ public class ProductoPrimario {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_primarias")
 	private long id;
+	@Column(name="nombre_primario")
 	@NotNull
 	@Size(min=2,message="Especifique el Nombre del producto")
-	private String nombre_primario;
+	private String nombreprimario;
 	@NotNull
 	@Size(min=2,message="Especifique el Nombre de la empresa")
 	private String empresa;
@@ -62,7 +63,7 @@ public class ProductoPrimario {
 	public ProductoPrimario(long id,String nombre_primario,String empresa, String reg_sanitario,LocalDate fech_alta, float cantidad, boolean activado) {
 		super();
 		this.id = id;
-		this.nombre_primario = nombre_primario;
+		this.nombreprimario = nombre_primario;
 		this.empresa = empresa;
 		this.reg_sanitario = reg_sanitario;
 		this.fech_alta = fech_alta;
@@ -84,13 +85,13 @@ public class ProductoPrimario {
 	}
 
 
-	public String getNombre_primario() {
-		return nombre_primario;
+	public String getNombreprimario() {
+		return nombreprimario;
 	}
 
 
-	public void setNombre_primario(String nombre) {
-		this.nombre_primario = nombre;
+	public void setNombreprimario(String nombre) {
+		this.nombreprimario = nombre;
 	}
 
 
@@ -166,7 +167,7 @@ public class ProductoPrimario {
 
 	@Override
 	public String toString() {
-		return "ProductoPrimario [id=" + id + ", nombre_primario=" + nombre_primario + ", empresa=" + empresa
+		return "ProductoPrimario [id=" + id + ", nombre_primario=" + nombreprimario + ", empresa=" + empresa
 				+ ", reg_sanitario=" + reg_sanitario + ", fech_alta=" + fech_alta + ", cantidad=" + cantidad
 				+ ", activado=" + activado + ", movimientos=" + movimientos + "]";
 	}
