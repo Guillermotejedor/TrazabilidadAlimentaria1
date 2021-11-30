@@ -47,10 +47,12 @@ public class ProductoPrimario {
 	@Min(value=1,message="{ProductoPrimario.cantidad}")
 	private float cantidad;
 	private boolean activado;
-	//@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER,mappedBy="ProductoPrimario")
+	
 	@JoinColumn(name="id_primarias",referencedColumnName="id_primarias",insertable=false,updatable=false)
 	@OneToMany
 	private List<MovimientoPrimario> movimientos=new ArrayList<MovimientoPrimario>();
+	@OneToMany(mappedBy = "producto")   
+	private List<RelacionRecetaPrimario> relrecetaprimario;
 	
 	public ProductoPrimario() {
 		super();
@@ -160,9 +162,13 @@ public class ProductoPrimario {
 		this.movimientos = movimientos;
 	}
 	
+	public List<RelacionRecetaPrimario> getRelrecetaprimario() {
+		return relrecetaprimario;
+	}
 
-
-
+	public void setRelrecetaprimario(List<RelacionRecetaPrimario> relrecetaprimario) {
+		this.relrecetaprimario = relrecetaprimario;
+	}
 
 
 	@Override

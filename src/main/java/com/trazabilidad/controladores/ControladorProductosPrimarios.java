@@ -134,6 +134,20 @@ public class ControladorProductosPrimarios {
 		}
 	}	
 	
+	@GetMapping("/ActivarProductoPrimario")
+	public String ActivarProductoPrimario(Model model) {
+		model.addAttribute("productos", productosservicios.ProductoPrimarioDesactivado());
+		return "/admin/ListaProductosPrimariosDesactivados";
+	}
 	
+	@GetMapping("/ActivarProductoPrimario/{id}")
+	public String ActivarProductoDesactivado(@PathVariable long id,Model model) throws Exception {
+		ProductoPrimario producto=productosservicios.ProductoPrimarioId(id);
+		producto.setActivado(true);
+		productosservicios.Guardar(producto);
+		model.addAttribute("productos", productosservicios.ProductoPrimarioDesactivado());
+		return "/admin/ListaProductosPrimariosDesactivados";
+		
+	}
 	
 	}

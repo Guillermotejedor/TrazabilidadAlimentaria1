@@ -11704,7 +11704,7 @@ body {
 }
 .btn-cabecera{
   position: relative;
-  left: 80%;
+  left: 70%;
 }
 .btn-cabecera-buscar{
   position: relative;
@@ -11712,4 +11712,9 @@ body {
 }
 .has-error{
 	color:red;
+}
+
+.inp-border{
+	  border: 0px;
+      outline: none;
 }

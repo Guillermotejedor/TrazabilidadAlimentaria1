@@ -8,13 +8,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.trazabilidad.modelo.ProductoPrimario;
+import com.trazabilidad.modelo.Receta;
 import com.trazabilidad.servicios.ProductosPrimariosServicios;
+import com.trazabilidad.servicios.RecetaServicios;
 
 @Controller
 public class ControladorPrincipal {
 	
 	@Autowired
 	ProductosPrimariosServicios productosservicios;
+	
+	@Autowired
+	RecetaServicios	recetaservicios;
+	
 	
 	
 	@GetMapping({"/","/index"})
@@ -30,7 +36,14 @@ public class ControladorPrincipal {
 		model.addAttribute("productos", productos);
 		return "admin/ListaProductosPrimarios";
 	}
-
+	
+	//Cargo el listado de recetas
+	@GetMapping("/ListaRecetas")
+	public String Receta(Model model) {
+		List<Receta> recetas=recetaservicios.RecetasActivadas();
+		model.addAttribute("recetas", recetas);
+		return "ListaRecetas";
+	}
 	
 
 }

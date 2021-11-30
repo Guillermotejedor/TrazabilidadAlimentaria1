@@ -14,11 +14,17 @@ public class ProductosPrimariosServicios {
 	
 	@Autowired
 	ProductoPrimarioRepositorio repositorio;
-	
+	//Recuperamos todos los productos activados
 	public List<ProductoPrimario> ProductosPrimariosActivados(){
 		return repositorio.findByActivadoTrue();
 	}
+	//Recuperamos todos los Productos desactivados
+	public List<ProductoPrimario> ProductoPrimarioDesactivado(){
+		return repositorio.findByActivadoFalse();
+	}
 	
+	
+	//Buscamos un producto por id
 	public ProductoPrimario ProductoPrimarioId(long id) throws Exception {
 	
 		return repositorio.findById(id);
