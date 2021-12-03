@@ -115,21 +115,24 @@
 								</div><!-- panel default -->
 							
 							</div><!-- th:each -->
-							<br>
 							<!-- Ingrediente base -->
 							<div class="form-group">
 				            <label>Ingrediente base</label>
-				               <div class="custom-control custom-control-inline">
-				                	<select th:field="*{productobase}">
+				           
+				            <div >
+				                <div class="custom-control custom-control-inline">
+				                  		
+									<select th:field="*{productobase}">
 									  <option th:each="componentebase,stat : ${receta.cantidadingrediente}" 
 									          th:value="${productobase}" 
 									          th:text="${receta.cantidadingrediente[__${stat.index}__].primaryKeyRelRecetasPrimarios.idprimarias}">Wireframe</option>
 									</select>	                    
 				                </div>
+				            </div>
 				        </div>
 					</fieldset> <!-- Ingredientes añadidos -->
 							<!-- Button -->
-							<br>
+							<br><br>
 							<div class="btn-toolbar">
 							<div class="col-md-4">
 							    <a href="#" class="btn btn-secondary" th:href="@{/ListaRecetas}">Cancelar</a>

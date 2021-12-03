@@ -51,7 +51,7 @@ public class ProductoPrimario {
 	@JoinColumn(name="id_primarias",referencedColumnName="id_primarias",insertable=false,updatable=false)
 	@OneToMany
 	private List<MovimientoPrimario> movimientos=new ArrayList<MovimientoPrimario>();
-	@OneToMany(mappedBy = "producto")   
+	@OneToMany(mappedBy = "producto",cascade=CascadeType.DETACH, orphanRemoval=true, fetch=FetchType.EAGER )   
 	private List<RelacionRecetaPrimario> relrecetaprimario;
 	
 	public ProductoPrimario() {

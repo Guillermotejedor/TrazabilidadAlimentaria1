@@ -19,6 +19,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -35,11 +38,17 @@ public class Receta {
 	@Column(name="id_receta")
 	private long idreceta;
 	@Column(name="nombre_receta")
+	@NotNull
+	@Size(min=2,message="Especifique el Nombre de la receta")
 	private String nombrereceta;
+	@Min(value=1,message="{Receta.cantidad}")
 	private int caducidad;
 	private boolean activado;
+	@Column(name="id_productobase")
+	private long productobase;
 	
-
+	@OneToMany(mappedBy = "activo",cascade=CascadeType.DETACH, orphanRemoval=true, fetch=FetchType.EAGER )   
+	private List<RelacionRecetaPrimario> activoingrediente= new ArrayList<>();	
 	
 	
 	@ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
@@ -55,9 +64,7 @@ public class Receta {
 	//Metodos helper
 	
 	public void AñadirCantidadIngrediente(RelacionRecetaPrimario cantidad) {
-		System.out.println("Tamaño-->"+cantidadingrediente.size());
 		this.cantidadingrediente.add(cantidad);
-		System.out.println("Tamaño--->"+cantidadingrediente.size());
 		cantidad.setReceta(this);
 	}
 	
@@ -72,14 +79,17 @@ public class Receta {
 	}
 
 
-	public Receta(String nombrereceta, int caducidad, boolean activado, List<ProductoPrimario> productos,
-			List<RelacionRecetaPrimario> relrecetaprimario) {
+
+	public Receta(@NotNull @Size(min = 2, message = "Especifique el Nombre de la receta") String nombrereceta,
+			@Min(value = 1, message = "{Receta.cantidad}") int caducidad, boolean activado, 
+			long productobase, List<ProductoPrimario> ingrediente, List<RelacionRecetaPrimario> cantidadingrediente) {
 		super();
 		this.nombrereceta = nombrereceta;
 		this.caducidad = caducidad;
 		this.activado = activado;
-		this.ingrediente = productos;
-		this.cantidadingrediente = relrecetaprimario;
+		this.productobase = productobase;
+		this.ingrediente = ingrediente;
+		this.cantidadingrediente = cantidadingrediente;
 	}
 
 	public long getIdreceta() {
@@ -133,12 +143,31 @@ public class Receta {
 		this.cantidadingrediente = cantidadingrediente;
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(activado, caducidad, idreceta, nombrereceta);
+
+
+	public long getProductobase() {
+		return productobase;
 	}
 
+	public void setProductobase(long productobase) {
+		this.productobase = productobase;
+	}
+	
+	
 
+	public List<RelacionRecetaPrimario> getActivoingrediente() {
+		return activoingrediente;
+	}
+
+	public void setActivoingrediente(List<RelacionRecetaPrimario> activoingrediente) {
+		this.activoingrediente = activoingrediente;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(activado, caducidad, cantidadingrediente,  idreceta, ingrediente,
+				nombrereceta, productobase);
+	}
 
 	@Override
 	public boolean equals(Object obj) {
@@ -149,9 +178,16 @@ public class Receta {
 		if (getClass() != obj.getClass())
 			return false;
 		Receta other = (Receta) obj;
-		return activado == other.activado && caducidad == other.caducidad && idreceta == other.idreceta
-				&& Objects.equals(nombrereceta, other.nombrereceta);
+		return activado == other.activado && caducidad == other.caducidad
+				&& Objects.equals(cantidadingrediente, other.cantidadingrediente)
+				&& idreceta == other.idreceta
+				&& Objects.equals(ingrediente, other.ingrediente) && Objects.equals(nombrereceta, other.nombrereceta)
+				&& Objects.equals(productobase, other.productobase);
 	}
+
+	
+	
+
 	
 	
 	

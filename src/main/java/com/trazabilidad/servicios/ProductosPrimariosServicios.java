@@ -25,9 +25,9 @@ public class ProductosPrimariosServicios {
 	
 	
 	//Buscamos un producto por id
-	public ProductoPrimario ProductoPrimarioId(long id) throws Exception {
+	public ProductoPrimario ProductoPrimarioId(long id)  {
 	
-		return repositorio.findById(id);
+		return repositorio.findById(id); 
 		
 	}
 	

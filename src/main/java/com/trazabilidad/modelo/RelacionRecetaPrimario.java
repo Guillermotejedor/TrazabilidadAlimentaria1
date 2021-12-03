@@ -30,6 +30,10 @@ public class RelacionRecetaPrimario  implements Serializable {
 	
 	@Column(name="Cantidad")
 	private float cantidad;
+	@ManyToOne
+	@MapsId("idreceta")
+	@JoinColumn(name = "id_receta")
+	Receta activo;
 	
 	
 	@ManyToOne
@@ -37,7 +41,7 @@ public class RelacionRecetaPrimario  implements Serializable {
 	@JoinColumn(name = "id_receta")
 	Receta receta;
 	
-	@ManyToOne
+	@ManyToOne(cascade = {CascadeType.DETACH,CascadeType.REFRESH})
 	@MapsId("idprimarias")
 	@JoinColumn(name = "id_primarias",insertable=false,updatable=false)
 	ProductoPrimario producto;
@@ -99,6 +103,29 @@ public class RelacionRecetaPrimario  implements Serializable {
 
 	public void setCantidad(float cantidad) {
 		this.cantidad = cantidad;
+	}
+
+
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(cantidad, primaryKeyRelRecetasPrimarios, producto, receta);
+	}
+
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		RelacionRecetaPrimario other = (RelacionRecetaPrimario) obj;
+		return Float.floatToIntBits(cantidad) == Float.floatToIntBits(other.cantidad)
+				&& Objects.equals(primaryKeyRelRecetasPrimarios, other.primaryKeyRelRecetasPrimarios)
+				&& Objects.equals(producto, other.producto) && Objects.equals(receta, other.receta);
 	}
 
 

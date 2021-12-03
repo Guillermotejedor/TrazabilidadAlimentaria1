@@ -45,60 +45,50 @@ public class ControladorProductosPrimarios {
 	}
 	//Edito un producto
 	@GetMapping("/ProductoPrimario/{id}")
-	public String EditarProductoPrimario(Model model,@PathVariable long id)throws Exception {
-		try {
+	public String EditarProductoPrimario(Model model,@PathVariable long id) {
+		
 			ProductoPrimario producto=productosservicios.ProductoPrimarioId(id);
 			model.addAttribute("errorduplicado", "");
 			model.addAttribute("productoprimario", producto);
-		}catch(Exception e) {
-			throw new Exception("Se ha recibido un Id erroneo");
-		}
+		
 		return "/admin/ProductoPrimario";
 	}
 	
 	//Añadir cantidad a un producto
 	@GetMapping("/ProductoPrimario/{id}/{cantidad}/añadir")
-	public String AñadirProductoPrimario(@PathVariable long id,@PathVariable float cantidad) throws Exception {
-		try {
+	public String AñadirProductoPrimario(@PathVariable long id,@PathVariable float cantidad)  {
+		
 			ProductoPrimario producto=productosservicios.ProductoPrimarioId(id);
 			producto.setCantidad(producto.getCantidad()+cantidad);
 			productosservicios.Guardar(producto);
 			MovimientoPrimario actualizacion=new MovimientoPrimario(id,LocalDate.now(),cantidad,"","Actualizar");
 			movimientoservicios.Actualizar(actualizacion);
-		}catch(Exception e) {
-			throw new Exception("Id de producto erroneo");
-		}
+		
 		return "redirect:/ListaProductosPrimarios";
 	}
 	
 	//Disminuir cantidad a un producto
 	@GetMapping("/ProductoPrimario/{id}/{cantidad}/disminuir")
-	public String DisminuirProductoPrimario(@PathVariable long id,@PathVariable float cantidad) throws Exception {
+	public String DisminuirProductoPrimario(@PathVariable long id,@PathVariable float cantidad)  {
 		
-		try {	
+			
 			ProductoPrimario producto=productosservicios.ProductoPrimarioId(id);
 			producto.setCantidad(producto.getCantidad()-cantidad);
 			productosservicios.Guardar(producto);
 			MovimientoPrimario actualizacion=new MovimientoPrimario(id,LocalDate.now(),cantidad,"","Desechado");
 			movimientoservicios.Actualizar(actualizacion);
-		}catch(Exception e) {
-			throw new Exception("Id de producto erroneo");
-		}
+		
 		return "redirect:/ListaProductosPrimarios";
 	}
 	
 	//Desactivar producto de la vista
 	@GetMapping("/ListaProductosPrimarios/{id}/eliminar")
-	public String DesactivarProductoPrimario(@PathVariable Long id,Model model) throws Exception {
-		try {
+	public String DesactivarProductoPrimario(@PathVariable Long id,Model model)  {
 			
-		
 		ProductoPrimario producto=productosservicios.ProductoPrimarioId(id);
 		producto.setActivado(false);	
 		productosservicios.Guardar(producto);
-		}catch(Exception e) {
-			throw new Exception("Id de producto erroneo");
-		}
+	
 		return "redirect:/ListaProductosPrimarios";
 	}
 	//Proceso formulario producto primario

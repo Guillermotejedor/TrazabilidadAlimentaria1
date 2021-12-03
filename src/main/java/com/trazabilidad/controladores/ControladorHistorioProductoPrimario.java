@@ -68,7 +68,7 @@ public class ControladorHistorioProductoPrimario {
 	}
 	
 	@GetMapping("/MovimientoProductoPrimario/{id}")
-	public String MovimientoProductoPrimario(@PathVariable long id,Model model) throws Exception {
+	public String MovimientoProductoPrimario(@PathVariable long id,Model model)  {
 		MovimientoPrimario movimiento=movimientoservicios.BucarPorId(id);
 		ProductoPrimario producto=productosservicios.ProductoPrimarioId(movimiento.getId_primarias());
 		model.addAttribute("nombreproducto", producto.getNombreprimario());
