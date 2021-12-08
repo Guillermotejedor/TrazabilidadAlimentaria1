@@ -33,7 +33,7 @@ public class ControladorRecetas {
 	
 	private static final String AJAX_HEADER_NAME = "X-Requested-With";
     private static final String AJAX_HEADER_VALUE = "XMLHttpRequest";
-	private List<NombrePrimario> nombresprimario;
+	
 	
 	@Autowired
 	ProductosPrimariosServicios productoservicios;
@@ -57,34 +57,54 @@ public class ControladorRecetas {
 
 	@GetMapping("/Receta")
 	public String  NuevaReceta(Model model) {
-		//inicializo listado de nombres ingredientes
-		nombresprimario=new ArrayList<NombrePrimario>();
+	
 		Receta receta=new Receta(); 
 		model.addAttribute("receta", receta);
 		model.addAttribute("ingredientes", productoservicios.ProductosPrimariosActivados());
 		
 		return "/Receta";
 	}
+	@GetMapping("/Receta/{id}")
+	public String  AbrirReceta(Model model,@PathVariable Long id) {
 	
+		Receta receta=recetaservicios.RecetaPorId(id); 
+		System.out.println("IdBase -->"+receta.getProductobase());
+		model.addAttribute("receta", receta);
+		model.addAttribute("ingredientes", productoservicios.ProductosPrimariosActivados());
+		model.addAttribute("productobase",receta.getProductobase());
+		model.addAttribute("ingredientesnom", productoservicios.ProductosPrimariosActivados());
+				
+		return "/Receta";
+	}
 	
 	
 	
 	@PostMapping(path = "/receta/nuevo/submit", params="addItem")
 	public String AñadeProductoReceta(@ModelAttribute("receta") Receta receta,  HttpServletRequest request,Model model,
-			@RequestParam("idreceta") long idreceta, @RequestParam("idproducto") long idproducto, @RequestParam("cantidad") float cantidad, @RequestParam("nombre") String nombre) {
+			@RequestParam("idreceta") long idreceta, @RequestParam("idproducto") long idproducto, @RequestParam("cantidad") float cantidad,@RequestParam("nombre") String nombre) {
 		System.out.println("idreceta-->"+idreceta+" idproducto-->"+idproducto+" cantidad-->"+cantidad+"Receta nombre-->"+receta.getNombrereceta());
 		
-		nombresprimario.add(new NombrePrimario(idproducto,nombre));
+		
 		List<RelacionRecetaPrimario> añadidos=receta.getCantidadingrediente();
-		RelacionRecetaPrimario añadir=new RelacionRecetaPrimario(new PrimaryKeyRelRecetasPrimarios(idproducto,idreceta),cantidad);
+		RelacionRecetaPrimario añadir=new RelacionRecetaPrimario(new PrimaryKeyRelRecetasPrimarios(idproducto,idreceta),cantidad,nombre);
 		if(añadidos.contains(añadir)) {
 			model.addAttribute("mensaje", "Ingradiente ya añadido");
 		}else {
+			añadir.setNombreprimario(nombre);
+			System.out.println("añadir-->"+añadir.getNombreprimario());
 			receta.AñadirCantidadIngrediente(añadir);
+			List<RelacionRecetaPrimario> ver=receta.getCantidadingrediente();
+			for(RelacionRecetaPrimario rela:ver) {
+				System.out.println("Valors de nom -->"+rela.getNombreprimario());
+			}
 		}
-		receta.setActivoingrediente(receta.getCantidadingrediente());
-		model.addAttribute("productobase","");
+		for(RelacionRecetaPrimario ver:añadidos) {
+			System.out.println("Valor de nombre -->"+ver.getNombreprimario()+" Camtidad -->"+ver.getCantidad());
+		}
+		
+		model.addAttribute("productobase",receta.getProductobase());
 		model.addAttribute("ingredientesnom", productoservicios.ProductosPrimariosActivados());
+		model.addAttribute("ingredientes", productoservicios.ProductosPrimariosActivados());
 		if (AJAX_HEADER_VALUE.equals(request.getHeader(AJAX_HEADER_NAME))) {
             return "/Receta::#listaingredientes";
         } else {
@@ -97,8 +117,15 @@ public class ControladorRecetas {
 			@RequestParam("removeItem") long indice) {
 		System.out.println("indice-->"+indice);
 		RelacionRecetaPrimario eliminar=receta.getCantidadingrediente().get((int) indice);
+		System.out.println("Valor de idreceta"+eliminar.getPrimaryKeyRelRecetasPrimarios().getIdreceta());
+		Long idreceta=eliminar.getPrimaryKeyRelRecetasPrimarios().getIdreceta();
+		if(!idreceta.equals(0) ) {
+			System.out.println("Elimino");
+			cantidadservicios.Eliminar(eliminar);
+		}
 		receta.EliminarCantidadIngrediente(eliminar);
-		model.addAttribute("productobase","");
+		
+		model.addAttribute("productobase",receta.getProductobase());
 		model.addAttribute("ingredientesnom", productoservicios.ProductosPrimariosActivados());
 		if (AJAX_HEADER_VALUE.equals(request.getHeader(AJAX_HEADER_NAME))) {
             return "/Receta::#listaingredientes";
@@ -111,10 +138,13 @@ public class ControladorRecetas {
 	public String ProcesarReceta(@Valid Receta receta,BindingResult validar,Model model) {
 		
 		if(validar.hasErrors()) {
+			model.addAttribute("productobase",receta.getProductobase());
 			model.addAttribute("ingredientes", productoservicios.ProductosPrimariosActivados());
 			return "/Receta";
 		}
 		receta.setActivado(true);
+		System.out.println("Valor de productobase-->"+receta.getProductobase());
+		
 		recetaservicios.Guardar(receta);
 		List<RelacionRecetaPrimario> ingredientes=receta.getCantidadingrediente();
 		for(RelacionRecetaPrimario ingrediente:ingredientes) {
@@ -127,8 +157,44 @@ public class ControladorRecetas {
 			ingrediente.setProducto(productoservicios.ProductoPrimarioId(ingrediente.getPrimaryKeyRelRecetasPrimarios().getIdprimarias()));
 			cantidadservicios.Guardar(ingrediente);
 		}
+		
 		List<Receta> recetas=recetaservicios.RecetasActivadas();
 		model.addAttribute("recetas", recetas);
 		return "ListaRecetas";
+	}
+	
+	@PostMapping("/Receta/edit/submit")
+	public String ActualizarReceta(@Valid Receta receta,BindingResult validacion,Model model) {
+		
+		if(validacion.hasErrors()) {
+			model.addAttribute("productobase",receta.getProductobase());
+			model.addAttribute("ingredientes", productoservicios.ProductosPrimariosActivados());
+			return "/Receta";
+		}else {
+			List<RelacionRecetaPrimario> ingredientes=receta.getCantidadingrediente();
+			for(RelacionRecetaPrimario ingrediente:ingredientes) {
+				System.out.println("Cantidad-->"+ingrediente.getCantidad());
+				RelacionRecetaPrimario existe=cantidadservicios.BuscarPrimaryKey(ingrediente.getPrimaryKeyRelRecetasPrimarios());
+				if(existe==null) {
+					ingrediente.setReceta(receta);
+					System.out.println("receta.getIdreceta()-->"+receta.getIdreceta());
+					ingrediente.setProducto(productoservicios.ProductoPrimarioId(ingrediente.getPrimaryKeyRelRecetasPrimarios().getIdprimarias()));
+					cantidadservicios.Guardar(ingrediente);
+					System.out.println("IdBase 0-->"+receta.getProductobase());
+				}
+			}
+			
+			
+			
+			receta.setCantidadingrediente(receta.getCantidadingrediente());
+			recetaservicios.Guardar(receta);
+			System.out.println("IdBase 1 -->"+receta.getProductobase());
+		
+			List<Receta> recetas=recetaservicios.RecetasActivadas();
+			model.addAttribute("recetas", recetas);
+			return "ListaRecetas";
+		}
+		
+		
 	}
 }

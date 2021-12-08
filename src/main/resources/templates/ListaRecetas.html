@@ -64,6 +64,9 @@
                 <main>
                     <div class="container-fluid px-4">
                    		<h1>Recetas</h1>
+                   		<div th:each="mensaje:${mensajeerror}" class="has-error">
+                   		<h4><samp th:text="${mensaje}">Mensaje</samp></h4>
+                   		</div>
                    		<div class="container-xxl">
                    		<a class="btn btn-success btn-cabecera"  href="#!" th:href="@{/Receta}"><i>Nueva Receta</i></a>
                    		</div> <!-- Cierro container-xxl -->
@@ -83,7 +86,7 @@
 							<td th:text="${receta.caducidad}">Caducidad</td>
 							<td><a href="#" th:href="@{/Receta/{id}(id=${receta.idreceta})}" class="btn btn-success">Actualizar</a>
 							<a data-toggle="modal" data-target="#delete-modal" th:id="${receta.idreceta}" th:data-id="${receta.idreceta}" th:data-nombre="${receta.nombrereceta}" class="btn btn-danger" >Eliminar</a>
-							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#añadir-modal" th:data-id="${receta.idreceta}" th:data-nombre="${receta.nombrereceta}">Añadir</button>
+							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#añadir-modal" th:data-id="${receta.idreceta}" th:data-nombre="${receta.nombrereceta}">Ejecutar</button>
 							</td>
 						</tr>
 						</tbody>
@@ -102,14 +105,15 @@
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
+					<h4 class="modal-title">Desactivar receta</h4>
 					<button type="button" class="close" data-dismiss="modal"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
-					<h4 class="modal-title">Desactivar producto</h4>
+				
 				</div>
 				<div class="modal-body">
-					<p>¿Está usted seguro desea desactivar este producto?</p>
+					<p>¿Está usted seguro desea desactivar este receta?</p>
 					<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
 					<a href="#" class="btn btn-danger">Sí</a>
 				</div>
@@ -122,7 +126,7 @@
   		<div class="modal-dialog" role="document">
    			 <div class="modal-content">
      			 <div class="modal-header">
-       				 <h5 class="modal-title" id="añadirModalLabel">Añadir mas cantidad</h5>
+       				 <h5 class="modal-title" id="añadirModalLabel">Cantidad de produto base</h5>
         			 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
          			 <span aria-hidden="true">&times;</span>
         			 </button>
@@ -130,15 +134,15 @@
       			 <div class="modal-body">
        				 <form>
          				 <div class="form-group">
-           					 <label for="recipient-name" class="col-form-label">Cantidad:</label>
-           					 <input type="number" class="form-control" id="añadircantidad" pattern="[0-9]+" >
+           					 <label for="recipient-name" class="col-form-label">Cantidad de produto base:</label>
+           					 <input type="number" class="form-control" id="cantidadejecutar" pattern="[0-9]+" >
          				</div>
                     </form>
       			</div>
       			<div class="modal-footer">
         			<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
         			<a href="#" class="btn btn-primary" th:onclick="aceptar()">Actualizar</a>
-        			<input type="hidden" id="id_producto" name="id_producto" value="">
+        			<input type="hidden" id="id_receta" name="id_receta" value="">
       			</div>
     	  </div> <!-- fin modal-content-->
   	</div> <!-- fin modal-dialos -->
@@ -174,77 +178,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="js/scripts.js"></script>
-   
-    	<script type="text/javascript">
-			$(document).ready(function() {
-			//Desactivar producto
-			$('#delete-modal').on('show.bs.modal', function(event) {
-				var button = $(event.relatedTarget);
-				var data = button.data('id');
-				var nombre_producto = button.data('nombre');
-				var modal = $(this);
-				var a = modal.find('.modal-body a')[0];
-				a.href = '/ListaProductosPrimarios/' + data + '/eliminar';
-				modal.find('.modal-title').text('Va a eliminar ' + nombre_producto);
-			});
-			//Añadir cantidad al producto
-			$('#añadir-modal').on('show.bs.modal', function (event) {
-    	
-  			var button = $(event.relatedTarget); // Button that triggered the modal  		
-  			var id_producto = button.data('id'); // Extract info from data-* attributes
- 			var nombre_producto = button.data('nombre');
- 			document.getElementById("id_producto").value=id_producto;
- 		 	var modal = $(this);
- 		 	modal.find('.modal-title').text('Va a añadir ' + nombre_producto);
-  			//modal.find('.modal-body input').val(recipient);
-			});
-			//Diminuir producto
-			$('#disminuir-modal').on('show.bs.modal', function(event) {
-			var button = $(event.relatedTarget); // Button that triggered the modal  		
-  			var id_producto = button.data('id'); // Extract info from data-* attributes
- 			var nombre_producto = button.data('nombre');
- 			var cantidad=button.data('cantidad');
- 			document.getElementById('cantidadalmacen').value=cantidad;
- 			document.getElementById("id_producto").value=id_producto;
- 		 	var modal = $(this);
- 		 	modal.find('.modal-title').text('Va a disminuir ' + nombre_producto);
-			});
-
-		});
-		//Aceptar añadir cantidad al producto
-		function aceptar(){
-		
-		 var patron =  /^[0-9]*(\.?)[0-9]+$/;
-    	if (patron.test(document.getElementById("añadircantidad").value)){
-    		var id_producto= document.getElementById("id_producto").value; 
-    		var cantidad=document.getElementById("añadircantidad").value;
-    		var url="/ProductoPrimario/"+id_producto+"/"+cantidad+"/añadir";
-    		window.location.href=url;
-    	}else{
-    		alert("No a introducido un valor numerico");
-    	}
-		}// fin aceptar
-		// Disminuir cantidad producto
-		function disminuir(){
-		
-		 var patron =  /^[0-9]*(\.?)[0-9]+$/;
-    	if (patron.test(document.getElementById("disminuircantidad").value)){
-    		var cantidad=Number(document.getElementById("disminuircantidad").value);
-    		var almacenada=Number(document.getElementById("cantidadalmacen").value);
-    		if(almacenada>=cantidad){
-    		    var id_producto= document.getElementById("id_producto").value; 
-    			var cantidad=document.getElementById("disminuircantidad").value;
-    			var url="/ProductoPrimario/"+id_producto+"/"+cantidad+"/disminuir";
-    			window.location.href=url;
-    		}else{
-    			alert("Introduzca un valor menor");
-    		}
-    	}else{
-    		alert("No a introducido un valor numerico");
-    	}
-		}// fin aceptar
-	
-	</script>
+   <script src="../../static/js/ListaRecetas.js" th:src="@{/js/ListaRecetas.js}"></script>
 
 </body>
 

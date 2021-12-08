@@ -11,4 +11,5 @@ import com.trazabilidad.primarykey.PrimaryKeyRelRecetasPrimarios;
 public interface RelacionRecetaPrimarioRepositorio extends JpaRepository<RelacionRecetaPrimario,PrimaryKeyRelRecetasPrimarios> {
 
 	List<RelacionRecetaPrimario> findByPrimaryKeyRelRecetasPrimariosIdreceta(long idreceta);
+	RelacionRecetaPrimario findByPrimaryKeyRelRecetasPrimarios(PrimaryKeyRelRecetasPrimarios key);
 }

@@ -30,43 +30,45 @@ public class RelacionRecetaPrimario  implements Serializable {
 	
 	@Column(name="Cantidad")
 	private float cantidad;
-	@ManyToOne
-	@MapsId("idreceta")
-	@JoinColumn(name = "id_receta")
-	Receta activo;
-	
-	
+	@Column(name="Nombreprimario")
+	private String nombreprimario;
+
 	@ManyToOne
 	@MapsId("idreceta")
 	@JoinColumn(name = "id_receta")
 	Receta receta;
 	
-	@ManyToOne(cascade = {CascadeType.DETACH,CascadeType.REFRESH})
+	@ManyToOne
 	@MapsId("idprimarias")
-	@JoinColumn(name = "id_primarias",insertable=false,updatable=false)
+	@JoinColumn(name = "id_primarias")
 	ProductoPrimario producto;
 	
 	
+
+
+	public RelacionRecetaPrimario(PrimaryKeyRelRecetasPrimarios primaryKeyRelRecetasPrimarios, float cantidad,
+			String nombreprimario) {
+		super();
+		this.primaryKeyRelRecetasPrimarios = primaryKeyRelRecetasPrimarios;
+		this.cantidad = cantidad;
+		this.nombreprimario = nombreprimario;
+	}
+
+
 	public RelacionRecetaPrimario() {
 		super();
 	}
 
 
 
-	public RelacionRecetaPrimario(PrimaryKeyRelRecetasPrimarios primaryKeyRelRecetasPrimarios, float cantidad) {
-		super();
-		this.primaryKeyRelRecetasPrimarios = primaryKeyRelRecetasPrimarios;
-		this.cantidad = cantidad;
-	}
-
-
 
 	public RelacionRecetaPrimario(PrimaryKeyRelRecetasPrimarios primaryKeyRelRecetasPrimarios, float cantidad,
-			Receta receta, ProductoPrimario producto) {
+			String nombreprimario, Receta receta, ProductoPrimario producto) {
 		super();
 		this.primaryKeyRelRecetasPrimarios = primaryKeyRelRecetasPrimarios;
 		this.cantidad = cantidad;
-		this.receta = receta;
+		this.nombreprimario = nombreprimario;
+		//this.receta = receta;
 		this.producto = producto;
 	}
 
@@ -107,11 +109,23 @@ public class RelacionRecetaPrimario  implements Serializable {
 
 
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(cantidad, primaryKeyRelRecetasPrimarios, producto, receta);
+	public String getNombreprimario() {
+		return nombreprimario;
 	}
 
+
+
+	public void setNombreprimario(String nombreprimario) {
+		this.nombreprimario = nombreprimario;
+	}
+
+
+	
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(cantidad, nombreprimario, primaryKeyRelRecetasPrimarios, producto, receta);
+	}
 
 
 	@Override
@@ -124,9 +138,21 @@ public class RelacionRecetaPrimario  implements Serializable {
 			return false;
 		RelacionRecetaPrimario other = (RelacionRecetaPrimario) obj;
 		return Float.floatToIntBits(cantidad) == Float.floatToIntBits(other.cantidad)
+				&& Objects.equals(nombreprimario, other.nombreprimario)
 				&& Objects.equals(primaryKeyRelRecetasPrimarios, other.primaryKeyRelRecetasPrimarios)
 				&& Objects.equals(producto, other.producto) && Objects.equals(receta, other.receta);
 	}
+
+
+	@Override
+	public String toString() {
+		return "RelacionRecetaPrimario [primaryKeyRelRecetasPrimarios=" + primaryKeyRelRecetasPrimarios + ", cantidad="
+				+ cantidad + ", nombreprimario=" + nombreprimario +", receta=" + receta
+				+ ", producto=" + producto + "]";
+	}
+
+
+	
 
 
 

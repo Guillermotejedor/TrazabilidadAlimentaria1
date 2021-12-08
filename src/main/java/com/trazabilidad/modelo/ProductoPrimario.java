@@ -44,14 +44,14 @@ public class ProductoPrimario {
 	private String reg_sanitario;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate fech_alta;
-	@Min(value=1,message="{ProductoPrimario.cantidad}")
+	@Min(value=0,message="{ProductoPrimario.cantidad}")
 	private float cantidad;
 	private boolean activado;
 	
 	@JoinColumn(name="id_primarias",referencedColumnName="id_primarias",insertable=false,updatable=false)
 	@OneToMany
 	private List<MovimientoPrimario> movimientos=new ArrayList<MovimientoPrimario>();
-	@OneToMany(mappedBy = "producto",cascade=CascadeType.DETACH, orphanRemoval=true, fetch=FetchType.EAGER )   
+	@OneToMany(mappedBy = "producto")   
 	private List<RelacionRecetaPrimario> relrecetaprimario;
 	
 	public ProductoPrimario() {

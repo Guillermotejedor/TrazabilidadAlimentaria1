@@ -7,7 +7,7 @@ $(document).ready(
 					    var idreceta=$("#idreceta").val();
 					    var cantidad=$("#cantidad").val();
 						var patron =  /^[0-9]*(\.?)[0-9]+$/;
-						
+						//alert("nobreingrediente-->"+nombreingrediente);
 						if(patron.test(cantidad) && $.isNumeric(idingrediente)!="" ){
 														
 					    event.preventDefault();
@@ -31,8 +31,8 @@ function replaceItems (html) {
    				 $('#listaingredientes').replaceWith($(html));
 			}
 
-function remove_element(id) {
-	alert("Dentro");
+function remove_element(id,idprimarias) {
+	var idreceta=$("#idreceta").val();
 	var data = $('#form-receta').serialize();
     // Añadimos el parámetro que espera el controlador concreto
     data += '&removeItem=' + id;

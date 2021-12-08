@@ -42,6 +42,7 @@ public class ControladorPrincipal {
 	public String Receta(Model model) {
 		List<Receta> recetas=recetaservicios.RecetasActivadas();
 		model.addAttribute("recetas", recetas);
+		model.addAttribute("mensajeerror", "");
 		return "ListaRecetas";
 	}
 	

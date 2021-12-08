@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.trazabilidad.modelo.RelacionRecetaPrimario;
+import com.trazabilidad.primarykey.PrimaryKeyRelRecetasPrimarios;
 import com.trazabilidad.repositorio.RelacionRecetaPrimarioRepositorio;
 
 @Service
@@ -23,5 +24,11 @@ public class RelacionRecetaPrimarioServicios {
 		return repositorio.findByPrimaryKeyRelRecetasPrimariosIdreceta(id);
 	}
 	
-
+	public void Eliminar(RelacionRecetaPrimario relrecetaprimario) {
+		repositorio.delete(relrecetaprimario);
+	}
+	
+	public RelacionRecetaPrimario BuscarPrimaryKey(PrimaryKeyRelRecetasPrimarios key) {
+		return repositorio.findByPrimaryKeyRelRecetasPrimarios(key);
+	}
 }

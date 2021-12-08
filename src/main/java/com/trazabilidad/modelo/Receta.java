@@ -45,20 +45,18 @@ public class Receta {
 	private int caducidad;
 	private boolean activado;
 	@Column(name="id_productobase")
+	@Min(value=1,message="Debe añadir ingredientes y seleccionar producto base")
 	private long productobase;
 	
-	@OneToMany(mappedBy = "activo",cascade=CascadeType.DETACH, orphanRemoval=true, fetch=FetchType.EAGER )   
-	private List<RelacionRecetaPrimario> activoingrediente= new ArrayList<>();	
 	
-	
-	@ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+	@ManyToMany
 	@JoinTable(name = "rel_recetas_primarios",
 			joinColumns = @JoinColumn(name = "id_receta"),
 			inverseJoinColumns = @JoinColumn(name="Id_Primarias"))
 	private List<ProductoPrimario> ingrediente = new ArrayList<ProductoPrimario>();
-	  
-	@OneToMany(mappedBy = "receta",cascade=CascadeType.DETACH, orphanRemoval=true, fetch=FetchType.EAGER )   
-	private List<RelacionRecetaPrimario> cantidadingrediente= new ArrayList<>();
+	 
+	@OneToMany(mappedBy = "receta", fetch = FetchType.EAGER)
+	private List<RelacionRecetaPrimario> cantidadingrediente= new ArrayList<RelacionRecetaPrimario>();
 	
 	
 	//Metodos helper
@@ -153,15 +151,6 @@ public class Receta {
 		this.productobase = productobase;
 	}
 	
-	
-
-	public List<RelacionRecetaPrimario> getActivoingrediente() {
-		return activoingrediente;
-	}
-
-	public void setActivoingrediente(List<RelacionRecetaPrimario> activoingrediente) {
-		this.activoingrediente = activoingrediente;
-	}
 
 	@Override
 	public int hashCode() {
