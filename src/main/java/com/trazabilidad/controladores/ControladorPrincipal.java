@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.trazabilidad.modelo.ProductoPrimario;
 import com.trazabilidad.modelo.Receta;
+import com.trazabilidad.modelo.Lote;
+import com.trazabilidad.servicios.LoteServicios;
 import com.trazabilidad.servicios.ProductosPrimariosServicios;
 import com.trazabilidad.servicios.RecetaServicios;
 
@@ -20,7 +22,8 @@ public class ControladorPrincipal {
 	
 	@Autowired
 	RecetaServicios	recetaservicios;
-	
+	@Autowired
+	LoteServicios loteservicios;
 	
 	
 	@GetMapping({"/","/index"})
@@ -46,5 +49,11 @@ public class ControladorPrincipal {
 		return "ListaRecetas";
 	}
 	
-
+	//Cargo el listado de recetas
+	@GetMapping("/ListaLotes")
+	public String Lote(Model model) {
+		List<Lote> lotes=loteservicios.LotesActivos();
+		model.addAttribute("lotes", lotes);		
+		return "ListaLotes";
+	}
 }

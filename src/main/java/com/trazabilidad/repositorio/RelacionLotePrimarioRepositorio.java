@@ -6,5 +6,6 @@ import com.trazabilidad.modelo.RelacionLotePrimario;
 import com.trazabilidad.primarykey.PrimaryKeyRelLotePrimario;
 
 public interface RelacionLotePrimarioRepositorio extends JpaRepository<RelacionLotePrimario,PrimaryKeyRelLotePrimario> {
+	RelacionLotePrimario findByPrimarykeyrelloteprimarioLote(String lote);
 
 }

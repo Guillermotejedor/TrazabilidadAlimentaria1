@@ -3,11 +3,11 @@ $(document).ready(function() {
 			$('#delete-modal').on('show.bs.modal', function(event) {
 				var button = $(event.relatedTarget);
 				var data = button.data('id');
-				var nombre_producto = button.data('nombre');
+				var nombre_receta = button.data('nombre');
 				var modal = $(this);
 				var a = modal.find('.modal-body a')[0];
-				a.href = '/ListaProductosPrimarios/' + data + '/eliminar';
-				modal.find('.modal-title').text('Va a eliminar ' + nombre_producto);
+				a.href = '/Receta/' + data + '/desactivar';
+				modal.find('.modal-title').text('Va a desactivar ' + nombre_receta);
 			});
 			//Añadir cantidad a ejecutar
 			$('#añadir-modal').on('show.bs.modal', function (event) {

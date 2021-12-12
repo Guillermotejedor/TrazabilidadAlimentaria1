@@ -55,7 +55,8 @@ public class Receta {
 			inverseJoinColumns = @JoinColumn(name="Id_Primarias"))
 	private List<ProductoPrimario> ingrediente = new ArrayList<ProductoPrimario>();
 	 
-	@OneToMany(mappedBy = "receta", fetch = FetchType.EAGER)
+	@JoinColumn(name="id_receta",referencedColumnName="id_receta",insertable=false,updatable=false)
+	@OneToMany( cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
 	private List<RelacionRecetaPrimario> cantidadingrediente= new ArrayList<RelacionRecetaPrimario>();
 	
 	
@@ -63,12 +64,12 @@ public class Receta {
 	
 	public void AñadirCantidadIngrediente(RelacionRecetaPrimario cantidad) {
 		this.cantidadingrediente.add(cantidad);
-		cantidad.setReceta(this);
+		//cantidad.setReceta(this);
 	}
 	
 	public void EliminarCantidadIngrediente(RelacionRecetaPrimario cantidad) {
 		this.cantidadingrediente.remove(cantidad);
-		cantidad.setReceta(null);
+		//cantidad.setReceta(null);
 	}
 	
 	public Receta() {

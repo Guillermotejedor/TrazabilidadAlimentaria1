@@ -55,7 +55,8 @@ public class ControladorEjecutarReceta {
 		Receta receta=recetaservicios.RecetaPorId(idreceta);
 		long idbase=receta.getProductobase();
 		List<RelacionRecetaPrimario> ingredientes=relacionreceta.BuscarIdReceta(idreceta);
-		for(RelacionRecetaPrimario ingrediente:ingredientes) {
+		//Comprobamos si tenemos en almacen cantidad suficiente para ejecutar la receta
+		for(RelacionRecetaPrimario ingrediente:ingredientes) { 
 			if(idbase==ingrediente.getPrimaryKeyRelRecetasPrimarios().getIdprimarias()) {
 				producto=productoservicios.ProductoPrimarioId(idbase);
 				if(producto.getCantidad()<cantidad) {
@@ -75,6 +76,7 @@ public class ControladorEjecutarReceta {
 						" cantidad almacen "+producto.getCantidad());
 			}
 		} // fin for
+		// Si tenemos suficiente cantidad ejecutamos la creación
 		if(!noproducto) {
 			float cantidadresultante,total=0;
 			List<RelacionLotePrimario> lotesprimarios=new ArrayList<RelacionLotePrimario>();
@@ -96,12 +98,17 @@ public class ControladorEjecutarReceta {
 				lotesprimarios.add(loteprimario);
 				
 			}
-			Lote lotenuevo=new Lote(lote,idreceta,total,LocalDate.now(),LocalDate.now().plusDays(receta.getCaducidad()));
+			Lote lotenuevo=new Lote(lote,idreceta,total,LocalDate.now(),LocalDate.now().plusDays(receta.getCaducidad()),receta.getNombrereceta());
 			loteservicios.Guardar(lotenuevo);
+			
 			for(RelacionLotePrimario nuevo:lotesprimarios) {
 				relacionlote.Guardar(nuevo);
 			}
-			
+			lotenuevo.setIngredientes(lotesprimarios);
+			loteservicios.Guardar(lotenuevo);
+			model.addAttribute("receta", receta.getNombrereceta());
+			model.addAttribute("ejecucion", 0);
+			model.addAttribute("lote", lotenuevo);
 			return "Lote";
 		}else {
 			if(!mensaje.isEmpty())

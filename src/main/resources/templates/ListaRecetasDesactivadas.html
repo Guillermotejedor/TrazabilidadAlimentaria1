@@ -2,7 +2,7 @@
 <html lang="es" xmlns:th="https://www.thymeleaf.org">
 <head>
 <meta charset="utf-8">
-<title>Lista de Productos Primarios</title>
+<title>Lista de Recetas</title>
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"/>
         <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
         <link href="/css/styles.css" rel="stylesheet" />
@@ -55,41 +55,34 @@
 
                     </div> <!-- Cierro class=nav -->
                     <div class="sb-sidenav-footer">
-                        <div class="small">Creado por:</div>
-                        GTR
+                        <div class="small">Logged in as:</div>
+                        Start Bootstrap
                     </div> <!-- Cierro footer -->
                 </nav>
             </div> <!-- layoutSidenav_nav -->
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                   		<h1>Productos Primarios</h1>
-                   		<div class="container-xxl">
-                   		<a class="btn btn-success btn-cabecera"  href="#!" th:href="@{/ActivarProductoPrimario}"><i>Activar Producto</i></a>
-                   		<a class="btn btn-success btn-cabecera"  href="#!" th:href="@{/HistoricoProductoPrimario/0}"><i>Historico</i></a>
-                   		<a class="btn btn-success btn-cabecera"  href="#!" th:href="@{/ProductoPrimario}"><i>Nuevo Producto</i></a>
-                   		</div> <!-- Cierro container-xxl -->
+                   		<h1>Recetas</h1>
+                   		<div th:each="mensaje:${mensajeerror}" class="has-error">
+                   		<h4><samp th:text="${mensaje}">Mensaje</samp></h4>
+                   		</div>
+
                    		<div class="container-xxl">
 						<div class="col-md-offset-2 col-md-10">
-						<br><br>
 						<table class="table table-striped">
 						<thead>
 						<tr>
-							<th>Nobre</th>
-							<th>Empresa</th>
-							<th>Cantidad</th>
-							<th class="h3">Acciones</th>
+							<th>Nombre</th>
+							<th>Caducidad</th>
+							<th>Accion</th>
 						</tr>						
 						</thead>
 						<tbody>
-						<tr th:each="producto : ${productos}">
-							<td th:text="${producto.nombreprimario}">Nombre</td>
-							<td th:text="${producto.empresa}">Empresa</td>
-							<td th:text="${producto.cantidad}">1</td>
-							<td><a href="#" th:href="@{/ProductoPrimario/{id}(id=${producto.id})}" class="btn btn-success">Modificar</a>
-							<a data-toggle="modal" data-target="#delete-modal" th:id="${producto.id}" th:data-id="${producto.id}" th:data-nombre="${producto.nombreprimario}" class="btn btn-danger" >Desactivar</a>
-							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#añadir-modal" th:data-id="${producto.id}" th:data-nombre="${producto.nombreprimario}">Añadir</button>
-							<a data-toggle="modal" data-target="#disminuir-modal"  th:data-id="${producto.id}" th:data-nombre="${producto.nombreprimario}" th:data-cantidad="${producto.cantidad}" class="btn btn-warning" >Disminuir</a>
+						<tr th:each="receta : ${recetas}">
+							<td th:text="${receta.nombrereceta}">Nombre</td>
+							<td th:text="${receta.caducidad}">Caducidad</td>
+							<td><a href="#" th:href="@{/ActivarReceta/{id}(id=${receta.idreceta})}" class="btn btn-success">Actualizar</a>
 							</td>
 						</tr>
 						</tbody>
@@ -108,13 +101,15 @@
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title">Desactivar producto</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<h4 class="modal-title">Desactivar receta</h4>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
-					</button>					
+					</button>
+				
 				</div>
 				<div class="modal-body">
-					<p>¿Está usted seguro desea desactivar este producto?</p>
+					<p>¿Está usted seguro desea desactivar este receta?</p>
 					<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
 					<a href="#" class="btn btn-danger">Sí</a>
 				</div>
@@ -127,7 +122,7 @@
   		<div class="modal-dialog" role="document">
    			 <div class="modal-content">
      			 <div class="modal-header">
-       				 <h5 class="modal-title" id="añadirModalLabel">Añadir mas cantidad</h5>
+       				 <h5 class="modal-title" id="añadirModalLabel">Cantidad de produto base</h5>
         			 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
          			 <span aria-hidden="true">&times;</span>
         			 </button>
@@ -135,15 +130,15 @@
       			 <div class="modal-body">
        				 <form>
          				 <div class="form-group">
-           					 <label for="recipient-name" class="col-form-label">Cantidad:</label>
-           					 <input type="number" class="form-control" id="añadircantidad" pattern="[0-9]+" >
+           					 <label for="recipient-name" class="col-form-label">Cantidad de produto base:</label>
+           					 <input type="number" class="form-control" id="cantidadejecutar" pattern="[0-9]+" >
          				</div>
                     </form>
       			</div>
       			<div class="modal-footer">
         			<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
         			<a href="#" class="btn btn-primary" th:onclick="aceptar()">Actualizar</a>
-        			<input type="hidden" id="id_producto" name="id_producto" value="">
+        			<input type="hidden" id="id_receta" name="id_receta" value="">
       			</div>
     	  </div> <!-- fin modal-content-->
   	</div> <!-- fin modal-dialos -->
@@ -178,9 +173,8 @@
 </div> <!-- layoutSidenav-->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-    <script src="/js/scripts.js"></script>
-   <script src="../../static/js/ProductoPrimario.js" th:src="@{/js/ProductoPrimario.js}"></script>
-    
+    <script src="js/scripts.js"></script>
+   <script src="../../static/js/ListaRecetas.js" th:src="@{/js/ListaRecetas.js}"></script>
 
 </body>
 

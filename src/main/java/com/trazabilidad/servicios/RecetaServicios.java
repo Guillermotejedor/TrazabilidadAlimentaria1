@@ -21,6 +21,10 @@ public class RecetaServicios {
 	public List<Receta> RecetasActivadas(){
 		return repositorio.findByActivadoTrue();
 	}
+	
+	public List<Receta> RecetasDesactivadas(){
+		return repositorio.findByActivadoFalse();
+	}
 
 	public Receta RecetaPorId(long id) {
 		return repositorio.getOne(id);

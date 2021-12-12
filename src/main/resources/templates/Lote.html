@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="/css/styles.css" rel="stylesheet" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<title>Lote</title>
+</head>
+<body>
+		<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            
+            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+                <div class="input-group float-right">
+                    <span class="text-white mx-2" sec:authentication="name"></span>
+                    <button class="btn btn-success my-2 my-sm-0" type="submit">Salir</button>
+                </div>
+            </form>
+            <!-- Navbar-->
+
+        </nav>
+        
+           <div class="container">
+
+      <div class="starter-template">
+        <h1 th:text="${ejecucion !=0}? 'Lote editado':'Lote ejecutado'">Nueva Receta</h1>
+       		<div class="row">
+       			<div class="col-md-offset-2 col-md-8">
+       			
+       				<form role="form" id="form-lote" method="post" action="#" th:action="${ejecucion !=0}?@{/Receta/edit/submit} : @{/Receta/new/submit}" th:object="${lote}">
+       						<input type="hidden" id="idreceta" th:field="*{idreceta}"/>
+       						<!-- Text input-->
+							<div class="form-group" >
+							  <label class="col-md-4 control-label" for="textinput">Receta</label>  
+							  <div class="col-md-4">
+							  <span class="form-control"  th:attrappend="readonly='readonly'" th:text="${receta}">Receta</span>
+							  </div>
+							</div>
+							
+       						<!-- Text input-->
+							<div class="form-group" >
+							  <label class="col-md-4 control-label" for="textinput">Lote</label>  
+							  <div class="col-md-4">
+							  <input id="lote" name="lote" type="text" class="form-control input-md" th:field="*{lote}" th:attrappend="readonly='readonly'">
+							  </div>
+							</div>
+							
+							<!-- Text input-->
+							<div class="form-group">
+							  <label class="col-md-4 control-label" for="nombre">Fecha elaboracion</label>  
+							  <div class="col-md-4">
+							  <input id="fechelaboracion" name="fechelaboracion" type="text"  class="form-control input-md" th:field="*{fechelaboracion}"  th:attrappend="readonly='readonly'">
+							  
+							  </div>
+							</div>					
+							<!-- Text input-->
+							<div class="form-group">
+							  <label class="col-md-4 control-label" for="nombre">Fecha caducidad</label>  
+							  <div class="col-md-4">
+							  <input id="fechcaducidad" name="fechcaducidad" type="text"  class="form-control input-md" th:field="*{fechcaducidad}"  th:attrappend="readonly='readonly'">
+							  
+							  </div>
+							</div>
+							<!-- Text input-->
+							<div class="form-group">
+							  <label class="col-md-4 control-label" for="nombre">Cantidad</label>  
+							  <div class="col-md-4">
+							  <input id="cantidad" name="cantidad" type="text"  class="form-control input-md" th:field="*{cantidad}"  th:attrappend="readonly='readonly'">
+							  
+							  </div>
+							</div>
+								
+       				<div th:each="componente,stat : ${lote.ingredientes}">
+								<div class="panel panel-default">
+									<div class="panel-heading">
+										Ingrediente y Cantidad  nº <span th:text="${stat.count}"></span>
+										
+									</div> <!-- panel-heading -->
+									<div class="form-inline bg-secondary">
+											<input type="text" class="form-control bg-secondary text-white inp-border"
+												th:field="${lote.ingredientes[__${stat.index}__].nombre_primario}" 
+												/>
+										<div class="col-md-5">
+											<input class="form-control bg-secondary text-white inp-border"
+													th:field="${lote.ingredientes[__${stat.index}__].cantidad}"
+													type="text" />
+										</div>										
+									</div><!-- panel-body -->
+								</div><!-- panel default -->							
+							</div><!-- th:each -->
+							<!-- Button -->
+							<br>
+							<div class="btn-toolbar">
+								<div class="col-md-4">
+								    <a href="#" class="btn btn-secondary" th:href="${ejecucion !=0}? @{/ListaLotes}:@{/ListaRecetas}">Aceptar</a>
+								</div>
+							</div>		
+       				</form>
+       			
+       			</div>
+       		
+       		</div>
+      </div>
+
+    </div><!-- /.container -->
+        
+</body>
+</html>

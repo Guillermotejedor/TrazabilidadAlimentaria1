@@ -152,9 +152,9 @@ public class ControladorRecetas {
 
 			PrimaryKeyRelRecetasPrimarios key=new PrimaryKeyRelRecetasPrimarios(ingrediente.getPrimaryKeyRelRecetasPrimarios().getIdprimarias(),receta.getIdreceta());
 			ingrediente.setPrimaryKeyRelRecetasPrimarios(key);
-			ingrediente.setReceta(receta);
+			//ingrediente.setReceta(receta);
 			System.out.println("receta.getIdreceta()-->"+receta.getIdreceta());
-			ingrediente.setProducto(productoservicios.ProductoPrimarioId(ingrediente.getPrimaryKeyRelRecetasPrimarios().getIdprimarias()));
+			//ingrediente.setProducto(productoservicios.ProductoPrimarioId(ingrediente.getPrimaryKeyRelRecetasPrimarios().getIdprimarias()));
 			cantidadservicios.Guardar(ingrediente);
 		}
 		
@@ -176,13 +176,13 @@ public class ControladorRecetas {
 				System.out.println("Cantidad-->"+ingrediente.getCantidad());
 				RelacionRecetaPrimario existe=cantidadservicios.BuscarPrimaryKey(ingrediente.getPrimaryKeyRelRecetasPrimarios());
 				if(existe==null) {
-					ingrediente.setReceta(receta);
+					//ingrediente.setReceta(receta);
 					System.out.println("receta.getIdreceta()-->"+receta.getIdreceta());
-					ingrediente.setProducto(productoservicios.ProductoPrimarioId(ingrediente.getPrimaryKeyRelRecetasPrimarios().getIdprimarias()));
+					//ingrediente.setProducto(productoservicios.ProductoPrimarioId(ingrediente.getPrimaryKeyRelRecetasPrimarios().getIdprimarias()));
 					cantidadservicios.Guardar(ingrediente);
 					System.out.println("IdBase 0-->"+receta.getProductobase());
-				}
-			}
+				}// fin if
+			} // fin for
 			
 			
 			
@@ -193,8 +193,30 @@ public class ControladorRecetas {
 			List<Receta> recetas=recetaservicios.RecetasActivadas();
 			model.addAttribute("recetas", recetas);
 			return "ListaRecetas";
-		}
+		} //fin else
+	}
+	
+	@GetMapping("/Receta/{idreceta}/desactivar")
+	public String DesactivarReceta(@PathVariable long idreceta) {
+		System.out.println("Valor de idreceta "+idreceta);
+		Receta receta=recetaservicios.RecetaPorId(idreceta);
+		receta.setActivado(false);
+		recetaservicios.Guardar(receta);
+		return "redirect:/ListaRecetas";
+	}
+	
+	@GetMapping("/RecetaDesactivadas")
+	public String RecetasDesactivadas(Model model) {
+		model.addAttribute("recetas",recetaservicios.RecetasDesactivadas());
+		return "ListaRecetasDesactivadas";
+	}
+	
+	@GetMapping("/ActivarReceta/{id}")
+	public String ActivarReceta(@PathVariable long id) {
+		Receta receta=recetaservicios.RecetaPorId(id);
+		receta.setActivado(true);
+		recetaservicios.Guardar(receta);
 		
-		
+		return "redirect:/RecetaDesactivadas";
 	}
 }

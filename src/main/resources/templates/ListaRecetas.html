@@ -44,7 +44,7 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                               	Recetas                              
                             </a>
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="/ListaLotes">
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                               	Elaborados                              
                             </a>
@@ -68,6 +68,7 @@
                    		<h4><samp th:text="${mensaje}">Mensaje</samp></h4>
                    		</div>
                    		<div class="container-xxl">
+                   		<a class="btn btn-success btn-cabecera"  href="#!" th:href="@{/RecetaDesactivadas}"><i>Activar Receta</i></a>
                    		<a class="btn btn-success btn-cabecera"  href="#!" th:href="@{/Receta}"><i>Nueva Receta</i></a>
                    		</div> <!-- Cierro container-xxl -->
                    		<div class="container-xxl">
@@ -75,7 +76,7 @@
 						<table class="table table-striped">
 						<thead>
 						<tr>
-							<th>Nobre</th>
+							<th>Nombre</th>
 							<th>Caducidad</th>
 							<th class="h3">Acciones</th>
 						</tr>						
@@ -85,7 +86,7 @@
 							<td th:text="${receta.nombrereceta}">Nombre</td>
 							<td th:text="${receta.caducidad}">Caducidad</td>
 							<td><a href="#" th:href="@{/Receta/{id}(id=${receta.idreceta})}" class="btn btn-success">Actualizar</a>
-							<a data-toggle="modal" data-target="#delete-modal" th:id="${receta.idreceta}" th:data-id="${receta.idreceta}" th:data-nombre="${receta.nombrereceta}" class="btn btn-danger" >Eliminar</a>
+							<a data-toggle="modal" data-target="#delete-modal" th:id="${receta.idreceta}" th:data-id="${receta.idreceta}" th:data-nombre="${receta.nombrereceta}" class="btn btn-danger" >Desactivar</a>
 							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#añadir-modal" th:data-id="${receta.idreceta}" th:data-nombre="${receta.nombrereceta}">Ejecutar</button>
 							</td>
 						</tr>

@@ -51,9 +51,10 @@ public class ProductoPrimario {
 	@JoinColumn(name="id_primarias",referencedColumnName="id_primarias",insertable=false,updatable=false)
 	@OneToMany
 	private List<MovimientoPrimario> movimientos=new ArrayList<MovimientoPrimario>();
+	/*
 	@OneToMany(mappedBy = "producto")   
 	private List<RelacionRecetaPrimario> relrecetaprimario;
-	
+	*/
 	public ProductoPrimario() {
 		super();
 	}
@@ -161,7 +162,7 @@ public class ProductoPrimario {
 	public void setMovimientos(List<MovimientoPrimario> movimientos) {
 		this.movimientos = movimientos;
 	}
-	
+	/*
 	public List<RelacionRecetaPrimario> getRelrecetaprimario() {
 		return relrecetaprimario;
 	}
@@ -170,7 +171,7 @@ public class ProductoPrimario {
 		this.relrecetaprimario = relrecetaprimario;
 	}
 
-
+*/
 	@Override
 	public String toString() {
 		return "ProductoPrimario [id=" + id + ", nombre_primario=" + nombreprimario + ", empresa=" + empresa

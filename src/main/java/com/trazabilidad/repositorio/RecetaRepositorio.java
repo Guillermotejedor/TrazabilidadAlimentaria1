@@ -9,5 +9,6 @@ import com.trazabilidad.modelo.Receta;
 @Repository
 public interface RecetaRepositorio extends JpaRepository<Receta,Long>{
 	List<Receta> findByActivadoTrue();
+	List<Receta> findByActivadoFalse();
 
 }
