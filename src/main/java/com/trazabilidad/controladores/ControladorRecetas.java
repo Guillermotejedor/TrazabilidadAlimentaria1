@@ -141,26 +141,27 @@ public class ControladorRecetas {
 			model.addAttribute("productobase",receta.getProductobase());
 			model.addAttribute("ingredientes", productoservicios.ProductosPrimariosActivados());
 			return "/Receta";
+		}else {
+			try {
+				
+				receta.setActivado(true);
+				recetaservicios.Guardar(receta);
+				List<RelacionRecetaPrimario> ingredientes=receta.getCantidadingrediente();
+				for(RelacionRecetaPrimario ingrediente:ingredientes) {
+						
+					PrimaryKeyRelRecetasPrimarios key=new PrimaryKeyRelRecetasPrimarios(ingrediente.getPrimaryKeyRelRecetasPrimarios().getIdprimarias(),receta.getIdreceta());
+					ingrediente.setPrimaryKeyRelRecetasPrimarios(key);
+					cantidadservicios.Guardar(ingrediente);
+				}
+			}catch(Exception e) {
+				model.addAttribute("errorduplicado", "Nombre de la Receta ya esta dado de alta");
+				model.addAttribute("productobase",receta.getProductobase());
+				model.addAttribute("ingredientes", productoservicios.ProductosPrimariosActivados());
+				return "/Receta";
+			}
+				
+				return "redirect:/ListaRecetas";
 		}
-		receta.setActivado(true);
-		System.out.println("Valor de productobase-->"+receta.getProductobase());
-		
-		recetaservicios.Guardar(receta);
-		List<RelacionRecetaPrimario> ingredientes=receta.getCantidadingrediente();
-		for(RelacionRecetaPrimario ingrediente:ingredientes) {
-			System.out.println("ingrediente.getPrimaryKeyRelRecetasPrimarios().getIdprimarias() ->"+ingrediente.getPrimaryKeyRelRecetasPrimarios().getIdprimarias());
-
-			PrimaryKeyRelRecetasPrimarios key=new PrimaryKeyRelRecetasPrimarios(ingrediente.getPrimaryKeyRelRecetasPrimarios().getIdprimarias(),receta.getIdreceta());
-			ingrediente.setPrimaryKeyRelRecetasPrimarios(key);
-			//ingrediente.setReceta(receta);
-			System.out.println("receta.getIdreceta()-->"+receta.getIdreceta());
-			//ingrediente.setProducto(productoservicios.ProductoPrimarioId(ingrediente.getPrimaryKeyRelRecetasPrimarios().getIdprimarias()));
-			cantidadservicios.Guardar(ingrediente);
-		}
-		
-		List<Receta> recetas=recetaservicios.RecetasActivadas();
-		model.addAttribute("recetas", recetas);
-		return "ListaRecetas";
 	}
 	
 	@PostMapping("/Receta/edit/submit")
@@ -171,28 +172,16 @@ public class ControladorRecetas {
 			model.addAttribute("ingredientes", productoservicios.ProductosPrimariosActivados());
 			return "/Receta";
 		}else {
+			
 			List<RelacionRecetaPrimario> ingredientes=receta.getCantidadingrediente();
 			for(RelacionRecetaPrimario ingrediente:ingredientes) {
 				System.out.println("Cantidad-->"+ingrediente.getCantidad());
-				RelacionRecetaPrimario existe=cantidadservicios.BuscarPrimaryKey(ingrediente.getPrimaryKeyRelRecetasPrimarios());
-				if(existe==null) {
-					//ingrediente.setReceta(receta);
-					System.out.println("receta.getIdreceta()-->"+receta.getIdreceta());
-					//ingrediente.setProducto(productoservicios.ProductoPrimarioId(ingrediente.getPrimaryKeyRelRecetasPrimarios().getIdprimarias()));
-					cantidadservicios.Guardar(ingrediente);
-					System.out.println("IdBase 0-->"+receta.getProductobase());
-				}// fin if
-			} // fin for
+				cantidadservicios.Guardar(ingrediente);
+				} // fin for
 			
-			
-			
-			receta.setCantidadingrediente(receta.getCantidadingrediente());
-			recetaservicios.Guardar(receta);
-			System.out.println("IdBase 1 -->"+receta.getProductobase());
 		
-			List<Receta> recetas=recetaservicios.RecetasActivadas();
-			model.addAttribute("recetas", recetas);
-			return "ListaRecetas";
+			recetaservicios.ActualizarReceta(receta.getNombrereceta(), receta.getCaducidad(), receta.getProductobase(),receta.getIdreceta());
+			return "redirect:/ListaRecetas";
 		} //fin else
 	}
 	

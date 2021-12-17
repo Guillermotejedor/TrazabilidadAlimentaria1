@@ -7,6 +7,7 @@
         <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
         <link href="/css/styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
      
      
 </head>
@@ -48,15 +49,15 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                               	Elaborados                              
                             </a>
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="/Trazabilidad">
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                               	Trazabilidad                             
                             </a>
 
                     </div> <!-- Cierro class=nav -->
                     <div class="sb-sidenav-footer">
-                        <div class="small">Logged in as:</div>
-                        Start Bootstrap
+                        <div class="small">Creado por:</div>
+                        GTR
                     </div> <!-- Cierro footer -->
                 </nav>
             </div> <!-- layoutSidenav_nav -->
@@ -87,7 +88,7 @@
 							<td th:text="${receta.caducidad}">Caducidad</td>
 							<td><a href="#" th:href="@{/Receta/{id}(id=${receta.idreceta})}" class="btn btn-success">Actualizar</a>
 							<a data-toggle="modal" data-target="#delete-modal" th:id="${receta.idreceta}" th:data-id="${receta.idreceta}" th:data-nombre="${receta.nombrereceta}" class="btn btn-danger" >Desactivar</a>
-							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#añadir-modal" th:data-id="${receta.idreceta}" th:data-nombre="${receta.nombrereceta}">Ejecutar</button>
+							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ejecutar-modal" th:data-id="${receta.idreceta}" th:data-nombre="${receta.nombrereceta}">Ejecutar</button>
 							</td>
 						</tr>
 						</tbody>
@@ -122,12 +123,12 @@
 
 		</div>
 	</div> <!-- fin modal fade -->
-	<!-- Dialogo modal añadir -->
-	<div class="modal fade" id="añadir-modal" tabindex="-1" role="dialog" aria-labelledby="añadirModalLabel" aria-hidden="true">
+	<!-- Dialogo modal ejecutar -->
+	<div class="modal fade" id="ejecutar-modal" tabindex="-1" role="dialog" aria-labelledby="ejecutarModalLabel" aria-hidden="true">
   		<div class="modal-dialog" role="document">
    			 <div class="modal-content">
      			 <div class="modal-header">
-       				 <h5 class="modal-title" id="añadirModalLabel">Cantidad de produto base</h5>
+       				 <h5 class="modal-title" id="ejecutarModalLabel">Cantidad de produto base</h5>
         			 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
          			 <span aria-hidden="true">&times;</span>
         			 </button>
@@ -142,43 +143,17 @@
       			</div>
       			<div class="modal-footer">
         			<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        			<a href="#" class="btn btn-primary" th:onclick="aceptar()">Actualizar</a>
+        			<a href="#" class="btn btn-primary" th:onclick="aceptar()">Procesar</a>
         			<input type="hidden" id="id_receta" name="id_receta" value="">
       			</div>
     	  </div> <!-- fin modal-content-->
   	</div> <!-- fin modal-dialos -->
 </div> <!--modal face  -->
-	<!-- Dialogo modal disminuir -->
-	<div class="modal fade" id="disminuir-modal" tabindex="-1" role="dialog" aria-labelledby="disminuirModalLabel" aria-hidden="true">
-  		<div class="modal-dialog" role="document">
-   			 <div class="modal-content">
-     			 <div class="modal-header">
-       				 <h5 class="modal-title" id="disminuirModalLabel">Disminuir Cantidad</h5>
-        			 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-         			 <span aria-hidden="true">&times;</span>
-        			 </button>
-     			 </div>
-      			 <div class="modal-body">
-       				 <form>
-         				 <div class="form-group">
-           					 <label for="recipient-name" class="col-form-label">Cantidad:</label>
-           					 <input type="number" class="form-control" id="disminuircantidad" pattern="[0-9]+" >
-           					 <input type="hidden" id="cantidadalmacen">
-         				</div>
-                    </form>
-      			</div>
-      			<div class="modal-footer">
-        			<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        			<a href="#" class="btn btn-primary" th:onclick="disminuir()">Disminuir</a>
-        		</div>
-    	  </div> <!-- fin modal-content-->
-  	</div> <!-- fin modal-dialos -->
-</div> <!--modal face disminuir -->
-
+		
 </div> <!-- layoutSidenav-->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-    <script src="js/scripts.js"></script>
+    <script src="/js/scripts.js"></script>
    <script src="../../static/js/ListaRecetas.js" th:src="@{/js/ListaRecetas.js}"></script>
 
 </body>

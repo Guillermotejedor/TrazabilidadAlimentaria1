@@ -10,7 +10,7 @@ $(document).ready(function() {
 				modal.find('.modal-title').text('Va a desactivar ' + nombre_receta);
 			});
 			//Añadir cantidad a ejecutar
-			$('#añadir-modal').on('show.bs.modal', function (event) {
+			$('#ejecutar-modal').on('show.bs.modal', function (event) {
     	
   			var button = $(event.relatedTarget); // Button that triggered the modal  		
   			var id_receta = button.data('id'); // Extract info from data-* attributes

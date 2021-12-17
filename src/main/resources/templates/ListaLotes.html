@@ -7,6 +7,7 @@
         <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
         <link href="/css/styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -42,19 +43,19 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                               	Recetas                              
                             </a>
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="/ListaLotes">
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                               	Elaborados                              
                             </a>
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="/Trazabilidad">
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                               	Trazabilidad                             
                             </a>
 
                     </div> <!-- Cierro class=nav -->
                     <div class="sb-sidenav-footer">
-                        <div class="small">Logged in as:</div>
-                        Start Bootstrap
+                        <div class="small">Creado por:</div>
+                        GTR
                     </div> <!-- Cierro footer -->
                 </nav>
             </div> <!-- layoutSidenav_nav -->
@@ -85,6 +86,7 @@
 							<td th:text="${lote.fechcaducidad}">Caducidad</td>
 							<td th:text="${lote.cantidad}">Cantidad</td>
 							<td><a href="#" th:href="@{/lote/{lote}(lote=${lote.lote})}" class="btn btn-success">Abrir</a>
+							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#distribuir-modal" th:data-id="${lote.lote}" th:data-nombre="${lote.nombrereceta}">Distribuir</button>
 							</td>
 						</tr>
 						</tbody>
@@ -96,7 +98,49 @@
                     </div> <!-- container-fluid px-4 -->
 
                 </main>
-
+<!-- Dialogo modal añadir -->
+	<div class="modal fade" id="distribuir-modal" tabindex="-1" role="dialog" aria-labelledby="distribuirModalLabel" aria-hidden="true">
+  		<div class="modal-dialog" role="document">
+   			 <div class="modal-content">
+     			 <div class="modal-header">
+       				 <h5 class="modal-title" id="distribuirModalLabel">Distribuir Lote</h5>
+        			 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+         			 <span aria-hidden="true">&times;</span>
+        			 </button>
+     			 </div>
+      			 <div class="modal-body">
+       				 <form>
+         				 <div class="form-group">
+           					 <label for="recipient-name" class="col-form-label">Cantidad:</label>
+           					 <input type="number" class="form-control" id="distribuircantidad" pattern="[0-9]+" >
+           					 <label for="tipo-movimiento" class="col-form-label">Tipo Movimiento</label>
+           					 <select id="tipomovimiento" name="tipomovimiento"  class="form-control">
+           					 	 <option selected=true value="-1">Seleccione un valor</option>
+							    <option value="ventadirecta">Venta Directa</option>
+							    <option value="distribuidora">Distribuidora</option>
+							    <option value="mercadillos">Mercadillos</option>
+							    <option value="desechar">Desechar</option>
+							</select>
+							<label for="destinatario-name" class="col-form-label">Destinatario:</label>
+           					<input type="text" class="form-control" id="destinatario" >
+         				</div>
+                    </form>
+      			</div>
+      			<div class="modal-footer">
+        			<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        			<a href="#" class="btn btn-primary" th:onclick="aceptar()">Actualizar</a>
+        			<input type="hidden" id="lote" name="lote" value="">
+      			</div>
+    	  </div> <!-- fin modal-content-->
+  	</div> <!-- fin modal-dialos -->
+</div> <!--modal face  -->
 </div> <!-- layoutSidenav_content -->
+
+</div> <!-- layoutSidenav -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="/js/ListaLotes.js"></script>
+<script src="/js/scripts.js"></script>
 </body>
+
 </html>

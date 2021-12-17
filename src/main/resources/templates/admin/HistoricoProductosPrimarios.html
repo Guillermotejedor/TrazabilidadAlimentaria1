@@ -7,6 +7,7 @@
         <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
         <link href="/css/styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -30,22 +31,22 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Productos</div>
-                            <ul class="sb-sidenav-menu-heading">
+                            <ol>
 							  <li th:each="producto : ${productos}"  >
 							     <a class="nav-link" href="#"  th:href="@{/HistoricoProductoPrimario/{id}(id=${producto.id})}">
                                 <span th:text="${producto.nombreprimario}" > Prueba</span>	
                                 </a>							  
 							  </li>						
-							</ul>
+							</ol>
 					</div> <!-- Cierro class=nav -->
                     <div class="sb-sidenav-footer">
-                        <div class="small">Logged in as:</div>
-                        Start Bootstrap
+                        <div class="small">Creado por:</div>
+                        GTR
                     </div> <!-- Cierro footer -->
                 </nav>
     </div> <!-- layoutSidenav_nav -->
   
-                 <div id="layoutSidenav_content">
+     <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
                    		<h1>Historico Productos Primarios</h1>
@@ -86,9 +87,10 @@
               
 </div> <!-- layoutSidenav--> 
     
-</body>
+
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="/js/scripts.js"></script>
  <script type="text/javascript">
  	function buscar(){
  		var buscar=document.getElementById('buscar').value;
@@ -101,4 +103,5 @@
  		}
  	}
  </script>
+ </body>
 </html>

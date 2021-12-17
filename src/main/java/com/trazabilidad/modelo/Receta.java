@@ -59,6 +59,9 @@ public class Receta {
 	@OneToMany( cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
 	private List<RelacionRecetaPrimario> cantidadingrediente= new ArrayList<RelacionRecetaPrimario>();
 	
+	@JoinColumn(name="id_receta",referencedColumnName="id_receta",insertable=false,updatable=false)
+	@OneToMany( cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
+	private List<Lote> lotes= new ArrayList<Lote>();
 	
 	//Metodos helper
 	
@@ -152,6 +155,15 @@ public class Receta {
 		this.productobase = productobase;
 	}
 	
+	
+
+	public List<Lote> getLotes() {
+		return lotes;
+	}
+
+	public void setLotes(List<Lote> lotes) {
+		this.lotes = lotes;
+	}
 
 	@Override
 	public int hashCode() {

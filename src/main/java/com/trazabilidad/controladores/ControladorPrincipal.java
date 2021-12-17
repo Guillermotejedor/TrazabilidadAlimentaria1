@@ -56,4 +56,17 @@ public class ControladorPrincipal {
 		model.addAttribute("lotes", lotes);		
 		return "ListaLotes";
 	}
+	
+	@GetMapping("/Trazabilidad")
+	public String Trazabilidad(Model model) {
+		List<Receta> recetas=recetaservicios.RecetasActivadas();
+		for(Receta receta:recetas) {
+			System.out.println("Nombre receta "+receta.getNombrereceta());
+			for(Lote lote:receta.getLotes()) {
+				System.out.println("Lote "+lote.getLote());
+			}
+		}
+		model.addAttribute("recetas", recetas);
+		return "Trazabilidad";
+	}
 }

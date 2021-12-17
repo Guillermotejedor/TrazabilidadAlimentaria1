@@ -29,4 +29,8 @@ public class RecetaServicios {
 	public Receta RecetaPorId(long id) {
 		return repositorio.getOne(id);
 	}
+	
+	public void ActualizarReceta(String nombrereceta,int caducidad,long productobase,long idreceta) {
+		repositorio.updateReceta(nombrereceta, caducidad, productobase, idreceta);
+	}
 }

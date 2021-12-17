@@ -36,7 +36,7 @@
 							<div class="form-group" th:classappend="${#fields.hasErrors('nombreprimario')}? 'has-error'">
 							  <label class="col-md-4 control-label" for="textinput">Nombre Primario</label>  
 							  <div class="col-md-4">
-							  <input id="nombreprimario" name="nombreprimario" type="text" placeholder="Nombre" class="form-control input-md" th:field="*{nombreprimario}" th:attrappend="readonly=${productoprimario.id !=0}? 'readonly':null">
+							  <input id="nombreprimario" name="nombreprimario" type="text" placeholder="Nombre" class="form-control input-md" th:field="*{nombreprimario}" >
 							  <span th:if="${#fields.hasErrors('nombreprimario')}" th:errors="*{nombreprimario}" class="help-block" id="id-error">Errores</span>  
 							  </div>
 							</div>

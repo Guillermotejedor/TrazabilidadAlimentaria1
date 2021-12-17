@@ -28,7 +28,7 @@
         <h1 th:text="${receta.idreceta !=0}? 'Editar Receta':'Nueva Receta'">Nueva Receta</h1>
        		<div class="row">
        			<div class="col-md-offset-2 col-md-8">
-       			
+       				<span class="has-error" th:text="${errorduplicado}"></span>
        				<form role="form" id="form-receta" method="post" action="#" th:action="${receta.idreceta !=0}?@{/Receta/edit/submit} : @{/Receta/new/submit}" th:object="${receta}">
        						<input type="hidden" id="idreceta" th:field="*{idreceta}"/>
        						<input type="hidden" id="activado" th:field="*{activado}"/>
@@ -100,7 +100,7 @@
 										<div class="col-md-5">
 											<input class="form-control bg-secondary text-white inp-border"
 													th:field="${receta.cantidadingrediente[__${stat.index}__].nombreprimario}"
-													type="text" />
+													type="text" th:attrappend="readonly='readonly'" />
 											<input th:field="${receta.cantidadingrediente[__${stat.index}__].primaryKeyRelRecetasPrimarios.idprimarias}" 
 													type="hidden"/>
 											</div>
