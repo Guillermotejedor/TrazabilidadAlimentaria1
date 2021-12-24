@@ -18,11 +18,13 @@ import javax.persistence.JoinColumns;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.Where;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.trazabilidad.modelo.*;
@@ -60,7 +62,9 @@ public class Receta {
 	private List<RelacionRecetaPrimario> cantidadingrediente= new ArrayList<RelacionRecetaPrimario>();
 	
 	@JoinColumn(name="id_receta",referencedColumnName="id_receta",insertable=false,updatable=false)
+	@Where(clause ="cantidad=0")
 	@OneToMany( cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
+	@OrderBy("lote DESC")
 	private List<Lote> lotes= new ArrayList<Lote>();
 	
 	//Metodos helper

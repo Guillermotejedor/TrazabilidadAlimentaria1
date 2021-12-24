@@ -29,16 +29,7 @@
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav">
-                          <!--   <div class="sb-sidenav-menu-heading">Recetas</div>
-                            <div class="dropdown" th:each="receta : ${recetas}">
-						      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdown1" data-toggle="dropdown">
-						        <span th:text="${receta.nombrereceta}"></span>
-						      </button>
-						      <div class="dropdown-menu" th:each="lote,stat:${receta.lotes}">
-						        <a class="dropdown-item" th:href="@{/lote/{lote1}(lote1=${lote.lote})}" th:text="${lote.lote}">Google</a>
-						      </div>
-						    </div>  < -->
-						    <div class="sb-sidenav-menu-heading">Recetas</div>
+                    	    <div class="sb-sidenav-menu-heading">Recetas</div>
 						    <div th:each="receta,stat : ${recetas}">
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" th:data-bs-target="'#receta'+${stat.count}" aria-expanded="false" aria-controls="collapseLayouts">
                                 <span th:text="${receta.nombrereceta}"></span>
@@ -46,7 +37,7 @@
                             </a>
                             <div class="collapse" th:id="'receta'+${stat.count}" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav" th:each="lote:${receta.lotes}">
-                                    <a class="nav-link" href="#"><span th:text="${lote.lote}"></span></a>
+                                    <a class="nav-link" href="#" th:href="@{/Trazabilidad/{lote} (lote=${lote.lote})}"><span th:text="${lote.lote}"></span></a>
                                 </nav>
                             </div>
                             </div> <!-- th:each recetas -->
@@ -57,6 +48,47 @@
                     </div> <!-- Cierro footer -->
                 </nav>
             </div> <!-- layoutSidenav_nav -->
+            
+              <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid px-4">
+                   		<h2><span th:text="${nombrereceta}"></span></h2>
+                   		<h3>Lote:<span th:text="${lote}"></span></h3>
+                   		<div class="container-xxl">
+                   		<a class="btn btn-success btn-cabecera"  href="#!" th:href="@{/Receta}"><i>Exportar a Excel</i></a>
+                   		<a class="btn btn-success btn-cabecera"  href="#!" th:href="@{/Receta}"><i>Historico</i></a>
+                   		</div> <!-- Cierro container-xxl -->
+                   		<div class="container-xxl">
+						<div class="col-md-offset-2 col-md-10">
+						<table class="table table-striped">
+						<thead>
+						<tr>
+							<th>Destinatario</th>
+							<th>Tipo Movimiento</th>
+							<th>Fecha Movimiento</th>
+							<th>Cantidad</th>
+							<th>Acciones</th>
+						</tr>						
+						</thead>
+						<tbody>
+						<tr th:each="movimiento : ${movimientos}">
+							<td th:text="${movimiento.destinatario}">Destinatario</td>
+							<td th:text="${movimiento.tipomovimiento}">Tipo Movimiento</td>
+							<td th:text="${movimiento.fechamovimiento}">Fecha Movimiento</td>
+							<td th:text="${movimiento.cantidad}">Cantidad</td>
+							<td><a href="#" th:href="@{/DetalleTrazabilidad/{idmovimiento}(idmovimiento=${movimiento.idmovimientol})}" class="btn btn-success">Abrir</a>
+							</td>
+						</tr>
+						</tbody>
+						</table>
+						</div> <!-- col-md-offset-2 col-md-8 -->
+						</div> <!-- container-xxl -->
+                   		
+                   		
+                    </div> <!-- container-fluid px-4 -->
+
+                </main>
+            </div> <!-- layoutSidenav_content -->
            </div> <!-- layoutSidenav -->  
      <script src="/js/scripts.js"></script>      
      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>         

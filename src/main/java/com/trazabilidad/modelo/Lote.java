@@ -2,6 +2,7 @@ package com.trazabilidad.modelo;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -39,6 +40,12 @@ public class Lote {
 	@NotFound(action = NotFoundAction.IGNORE)
 	@JoinColumn(name="lote",referencedColumnName="lote")
 	private List<RelacionLotePrimario> ingredientes;
+	
+	@OneToMany(fetch = FetchType.LAZY)
+	@NotFound(action = NotFoundAction.IGNORE)
+	@JoinColumn(name="lote",referencedColumnName="lote")
+	private List<MovimientoLote> movimientos;
+	
 	
 	public Lote() {
 		super();
@@ -106,6 +113,44 @@ public class Lote {
 
 	public void setNombrereceta(String nombrereceta) {
 		this.nombrereceta = nombrereceta;
+	}
+
+
+
+	public List<MovimientoLote> getMovimientos() {
+		return movimientos;
+	}
+
+
+
+	public void setMovimientos(List<MovimientoLote> movimientos) {
+		this.movimientos = movimientos;
+	}
+
+
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(cantidad, fechcaducidad, fechelaboracion, idreceta, ingredientes, lote, movimientos,
+				nombrereceta);
+	}
+
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Lote other = (Lote) obj;
+		return Float.floatToIntBits(cantidad) == Float.floatToIntBits(other.cantidad)
+				&& Objects.equals(fechcaducidad, other.fechcaducidad)
+				&& Objects.equals(fechelaboracion, other.fechelaboracion) && idreceta == other.idreceta
+				&& Objects.equals(ingredientes, other.ingredientes) && Objects.equals(lote, other.lote)
+				&& Objects.equals(movimientos, other.movimientos) && Objects.equals(nombrereceta, other.nombrereceta);
 	}
 	
 	

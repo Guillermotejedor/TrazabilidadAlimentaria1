@@ -33,4 +33,8 @@ public class RecetaServicios {
 	public void ActualizarReceta(String nombrereceta,int caducidad,long productobase,long idreceta) {
 		repositorio.updateReceta(nombrereceta, caducidad, productobase, idreceta);
 	}
+	
+	public List<Receta> TrazabilidadReceta(){
+		return repositorio.trazabilidadRecetas();
+	}
 }

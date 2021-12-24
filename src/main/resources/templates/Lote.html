@@ -25,11 +25,11 @@
            <div class="container">
 
       <div class="starter-template">
-        <h1 th:text="${ejecucion !=0}? 'Lote editado':'Lote ejecutado'">Nueva Receta</h1>
+        <h1 th:text="${ejecucion !=0}? 'Lote editado':'Lote ejecutado'">Nueva Lote</h1>
        		<div class="row">
        			<div class="col-md-offset-2 col-md-8">
        			
-       				<form role="form" id="form-lote" method="post" action="#" th:action="${ejecucion !=0}?@{/Receta/edit/submit} : @{/Receta/new/submit}" th:object="${lote}">
+       				<form role="form" id="form-lote" method="post" action="#" th:object="${lote}">
        						<input type="hidden" id="idreceta" th:field="*{idreceta}"/>
        						<!-- Text input-->
 							<div class="form-group" >

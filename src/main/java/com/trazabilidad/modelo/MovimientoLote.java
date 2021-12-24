@@ -1,6 +1,9 @@
 package com.trazabilidad.modelo;
 
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -8,13 +11,19 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name="movimientos_lotes")
-public class MovimientoLote {
+public class MovimientoLote implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="Id_Movimiento_L")
@@ -31,6 +40,17 @@ public class MovimientoLote {
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private LocalDate fechamovimiento;
 	
+	@ManyToMany
+	@JoinTable(name = "rel_lotes_primarias",joinColumns=
+			{@JoinColumn(name="Lote",referencedColumnName = "Lote")},
+			inverseJoinColumns={@JoinColumn(name="Id_Primarias",referencedColumnName = "Id_Primarias")})
+	
+	private List<ProductoPrimario> productores;
+	
+	@ManyToOne
+	@JoinColumn(name="lote",insertable=false,updatable=false)
+	private Lote loteobj;
+	
 	
 	public MovimientoLote() {
 		super();
@@ -45,6 +65,17 @@ public class MovimientoLote {
 		this.lote = lote;
 		this.tipomovimiento = tipomovimiento;
 		this.fechamovimiento = fechamovimiento;
+	}
+
+	
+
+	public long getIdmovimientol() {
+		return idmovimientol;
+	}
+
+
+	public void setIdmovimientol(long idmovimientol) {
+		this.idmovimientol = idmovimientol;
 	}
 
 
@@ -95,6 +126,27 @@ public class MovimientoLote {
 
 	public void setFechamovimiento(LocalDate fechamovimiento) {
 		this.fechamovimiento = fechamovimiento;
+	}
+
+	
+
+	public List<ProductoPrimario> getProductores() {
+		return productores;
+	}
+
+
+	public void setProductores(List<ProductoPrimario> productores) {
+		this.productores = productores;
+	}
+
+
+	public Lote getLoteobj() {
+		return loteobj;
+	}
+
+
+	public void setLoteobj(Lote loteobj) {
+		this.loteobj = loteobj;
 	}
 
 

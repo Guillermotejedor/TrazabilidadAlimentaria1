@@ -16,5 +16,9 @@ public class MovimientoLoteServicios {
 		repositorio.save(lote);
 	}
 	
+	public MovimientoLote MovimientoPorId(long idmovimientol) {
+		return repositorio.findByIdmovimientol(idmovimientol);
+	}
+	
 
 }

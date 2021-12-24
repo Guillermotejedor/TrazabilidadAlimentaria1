@@ -1,5 +1,6 @@
 package com.trazabilidad.controladores;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.trazabilidad.modelo.ProductoPrimario;
 import com.trazabilidad.modelo.Receta;
 import com.trazabilidad.modelo.Lote;
+import com.trazabilidad.modelo.MovimientoLote;
 import com.trazabilidad.servicios.LoteServicios;
 import com.trazabilidad.servicios.ProductosPrimariosServicios;
 import com.trazabilidad.servicios.RecetaServicios;
@@ -57,16 +59,5 @@ public class ControladorPrincipal {
 		return "ListaLotes";
 	}
 	
-	@GetMapping("/Trazabilidad")
-	public String Trazabilidad(Model model) {
-		List<Receta> recetas=recetaservicios.RecetasActivadas();
-		for(Receta receta:recetas) {
-			System.out.println("Nombre receta "+receta.getNombrereceta());
-			for(Lote lote:receta.getLotes()) {
-				System.out.println("Lote "+lote.getLote());
-			}
-		}
-		model.addAttribute("recetas", recetas);
-		return "Trazabilidad";
-	}
+
 }
