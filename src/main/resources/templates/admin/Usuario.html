@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="es" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Usuario</title>
+  		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"/>
+   		<link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="/css/styles.css" rel="stylesheet" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+  
+	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            
+            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0" th:action="@{/logout}" method="post">
+                <div class="input-group float-right">
+                    <span class="text-white mx-2" sec:authentication="name"></span>
+                    <button class="btn btn-success my-2 my-sm-0" type="submit">Salir</button>
+                </div>
+            </form>
+            <!-- Navbar-->
+
+      </nav>
+
+    <div class="container my-5">
+        <h1 class="text-center">Añade un nuevo usuario</h1>
+        <a th:href="@{/AdministracionUsuario}" class="btn btn-info">Regresar</a>
+      <!--   <p class="alert alert-secondary">Fill the form below:</p> -->
+
+        <form th:action="@{/Usuario/Submit}" method="post" th:object="${usuario}" class="my-2">
+            <!-- rfc -->
+            <div class="row my-3">
+                <div class="col-12 col-md-6">
+                    <label for="rfc">User</label>
+                    <input type="text" placeholder="XXXX" class="form-control" id="user" th:field="*{user}">
+                </div>
+            </div>
+
+            <!-- first and last name -->
+            <div class="form-row my-3">
+                <div class="col form-group">
+                    <label for="firstname">Nombre</label>
+                    <input type="text" id="nombre" placeholder="Pedro" class="form-control" th:field="*{nombre}">
+                </div>
+                <div class="col form-group">
+                    <label for="lastname">Apellido 1</label>
+                    <input type="text" id="apellido1" class="form-control" placeholder="González" th:field="*{apellido1}">
+                </div>
+                <div class="col form-group">
+                    <label for="lastname">Apellido 2</label>
+                    <input type="text" id="apellido2" class="form-control" placeholder="González" th:field="*{apellido2}">
+                </div>
+                <div class="col form-group">
+                    <label for="lastname">Roll</label>
+                    <select id="roll" class="form-control" th:field="*{roll}">
+   						<option th:value="'ADMIN'" th:text="Admin"></option>
+    					<option th:value="'USER'" th:text="User"></option>
+					</select>
+                </div>
+
+            </div>
+
+            <!-- first and last name -->
+            <div class="form-row my-3">
+                <div class="col form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" class="form-control" placeholder="correo@correo.com" th:field="*{email}">
+                </div>
+            </div>
+
+            <!-- Match password -->
+            <div class="form-row my-3">
+                <div class="col form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" class="form-control" th:field="*{password}">
+                </div>
+            </div>
+
+  
+
+
+
+            <!-- save user -->
+            <input type="submit" value="Save user" class="btn btn-success btn-block">
+        </form>
+    </div>
+
+
+
+</body>
+</html>

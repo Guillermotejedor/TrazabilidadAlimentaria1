@@ -2,21 +2,23 @@
 <html lang="es" xmlns:th="https://www.thymeleaf.org">
 <head>
 <meta charset="utf-8">
-<title>Lista de Recetas</title>
+<title>Lista de Recetas Desactivadas</title>
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"/>
         <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
         <link href="/css/styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+     
      
      
 </head>
 <body>
- <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+	 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
             <a class="navbar-brand ps-3" href="/index">Trazabilidad Alimentaria</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
-            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0" th:action="@{/logout}" method="post">
                 <div class="input-group">
                     <span class="text-white mx-2" sec:authentication="name"></span>
                     <button class="btn btn-success my-2 my-sm-0" type="submit">Salir</button>
@@ -30,8 +32,9 @@
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav">
+                        <div sec:authorize="hasRole('ROLE_ADMIN')">
                             <div class="sb-sidenav-menu-heading">Administración</div>
-                            <a class="nav-link" href="index.html">
+                            <a class="nav-link" href="/AdministracionUsuario">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Administrar Usuarios
                             </a>
@@ -39,6 +42,7 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Productos Primarios
                             </a>
+                         </div>
                             <div class="sb-sidenav-menu-heading">Servicios</div>
                             <a class="nav-link" href="/ListaRecetas">
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
@@ -55,8 +59,8 @@
 
                     </div> <!-- Cierro class=nav -->
                     <div class="sb-sidenav-footer">
-                        <div class="small">Logged in as:</div>
-                        Start Bootstrap
+                        <div class="small">Creado por:</div>
+                        GTR
                     </div> <!-- Cierro footer -->
                 </nav>
             </div> <!-- layoutSidenav_nav -->
@@ -70,7 +74,7 @@
 
                    		<div class="container-xxl">
 						<div class="col-md-offset-2 col-md-10">
-						<table class="table table-striped">
+						<table class="table table-striped" id="datatablesSimple">
 						<thead>
 						<tr>
 							<th>Nombre</th>
@@ -78,6 +82,13 @@
 							<th>Accion</th>
 						</tr>						
 						</thead>
+						<tfoot>
+						<tr>
+							<th>Nombre</th>
+							<th>Caducidad</th>
+							<th>Accion</th>
+						</tr>						
+						</tfoot>
 						<tbody>
 						<tr th:each="receta : ${recetas}">
 							<td th:text="${receta.nombrereceta}">Nombre</td>
@@ -96,86 +107,15 @@
                 </main>
 
 </div> <!-- layoutSidenav_content -->
- 	<!-- Modal eliminar -->
- 		<div class="modal fade" id="delete-modal" tabindex="-1" role="dialog">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title">Desactivar receta</h4>
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				
-				</div>
-				<div class="modal-body">
-					<p>¿Está usted seguro desea desactivar este receta?</p>
-					<button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-					<a href="#" class="btn btn-danger">Sí</a>
-				</div>
-			</div>
-
-		</div>
-	</div> <!-- fin modal fade -->
-	<!-- Dialogo modal añadir -->
-	<div class="modal fade" id="añadir-modal" tabindex="-1" role="dialog" aria-labelledby="añadirModalLabel" aria-hidden="true">
-  		<div class="modal-dialog" role="document">
-   			 <div class="modal-content">
-     			 <div class="modal-header">
-       				 <h5 class="modal-title" id="añadirModalLabel">Cantidad de produto base</h5>
-        			 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-         			 <span aria-hidden="true">&times;</span>
-        			 </button>
-     			 </div>
-      			 <div class="modal-body">
-       				 <form>
-         				 <div class="form-group">
-           					 <label for="recipient-name" class="col-form-label">Cantidad de produto base:</label>
-           					 <input type="number" class="form-control" id="cantidadejecutar" pattern="[0-9]+" >
-         				</div>
-                    </form>
-      			</div>
-      			<div class="modal-footer">
-        			<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        			<a href="#" class="btn btn-primary" th:onclick="aceptar()">Actualizar</a>
-        			<input type="hidden" id="id_receta" name="id_receta" value="">
-      			</div>
-    	  </div> <!-- fin modal-content-->
-  	</div> <!-- fin modal-dialos -->
-</div> <!--modal face  -->
-	<!-- Dialogo modal disminuir -->
-	<div class="modal fade" id="disminuir-modal" tabindex="-1" role="dialog" aria-labelledby="disminuirModalLabel" aria-hidden="true">
-  		<div class="modal-dialog" role="document">
-   			 <div class="modal-content">
-     			 <div class="modal-header">
-       				 <h5 class="modal-title" id="disminuirModalLabel">Disminuir Cantidad</h5>
-        			 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-         			 <span aria-hidden="true">&times;</span>
-        			 </button>
-     			 </div>
-      			 <div class="modal-body">
-       				 <form>
-         				 <div class="form-group">
-           					 <label for="recipient-name" class="col-form-label">Cantidad:</label>
-           					 <input type="number" class="form-control" id="disminuircantidad" pattern="[0-9]+" >
-           					 <input type="hidden" id="cantidadalmacen">
-         				</div>
-                    </form>
-      			</div>
-      			<div class="modal-footer">
-        			<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        			<a href="#" class="btn btn-primary" th:onclick="disminuir()">Disminuir</a>
-        		</div>
-    	  </div> <!-- fin modal-content-->
-  	</div> <!-- fin modal-dialos -->
-</div> <!--modal face disminuir -->
-
+ 	
+	
+	
 </div> <!-- layoutSidenav-->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="js/scripts.js"></script>
-   <script src="../../static/js/ListaRecetas.js" th:src="@{/js/ListaRecetas.js}"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+	<script src="/js/datatables-simple.js"></script>
 </body>
 
 </html>

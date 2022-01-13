@@ -37,4 +37,8 @@ public class RecetaServicios {
 	public List<Receta> TrazabilidadReceta(){
 		return repositorio.trazabilidadRecetas();
 	}
+	
+	public List<Receta> TodasRecetas(){
+		return repositorio.todasrecetas();
+	}
 }

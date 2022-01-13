@@ -1,5 +1,6 @@
 package com.trazabilidad.controladores;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,11 +36,12 @@ public class ControladorTrazabilidad {
 		List<Lote> lote=receta.getLotes();
 		Lote lote1=lote.get(0);
 		String nomlote=lote1.getLote();
+		String mensaje=nombrereceta+" Lote: "+nomlote;
 		List<MovimientoLote> movimientos=lote1.getMovimientos();
-		model.addAttribute("lote", nomlote);
-		model.addAttribute("nombrereceta",nombrereceta );
+		model.addAttribute("mensaje",mensaje );
 		model.addAttribute("movimientos", movimientos);
 		model.addAttribute("recetas", recetas);
+		
 		return "Trazabilidad";
 	}
 	
@@ -50,9 +52,9 @@ public class ControladorTrazabilidad {
 		String nomlote=loteabrir.getLote();
 		Receta receta=recetaservicios.RecetaPorId(loteabrir.getIdreceta());
 		String nombrereceta=receta.getNombrereceta();
+		String mensaje=nombrereceta+" Lote: "+nomlote;
 		List<MovimientoLote> movimientos=loteabrir.getMovimientos();
-		model.addAttribute("lote", nomlote);
-		model.addAttribute("nombrereceta",nombrereceta );
+		model.addAttribute("mensaje",mensaje );
 		model.addAttribute("movimientos", movimientos);
 		model.addAttribute("recetas", recetaservicios.TrazabilidadReceta());
 		return "Trazabilidad";
@@ -69,5 +71,28 @@ public class ControladorTrazabilidad {
 		}
 		model.addAttribute("movimiento", movimiento);
 		return "DetalleTrazabilidad";
+	}
+	
+	@GetMapping("/BuscarTrazabilidad/{lote}")
+	public String BuscarTrazabilidad(Model model,@PathVariable String lote) {
+		System.out.println("Valor de lote-->"+lote);
+		String mensaje;
+		List<MovimientoLote> movimientos=new ArrayList<>();
+		Lote loteabrir=loteservicios.LotePorLote(lote);
+		if(loteabrir!=null) {
+			String nomlote=loteabrir.getLote();
+			Receta receta=recetaservicios.RecetaPorId(loteabrir.getIdreceta());
+			String nombrereceta=receta.getNombrereceta();
+			mensaje=nombrereceta+" Lote: "+nomlote;
+			movimientos=loteabrir.getMovimientos();
+		}else {
+			mensaje="No se han encontrado Lote con el valor introducido";
+		}
+		
+		model.addAttribute("mensaje",mensaje );
+		model.addAttribute("movimientos", movimientos);
+		model.addAttribute("recetas", recetaservicios.TrazabilidadReceta());
+		return "Trazabilidad";
+	
 	}
 }

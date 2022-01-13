@@ -1,15 +1,13 @@
 package com.trazabilidad.controladores;
 
 import java.time.LocalDate;
-import java.time.ZonedDateTime;
-import java.util.ArrayList;
-import java.util.List;
+
 
 import javax.validation.Valid;
 
-import org.hibernate.JDBCException;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;

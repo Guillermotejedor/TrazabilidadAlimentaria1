@@ -11704,7 +11704,7 @@ body {
 }
 .btn-cabecera{
   position: relative;
-  left: 70%;
+  left: 60%;
 }
 .btn-cabecera-buscar{
   position: relative;
@@ -11718,3 +11718,5 @@ body {
 	  border: 0px;
       outline: none;
 }
+
+

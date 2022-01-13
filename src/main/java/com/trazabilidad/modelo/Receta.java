@@ -1,10 +1,10 @@
 package com.trazabilidad.modelo;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
+
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,7 +14,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
@@ -24,11 +23,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.Where;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import com.trazabilidad.modelo.*;
-import com.trazabilidad.servicios.ProductosPrimariosServicios;
 
 
 
@@ -60,9 +55,9 @@ public class Receta {
 	@JoinColumn(name="id_receta",referencedColumnName="id_receta",insertable=false,updatable=false)
 	@OneToMany( cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
 	private List<RelacionRecetaPrimario> cantidadingrediente= new ArrayList<RelacionRecetaPrimario>();
-	
+	//
 	@JoinColumn(name="id_receta",referencedColumnName="id_receta",insertable=false,updatable=false)
-	@Where(clause ="cantidad=0")
+	//@Where(clause ="cantidad_producida=cantidad_distribuida")
 	@OneToMany( cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
 	@OrderBy("lote DESC")
 	private List<Lote> lotes= new ArrayList<Lote>();

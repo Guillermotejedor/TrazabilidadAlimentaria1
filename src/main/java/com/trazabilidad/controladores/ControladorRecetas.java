@@ -1,6 +1,6 @@
 package com.trazabilidad.controladores;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,10 +16,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
 
-import com.trazabilidad.modelo.NombrePrimario;
-import com.trazabilidad.modelo.ProductoPrimario;
+
+
 import com.trazabilidad.modelo.Receta;
 import com.trazabilidad.modelo.RelacionRecetaPrimario;
 import com.trazabilidad.primarykey.PrimaryKeyRelRecetasPrimarios;

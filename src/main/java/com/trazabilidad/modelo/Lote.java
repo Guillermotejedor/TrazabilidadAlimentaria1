@@ -24,8 +24,10 @@ public class Lote {
 	private String lote;
 	@Column(name="Id_Receta")
 	private long idreceta;
-	@Column(name="Cantidad")
-	private float cantidad;
+	@Column(name="Cantidad_Producida")
+	private float cantidadproducida;
+	@Column(name="Cantidad_Distribuida")
+	private float cantidaddistribuida;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name="Fech_Elaboracion")
 	private LocalDate fechelaboracion;
@@ -37,7 +39,6 @@ public class Lote {
 	
 	
 	@OneToMany(fetch = FetchType.LAZY)
-	@NotFound(action = NotFoundAction.IGNORE)
 	@JoinColumn(name="lote",referencedColumnName="lote")
 	private List<RelacionLotePrimario> ingredientes;
 	
@@ -53,16 +54,26 @@ public class Lote {
 
 	
 	
-	public Lote(String lote, long idreceta, float cantidad, LocalDate fechelaboracion, LocalDate fechcaducidad,
-			String nombrereceta) {
+
+
+
+
+	public Lote(String lote, long idreceta, float cantidadproducida, float cantidaddistribuida,
+			LocalDate fechelaboracion, LocalDate fechcaducidad, String nombrereceta) {
 		super();
 		this.lote = lote;
 		this.idreceta = idreceta;
-		this.cantidad = cantidad;
+		this.cantidadproducida = cantidadproducida;
+		this.cantidaddistribuida = cantidaddistribuida;
 		this.fechelaboracion = fechelaboracion;
 		this.fechcaducidad = fechcaducidad;
 		this.nombrereceta = nombrereceta;
+		
 	}
+
+
+
+
 
 
 
@@ -78,12 +89,25 @@ public class Lote {
 	public void setIdreceta(long idreceta) {
 		this.idreceta = idreceta;
 	}
-	public float getCantidad() {
-		return cantidad;
+	public float getCantidadproducida() {
+		return cantidadproducida;
 	}
-	public void setCantidad(float cantidad) {
-		this.cantidad = cantidad;
+	public void setCantidadproducida(float cantidadproducida) {
+		this.cantidadproducida = cantidadproducida;
 	}
+	
+	public float getCantidaddistribuida() {
+		return cantidaddistribuida;
+	}
+
+
+
+	public void setCantidaddistribuida(float cantidaddistribuida) {
+		this.cantidaddistribuida = cantidaddistribuida;
+	}
+
+
+
 	public LocalDate getFechelaboracion() {
 		return fechelaboracion;
 	}
@@ -131,7 +155,7 @@ public class Lote {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(cantidad, fechcaducidad, fechelaboracion, idreceta, ingredientes, lote, movimientos,
+		return Objects.hash(cantidadproducida, fechcaducidad, fechelaboracion, idreceta, ingredientes, lote, movimientos,
 				nombrereceta);
 	}
 
@@ -146,7 +170,7 @@ public class Lote {
 		if (getClass() != obj.getClass())
 			return false;
 		Lote other = (Lote) obj;
-		return Float.floatToIntBits(cantidad) == Float.floatToIntBits(other.cantidad)
+		return Float.floatToIntBits(cantidadproducida) == Float.floatToIntBits(other.cantidadproducida)
 				&& Objects.equals(fechcaducidad, other.fechcaducidad)
 				&& Objects.equals(fechelaboracion, other.fechelaboracion) && idreceta == other.idreceta
 				&& Objects.equals(ingredientes, other.ingredientes) && Objects.equals(lote, other.lote)

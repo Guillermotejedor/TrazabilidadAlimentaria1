@@ -2,7 +2,7 @@ package com.trazabilidad.controladores;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,6 +56,7 @@ public class ControladorEjecutarReceta {
 		long idbase=receta.getProductobase();
 		List<RelacionRecetaPrimario> ingredientes=relacionreceta.BuscarIdReceta(idreceta);
 		//Comprobamos si tenemos en almacen cantidad suficiente para ejecutar la receta
+		System.out.println("Cantidad de ingredientes-->"+ingredientes.size());
 		for(RelacionRecetaPrimario ingrediente:ingredientes) { 
 			if(idbase==ingrediente.getPrimaryKeyRelRecetasPrimarios().getIdprimarias()) {
 				producto=productoservicios.ProductoPrimarioId(idbase);
@@ -98,7 +99,7 @@ public class ControladorEjecutarReceta {
 				lotesprimarios.add(loteprimario);
 				
 			}
-			Lote lotenuevo=new Lote(lote,idreceta,total,LocalDate.now(),LocalDate.now().plusDays(receta.getCaducidad()),receta.getNombrereceta());
+			Lote lotenuevo=new Lote(lote,idreceta,total,0,LocalDate.now(),LocalDate.now().plusDays(receta.getCaducidad()),receta.getNombrereceta());
 			loteservicios.Guardar(lotenuevo);
 			
 			for(RelacionLotePrimario nuevo:lotesprimarios) {
@@ -109,7 +110,7 @@ public class ControladorEjecutarReceta {
 			model.addAttribute("receta", receta.getNombrereceta());
 			model.addAttribute("ejecucion", 0);
 			model.addAttribute("lote", lotenuevo);
-			return "Lote";
+			return "LoteReceta";
 		}else {
 			if(!mensaje.isEmpty())
 				mensaje.add("No se ha podido ejecutar la receta");

@@ -15,8 +15,10 @@ import com.trazabilidad.modelo.Receta;
 public interface RecetaRepositorio extends JpaRepository<Receta,Long>{
 	List<Receta> findByActivadoTrue();
 	List<Receta> findByActivadoFalse();
-	@Query("select distinct  r from Receta r join Lote l on r.idreceta=l.idreceta where l.cantidad=0")
+	@Query("select distinct  r from Receta r join Lote l on r.idreceta=l.idreceta where l.cantidadproducida=l.cantidaddistribuida")
 	List<Receta> trazabilidadRecetas();
+	@Query("select r from Receta r")
+	List<Receta> todasrecetas();
 	
 	@Modifying
 	@Transactional

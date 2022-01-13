@@ -1,6 +1,6 @@
 package com.trazabilidad.controladores;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.trazabilidad.modelo.ProductoPrimario;
 import com.trazabilidad.modelo.Receta;
+import com.trazabilidad.modelo.Usuario;
 import com.trazabilidad.modelo.Lote;
-import com.trazabilidad.modelo.MovimientoLote;
+
 import com.trazabilidad.servicios.LoteServicios;
 import com.trazabilidad.servicios.ProductosPrimariosServicios;
 import com.trazabilidad.servicios.RecetaServicios;
@@ -32,6 +33,16 @@ public class ControladorPrincipal {
 	public String Bienvenido() {
 		return "index";
 	}
+	@GetMapping("/login")
+	public String bienvenido(Model modelo) {
+		modelo.addAttribute("usuario",new Usuario());
+		return "login";
+	}
+	
+	@GetMapping("/AdministracionUsuario")
+	public String AdministracionUsuario(Model model) {
+		return "admin/AdministracionUsuario";
+	}
 	
 	//Cargo el listado de productos
 	@GetMapping("/ListaProductosPrimarios")
@@ -39,7 +50,7 @@ public class ControladorPrincipal {
 		
 		List<ProductoPrimario> productos=productosservicios.ProductosPrimariosActivados();
 		model.addAttribute("productos", productos);
-		return "admin/ListaProductosPrimarios";
+		return "/admin/ListaProductosPrimarios";
 	}
 	
 	//Cargo el listado de recetas

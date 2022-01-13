@@ -17,7 +17,7 @@
             <a class="navbar-brand ps-3" href="/index">Trazabilidad Alimentaria</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
-            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0" th:action="@{/logout}" method="post">
                 <div class="input-group">
                     <span class="text-white mx-2" sec:authentication="name"></span>
                     <button class="btn btn-success my-2 my-sm-0" type="submit">Salir</button>
@@ -31,8 +31,9 @@
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav">
+                        <div sec:authorize="hasRole('ROLE_ADMIN')">
                             <div class="sb-sidenav-menu-heading">Administración</div>
-                            <a class="nav-link" href="index.html">
+                            <a class="nav-link" href="/AdministracionUsuario">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Administrar Usuarios
                             </a>
@@ -40,6 +41,7 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Productos Primarios
                             </a>
+                        </div>
                             <div class="sb-sidenav-menu-heading">Servicios</div>
                             <a class="nav-link" href="/ListaRecetas">
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
@@ -73,8 +75,8 @@
                    		<a class="btn btn-success btn-cabecera"  href="#!" th:href="@{/Receta}"><i>Nueva Receta</i></a>
                    		</div> <!-- Cierro container-xxl -->
                    		<div class="container-xxl">
-						<div class="col-md-offset-2 col-md-10">
-						<table class="table table-striped">
+						<div class="col-md-offset-2 col-md-10 card-body">
+						<table class="table table-striped" id="datatablesSimple">
 						<thead>
 						<tr>
 							<th>Nombre</th>
@@ -82,6 +84,13 @@
 							<th class="h3">Acciones</th>
 						</tr>						
 						</thead>
+						<tfoot>
+						<tr>
+							<th>Nombre</th>
+							<th>Caducidad</th>
+							<th class="h3">Acciones</th>
+						</tr>						
+						</tfoot>
 						<tbody>
 						<tr th:each="receta : ${recetas}">
 							<td th:text="${receta.nombrereceta}">Nombre</td>
@@ -154,7 +163,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="/js/scripts.js"></script>
-   <script src="../../static/js/ListaRecetas.js" th:src="@{/js/ListaRecetas.js}"></script>
+   	<script src="../../static/js/ListaRecetas.js" th:src="@{/js/ListaRecetas.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+	<script src="/js/datatables-simple.js"></script>
 
 </body>
 

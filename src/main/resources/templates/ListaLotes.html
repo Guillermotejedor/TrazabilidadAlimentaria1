@@ -15,7 +15,7 @@
             <a class="navbar-brand ps-3" href="/index">Trazabilidad Alimentaria</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
-            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0" th:action="@{/logout}" method="post">
                 <div class="input-group">
                     <span class="text-white mx-2" sec:authentication="name"></span>
                     <button class="btn btn-success my-2 my-sm-0" type="submit">Salir</button>
@@ -29,8 +29,9 @@
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav">
+                        <div sec:authorize="hasRole('ROLE_ADMIN')">
                             <div class="sb-sidenav-menu-heading">Administración</div>
-                            <a class="nav-link" href="index.html">
+                            <a class="nav-link" href="/AdministracionUsuario">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Administrar Usuarios
                             </a>
@@ -38,6 +39,7 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Productos Primarios
                             </a>
+                         </div>
                             <div class="sb-sidenav-menu-heading">Servicios</div>
                             <a class="nav-link" href="/ListaRecetas">
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
@@ -65,11 +67,11 @@
                    		<h1>Lotes Elaborados</h1>
                    		<div class="container-xxl">
                    		<a class="btn btn-success btn-cabecera"  href="#!" th:href="@{/Receta}"><i>Exportar a Excel</i></a>
-                   		<a class="btn btn-success btn-cabecera"  href="#!" th:href="@{/Receta}"><i>Historico</i></a>
+                   		<a class="btn btn-success btn-cabecera"  href="#!" th:href="@{/HistoricoLotes}"><i>Historico</i></a>
                    		</div> <!-- Cierro container-xxl -->
                    		<div class="container-xxl">
-						<div class="col-md-offset-2 col-md-10">
-						<table class="table table-striped">
+						<div class="col-md-offset-2 col-md-10 card-body">
+						<table class="table table-striped" id="datatablesSimple">
 						<thead>
 						<tr>
 							<th>Nombre</th>
@@ -79,14 +81,24 @@
 							<th>Acciones</th>
 						</tr>						
 						</thead>
+						<tfoot>
+							<tr>
+							<th>Nombre</th>
+							<th>Lote</th>
+							<th>Caducidad</th>
+							<th>Cantidad</th>
+							<th>Acciones</th>
+						</tr>
+						</tfoot>
 						<tbody>
 						<tr th:each="lote : ${lotes}">
 							<td th:text="${lote.nombrereceta}">Nombre</td>
 							<td th:text="${lote.lote}">Lote</td>
 							<td th:text="${lote.fechcaducidad}">Caducidad</td>
-							<td th:text="${lote.cantidad}">Cantidad</td>
-							<td><a href="#" th:href="@{/lote/{lote}(lote=${lote.lote})}" class="btn btn-success">Abrir</a>
-							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#distribuir-modal" th:data-id="${lote.lote}" th:data-nombre="${lote.nombrereceta}">Distribuir</button>
+							<td th:text="${lote.cantidadproducida-lote.cantidaddistribuida}">Cantidad</td>
+							<td><a href="#" th:href="@{/lote/1/{lote}(lote=${lote.lote})}" class="btn btn-success">Abrir</a>
+							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#distribuir-modal" th:data-id="${lote.lote}" 
+							 th:data-nombre="${lote.nombrereceta}" th:data-cantidad="${lote.cantidadproducida-lote.cantidaddistribuida}">Distribuir</button>
 							</td>
 						</tr>
 						</tbody>
@@ -124,6 +136,7 @@
 							<label for="destinatario-name" class="col-form-label">Destinatario:</label>
            					<input type="text" class="form-control" id="destinatario" >
          				</div>
+         				<input type="hidden" id="cantidad">
                     </form>
       			</div>
       			<div class="modal-footer">
@@ -141,6 +154,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="/js/ListaLotes.js"></script>
 <script src="/js/scripts.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+<script src="/js/datatables-simple.js"></script>
+
 </body>
 
 </html>

@@ -24,5 +24,9 @@ public class LoteServicios {
 	public Lote LotePorLote(String lote) {
 		return repositorio.findByLote(lote);
 	}
+	
+	public List<Lote> LotesPorIdreceta(long idreceta){
+		return repositorio.findByIdreceta(idreceta);
+	}
 
 }

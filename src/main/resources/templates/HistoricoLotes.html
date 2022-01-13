@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="https://www.thymeleaf.org">
 <head>
-		<meta charset="utf-8">
-		<title>Historico Productos Primarios</title>
+<meta charset="utf-8">
+		<title>Historico lotes</title>
 		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"/>
  		<link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
         <link href="/css/styles.css" rel="stylesheet" />
@@ -12,7 +12,7 @@
 <body>
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="/ListaProductosPrimarios">Productos Primarios</a>
+            <a class="navbar-brand ps-3" href="/ListaLotes">Elaborados</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0" th:action="@{/logout}" method="post">
@@ -23,84 +23,74 @@
             </form>
             <!-- Navbar-->
 
-        </nav>
-
-          <div id="layoutSidenav">
+ </nav>
+     <div id="layoutSidenav">
             <div id="layoutSidenav_nav">
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav">
-                            <div class="sb-sidenav-menu-heading">Productos</div>
-                            <ol>
-							  <li th:each="producto : ${productos}"  >
-							     <a class="nav-link" href="#"  th:href="@{/HistoricoProductoPrimario/{id}(id=${producto.id})}">
-                                <span th:text="${producto.nombreprimario}" > Prueba</span>	
-                                </a>							  
-							  </li>						
-							</ol>
-					</div> <!-- Cierro class=nav -->
+                    	    <div class="sb-sidenav-menu-heading">Recetas</div>
+						    <div th:each="receta,stat : ${recetas}">
+                            <a class="nav-link collapsed" href="#" th:href="@{/HistoricoLote/{receta}(receta=${receta.idreceta})}">
+                                <span th:text="${receta.nombrereceta}"></span>
+                            </a>                        
+                            </div> <!-- th:each recetas -->
+                        </div> <!-- Cierro class=nav -->
                     <div class="sb-sidenav-footer">
                         <div class="small">Creado por:</div>
                         GTR
                     </div> <!-- Cierro footer -->
                 </nav>
-    </div> <!-- layoutSidenav_nav -->
-  
-     <div id="layoutSidenav_content">
-                <main>
+            </div> <!-- layoutSidenav_nav -->
+             <div id="layoutSidenav_content">
+             <main>
                     <div class="container-fluid px-4">
-                   		<h1>Historico Productos Primarios</h1>
-                   		<div class="navbar-form navbar-right">
-                   		<a class="btn btn-primary btn-cabecera-buscar"  href="#!" th:onclick="buscar()"><i>Buscar</i></a>
-                   		<input type="text"  class="btn-cabecera-buscar" id="buscar" sice=20 placeholder="Nombre Producto">
-                   		</div> <!-- Cierro container-xxl -->
+                   		<h1><span th:text="${receta}"></span></h1>
+                   		
                    		<div class="container-xxl">
-                   		<h3><samp th:text="${producto}">Producto</samp></h3>
-						<div class="col-md-offset-2 col-md-10">
+						<div class="col-md-offset-2 col-md-10 card-body">
 						<table class="table table-striped" id="datatablesSimple">
 						<thead>
 						<tr>
-							<th>Fecha Ejecucion</th>
-							<th>Tipo Movimiento</th>
+							
+							<th>Lote</th>
+							<th>Fecha Elaboración</th>
+							<th>Caducidad</th>
 							<th>Cantidad</th>
-							<th>Accion</th>
+							<th>Acciones</th>
 						</tr>						
 						</thead>
 						<tfoot>
-						<tr>
-							<th>Fecha Ejecucion</th>
-							<th>Tipo Movimiento</th>
+							<tr>
+							<th>Lote</th>
+							<th>Fecha Elaboración</th>
+							<th>Caducidad</th>
 							<th>Cantidad</th>
-							<th>Accion</th>
-						</tr>						
+							<th>Acciones</th>
+						</tr>
 						</tfoot>
 						<tbody>
-						<tr th:each="movimiento : ${movimientos}">
-							<td th:text="${movimiento.fech_ejecucion}">Fecha</td>
-							<td th:text="${movimiento.tipo_modificacion}">Movimiento</td>
-							<td th:text="${movimiento.cantidad}">1</td>
-							<td><a href="#" th:href="@{/MovimientoProductoPrimario/{id}(id=${movimiento.id})}" class="btn btn-warning">Abrir</a></td>			
+						<tr th:each="lote : ${lotes}">
+							
+							<td th:text="${lote.lote}">Lote</td>
+							<td th:text="${lote.fechelaboracion}">Fecha Elaboración</td>
+							<td th:text="${lote.fechcaducidad}">Caducidad</td>
+							<td th:text="${lote.cantidadproducida}">Cantidad</td>
+							<td><a href="#" th:href="@{/lote/0/{lote}(lote=${lote.lote})}" class="btn btn-success">Abrir</a>
+							
+							</td>
 						</tr>
 						</tbody>
 						</table>
 						</div> <!-- col-md-offset-2 col-md-8 -->
 						</div> <!-- container-xxl -->
-                   		
-                   		
                     </div> <!-- container-fluid px-4 -->
 
                 </main>
-
-</div> <!-- layoutSidenav_content -->
-              
-</div> <!-- layoutSidenav--> 
-    
-
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+             </div>
+    </div>
     <script src="/js/scripts.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-	<script src="/js/datatables-simple.js"></script>    
- 	<script src="/js/HistoricoProducto.js"></script>
- </body>
+	<script src="/js/datatables-simple.js"></script>
+</body>
 </html>
