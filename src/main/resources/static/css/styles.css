@@ -41,6 +41,7 @@
   --bs-danger: #dc3545;
   --bs-light: #f8f9fa;
   --bs-dark: #212529;
+  --bs-login-rgb: 150, 0, 110;
   --bs-primary-rgb: 13, 110, 253;
   --bs-secondary-rgb: 108, 117, 125;
   --bs-success-rgb: 25, 135, 84;
@@ -7823,6 +7824,10 @@ textarea.form-control-lg {
   --bs-text-opacity: 1;
 }
 
+.bg-login {
+  --bs-bg-opacity: 1;
+  background-color: rgba(var(--bs-login-rgb), var(--bs-bg-opacity)) !important;
+}
 .bg-primary {
   --bs-bg-opacity: 1;
   background-color: rgba(var(--bs-primary-rgb), var(--bs-bg-opacity)) !important;

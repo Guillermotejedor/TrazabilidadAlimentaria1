@@ -80,4 +80,21 @@ public class ControladorLotes {
 		return "HistoricoLotes";
 	}
 	
+	@GetMapping("/BuscarHistoricoLote/{receta}")
+	public String BuscarHistoricoLote(Model model,@PathVariable String receta) {
+		List<Receta> recetas= recetaservicios.TodasRecetas();
+		List<Lote> lotes=loteservicios.LotesPorNombreReceta(receta);
+		if(lotes.isEmpty()) {
+			String recetamostrar="No se ha encontrado ninguna receta";
+			model.addAttribute("receta", recetamostrar);
+		}else {
+			String recetamostrar=lotes.get(0).getNombrereceta();
+			model.addAttribute("receta", recetamostrar);	
+		}
+		
+		model.addAttribute("lotes", lotes);
+		model.addAttribute("recetas",recetas);
+		return "HistoricoLotes";
+	}
+	
 }

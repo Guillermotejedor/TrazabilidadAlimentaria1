@@ -67,7 +67,7 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                   		<h1>Recetas</h1>
+                   		<h1>Recetas Desactivadas</h1>
                    		<div th:each="mensaje:${mensajeerror}" class="has-error">
                    		<h4><samp th:text="${mensaje}">Mensaje</samp></h4>
                    		</div>
@@ -93,7 +93,7 @@
 						<tr th:each="receta : ${recetas}">
 							<td th:text="${receta.nombrereceta}">Nombre</td>
 							<td th:text="${receta.caducidad}">Caducidad</td>
-							<td><a href="#" th:href="@{/ActivarReceta/{id}(id=${receta.idreceta})}" class="btn btn-success">Actualizar</a>
+							<td><a href="#" th:href="@{/ActivarReceta/{id}(id=${receta.idreceta})}" class="btn btn-success">Activar</a>
 							</td>
 						</tr>
 						</tbody>

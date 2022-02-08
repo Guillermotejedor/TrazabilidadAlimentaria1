@@ -19,7 +19,9 @@ $(document).ready(function() {
 		
 		 var patron =  /^[0-9]*(\.?)[0-9]+$/;
     	if (patron.test(document.getElementById("distribuircantidad").value) && document.getElementById("tipomovimiento").value !="-1" && document.getElementById("destinatario").value !=""){
-    		if(document.getElementById("cantidad").value>=document.getElementById("distribuircantidad").value){
+    		var cantidad=parseInt(document.getElementById("cantidad").value,10);
+    		var distribuir=parseInt(document.getElementById("distribuircantidad").value,10);
+    		if(cantidad>=distribuir){
 	    		var lote= document.getElementById("lote").value; 
 	    		var cantidad=document.getElementById("distribuircantidad").value;
 	    		var tipomovimiento=document.getElementById("tipomovimiento").value;

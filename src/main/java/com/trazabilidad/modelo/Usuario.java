@@ -4,6 +4,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Usuario {
@@ -11,12 +14,19 @@ public class Usuario {
 	@GeneratedValue
 	private long id;
 	@Column(unique=true)
+	@NotNull
+	@Size(min=4,message="Especifique el User del User")
 	private String user;
+	//@NotNull
+	//@Size(min=8,message="Especifique la password del User. Minimo 8 caracteres")
 	private String password;
+	@NotNull
+	@Size(min=2,message="Especifique el nombre del User")
 	private String nombre;
 	private String apellido1;
 	private String apellido2;
-	private String roll;
+	private String rol;
+	@Email(message="Dirección de Email no validad")
 	private String email;
 
 	private boolean enable;
@@ -32,7 +42,7 @@ public class Usuario {
 		this.nombre = nombre;
 		this.apellido1 = apellido1;
 		this.apellido2 = apellido2;
-		this.roll = roll;
+		this.rol = roll;
 		this.email = email;
 	}
 	
@@ -77,11 +87,11 @@ public class Usuario {
 	public void setApellido2(String apellido2) {
 		this.apellido2 = apellido2;
 	}
-	public String getRoll() {
-		return roll;
+	public String getRol() {
+		return rol;
 	}
-	public void setRoll(String roll) {
-		this.roll = roll;
+	public void setRol(String roll) {
+		this.rol = roll;
 	}
 	public String getEmail() {
 		return email;

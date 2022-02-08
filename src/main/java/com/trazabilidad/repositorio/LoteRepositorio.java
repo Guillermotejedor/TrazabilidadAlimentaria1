@@ -10,6 +10,7 @@ import com.trazabilidad.modelo.Lote;
 public interface LoteRepositorio extends JpaRepository<Lote, String>{
 	
 	Lote findByLote(String lote);
+	List<Lote> findByNombrereceta(String nombrereceta);
 	@Query("select l from Lote l where l.cantidadproducida != l.cantidaddistribuida")
 	List<Lote> findLotesActivos();
 	

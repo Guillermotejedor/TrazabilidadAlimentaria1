@@ -29,10 +29,7 @@ public class ControladorProductosPrimarios {
 	@Autowired
 	MovimientoPrimarioServicios movimientoservicios;
 	
-	@GetMapping("/Modal")
-	public String modal() {
-		return "Modal2";
-	}
+	
 
 	//Nuevo producto
 	@GetMapping("/ProductoPrimario")

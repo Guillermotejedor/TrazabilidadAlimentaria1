@@ -1,5 +1,7 @@
 package com.trazabilidad.servicios;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -33,7 +35,19 @@ public class UsuarioServicios {
 		return usuariorepositorio.findFirstByEmail(email);
 	}
 	
-	public void ResetPassword(String pass,String user) {
-		usuariorepositorio.updatepassword(passwordencoder.encode(pass), user);
+	public void ResetPassword(String pass,String email) {
+		usuariorepositorio.updatepassword(passwordencoder.encode(pass), email);
+	}
+	
+	public List<Usuario> TodosUsuarios(){
+		return usuariorepositorio.alluser();
+	}
+	
+	public void EliminarUsuario(Usuario usuario) {
+		usuariorepositorio.delete(usuario);
+	}
+	
+	public void ActualizarUsuario(String rol,String email,String user) {
+		usuariorepositorio.updateUsuario(rol, email, user);
 	}
 }

@@ -34,7 +34,7 @@
                             <ol>
 							  <li th:each="producto : ${productos}"  >
 							     <a class="nav-link" href="#"  th:href="@{/HistoricoProductoPrimario/{id}(id=${producto.id})}">
-                                <span th:text="${producto.nombreprimario}" > Prueba</span>	
+                                <span th:text="${producto.nombreprimario}" > Producto</span>	
                                 </a>							  
 							  </li>						
 							</ol>
@@ -49,11 +49,11 @@
      <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                   		<h1>Historico Productos Primarios</h1>
+                   		<h1>Histórico Productos Primarios</h1>
                    		<div class="navbar-form navbar-right">
-                   		<a class="btn btn-primary btn-cabecera-buscar"  href="#!" th:onclick="buscar()"><i>Buscar</i></a>
-                   		<input type="text"  class="btn-cabecera-buscar" id="buscar" sice=20 placeholder="Nombre Producto">
-                   		</div> <!-- Cierro container-xxl -->
+                   			<a class="btn btn-primary btn-cabecera-buscar"  href="#!" th:onclick="buscar()"><i>Buscar</i></a>
+                   			<input type="text"  class="btn-cabecera-buscar" id="buscar" sice=20 placeholder="Nombre Producto">
+                   		</div> <!-- Cierro navbar -->
                    		<div class="container-xxl">
                    		<h3><samp th:text="${producto}">Producto</samp></h3>
 						<div class="col-md-offset-2 col-md-10">

@@ -10,7 +10,7 @@
         <link href="/css/styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
     </head>
-    <body class="bg-primary">
+    <body class="bg-login">
         <div id="layoutAuthentication">
             <div id="layoutAuthentication_content">
                 <main>
@@ -24,7 +24,7 @@
                                             <div class="card-header has-error" th:if="${param.error}"><h4>Login incorrecto</h4></div>
                                             <div class="form-floating mb-3">
                                                 <input class="form-control" id="username" name="username" type="text" placeholder="Usuario" />
-                                                <label for="inputEmail">User</label>
+                                                <label for="inputEmail">Usuario</label>
                                             </div>
                                             <div class="form-floating mb-3">
                                                 <input class="form-control" id="password" name="password" type="password" placeholder="Password" />
@@ -32,7 +32,7 @@
                                             </div>
 											<div class="card-header"  th:if="${param.logout}"><h4>Gracias por utilizarme</h4></div>
                                             <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                                                <a class="small" href="#" th:href="@{/RecuperarPassword}">Forgot Password?</a>
+                                                <a class="small" href="#" th:href="@{/RecuperarPassword}">Olvide la Password?</a>
                                                 <button type="submit" class="btn btn-primary">Login</button>
                                             </div>
                                         </form>

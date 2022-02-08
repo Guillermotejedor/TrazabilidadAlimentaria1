@@ -71,8 +71,10 @@
                    		<h4><samp th:text="${mensaje}">Mensaje</samp></h4>
                    		</div>
                    		<div class="container-xxl">
-                   		<a class="btn btn-success btn-cabecera"  href="#!" th:href="@{/RecetaDesactivadas}"><i>Activar Receta</i></a>
-                   		<a class="btn btn-success btn-cabecera"  href="#!" th:href="@{/Receta}"><i>Nueva Receta</i></a>
+                   			<a class="btn btn-success btn-cabecera"  href="#!" th:href="@{/RecetaDesactivadas}"><i>Activar Receta</i></a>
+                   			<span sec:authorize="hasRole('ROLE_ADMIN')">
+                   				<a class="btn btn-success btn-cabecera"  href="#!" th:href="@{/Receta}"><i>Nueva Receta</i></a>
+                   			</span>
                    		</div> <!-- Cierro container-xxl -->
                    		<div class="container-xxl">
 						<div class="col-md-offset-2 col-md-10 card-body">
@@ -95,9 +97,16 @@
 						<tr th:each="receta : ${recetas}">
 							<td th:text="${receta.nombrereceta}">Nombre</td>
 							<td th:text="${receta.caducidad}">Caducidad</td>
-							<td><a href="#" th:href="@{/Receta/{id}(id=${receta.idreceta})}" class="btn btn-success">Actualizar</a>
+							<td>
+							<samp sec:authorize="hasRole('ROLE_ADMIN')">
+								<a href="#" th:href="@{/Receta/{id}(id=${receta.idreceta})}" class="btn btn-success">Modificar</a>
+							</samp>
 							<a data-toggle="modal" data-target="#delete-modal" th:id="${receta.idreceta}" th:data-id="${receta.idreceta}" th:data-nombre="${receta.nombrereceta}" class="btn btn-danger" >Desactivar</a>
-							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ejecutar-modal" th:data-id="${receta.idreceta}" th:data-nombre="${receta.nombrereceta}">Ejecutar</button>
+							<samp th:each="producto : ${productos}" th:if="${receta.productobase == producto.id}">
+								 <button  type="button" class="btn btn-primary" data-toggle="modal" data-target="#ejecutar-modal" th:data-id="${receta.idreceta}" th:data-nombre="${receta.nombrereceta}" th:data-productobase="${producto.nombreprimario}">Ejecutar</button>
+							</samp>
+							
+							
 							</td>
 						</tr>
 						</tbody>
@@ -145,7 +154,7 @@
       			 <div class="modal-body">
        				 <form>
          				 <div class="form-group">
-           					 <label for="recipient-name" class="col-form-label">Cantidad de produto base:</label>
+           					 <label for="recipient-name" class="col-form-label" id="labelcantidad">Cantidad de produto base:</label>
            					 <input type="number" class="form-control" id="cantidadejecutar" pattern="[0-9]+" >
          				</div>
                     </form>

@@ -27,7 +27,7 @@ public class UsuarioDetalleServicio implements UserDetailsService{
 				builder=User.withUsername(username);
 				builder.disabled(false);
 				builder.password(usuario.getPassword());
-				builder.authorities(new SimpleGrantedAuthority("ROLE_"+usuario.getRoll()));
+				builder.authorities(new SimpleGrantedAuthority("ROLE_"+usuario.getRol()));
 			}else {
 				throw new UsernameNotFoundException("Usuario no encontrado");
 			}

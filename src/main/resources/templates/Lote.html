@@ -31,47 +31,44 @@
        			
        				<form role="form" id="form-lote" method="post" action="#" th:object="${lote}">
        						<input type="hidden" id="idreceta" th:field="*{idreceta}"/>
+       						 <!-- <div class="form-row my-3"> -->
        						<!-- Text input-->
 							<div class="form-group" >
-							  <label class="col-md-4 control-label" for="textinput">Receta</label>  
-							  <div class="col-md-4">
-							  <span class="form-control"  th:attrappend="readonly='readonly'" th:text="${receta}">Receta</span>
-							  </div>
+							  <label class="col-md-15 control-label" for="textinput">Receta</label>  
+							  <span class="col-md-15 form-control"  th:attrappend="readonly='readonly'" th:text="${receta}">Receta</span>
+							
 							</div>
 							
        						<!-- Text input-->
 							<div class="form-group" >
-							  <label class="col-md-4 control-label" for="textinput">Lote</label>  
-							  <div class="col-md-4">
-							  <input id="lote" name="lote" type="text" class="form-control input-md" th:field="*{lote}" th:attrappend="readonly='readonly'">
-							  </div>
-							</div>
-							
+							  <label class="col-md-20 control-label" for="textinput">Lote</label>  
+							  <input id="lote" name="lote" type="text" class="col-md-20 form-control input-md" th:field="*{lote}" th:attrappend="readonly='readonly'">
+							 </div>
+							<!-- </div>   form-row my-3 -->
+							 <div class="form-row ">
 							<!-- Text input-->
 							<div class="form-group">
-							  <label class="col-md-4 control-label" for="nombre">Fecha elaboracion</label>  
-							  <div class="col-md-4">
-							  <input id="fechelaboracion" name="fechelaboracion" type="text"  class="form-control input-md" th:field="*{fechelaboracion}"  th:attrappend="readonly='readonly'">
-							  
-							  </div>
-							</div>					
+							  <label class="col-md-10 control-label" for="nombre">Fecha elaboracion</label>  
+							  <input id="fechelaboracion" name="fechelaboracion" type="text"  class="col-md-10 form-control input-md" th:field="*{fechelaboracion}"  th:attrappend="readonly='readonly'">
+							  </div>					
 							<!-- Text input-->
 							<div class="form-group">
-							  <label class="col-md-4 control-label" for="nombre">Fecha caducidad</label>  
-							  <div class="col-md-4">
-							  <input id="fechcaducidad" name="fechcaducidad" type="text"  class="form-control input-md" th:field="*{fechcaducidad}"  th:attrappend="readonly='readonly'">
-							  
-							  </div>
+							  <label class="col-md-10 control-label" for="nombre">Fecha caducidad</label>  
+							  <input id="fechcaducidad" name="fechcaducidad" type="text"  class="col-md-10 form-control input-md" th:field="*{fechcaducidad}"  th:attrappend="readonly='readonly'">
 							</div>
+							</div> <!--  form-row my-3 -->
+							 <div class="form-row">
 							<!-- Text input-->
 							<div class="form-group">
-							  <label class="col-md-4 control-label" for="nombre">Cantidad</label>  
-							  <div class="col-md-4">
-							  <input id="cantidad" name="cantidad" type="text"  class="form-control input-md" th:field="*{cantidadproducida}"  th:attrappend="readonly='readonly'">
-							  
-							  </div>
+							  <label class="col-md-10 control-label" for="nombre">Cantidad producida</label>  
+							  <input id="cantidad" name="cantidad" type="text"  class="col-md-10 form-control input-md" th:field="*{cantidadproducida}"  th:attrappend="readonly='readonly'">
 							</div>
-								
+								<!-- Text input-->
+							<div class="form-group">
+							  <label class="col-md-10 control-label" for="nombre">Cantidad distribuida</label>  
+							  <input id="cantidaddistribuida" name="cantidaddistribuida" type="text"  class="col-md-10 form-control input-md" th:field="*{cantidaddistribuida}"  th:attrappend="readonly='readonly'">
+							</div>	
+						</div> <!--  form-row my-3 -->
        				<div th:each="componente,stat : ${lote.ingredientes}">
 								<div class="panel panel-default">
 									<div class="panel-heading">

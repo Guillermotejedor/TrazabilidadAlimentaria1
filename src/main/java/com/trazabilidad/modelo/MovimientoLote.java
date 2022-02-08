@@ -40,7 +40,7 @@ public class MovimientoLote implements Serializable {
 	private LocalDate fechamovimiento;
 	
 	@ManyToMany
-	@JoinTable(name = "rel_lotes_primarias",joinColumns=
+	@JoinTable(name = "rel_lotes_primarios",joinColumns=
 			{@JoinColumn(name="Lote",referencedColumnName = "Lote")},
 			inverseJoinColumns={@JoinColumn(name="Id_Primarias",referencedColumnName = "Id_Primarias")})
 	

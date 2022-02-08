@@ -8,7 +8,7 @@ import javax.persistence.Table;
 import com.trazabilidad.primarykey.PrimaryKeyRelLotePrimario;
 
 @Entity
-@Table(name="rel_lotes_primarias")
+@Table(name="rel_lotes_primarios", schema = "PUBLIC")
 public class RelacionLotePrimario {
 	
 	@EmbeddedId

@@ -15,11 +15,13 @@ $(document).ready(function() {
   			var button = $(event.relatedTarget); // Button that triggered the modal  		
   			var id_receta = button.data('id'); // Extract info from data-* attributes
  			var nombre_receta = button.data('nombre');
+ 			var productobase= button.data('productobase');
+ 			document.getElementById('labelcantidad').innerHTML ="Cantidad de "+productobase;
  			document.getElementById("id_receta").value=id_receta;
  		 	var modal = $(this);
  		 	modal.find('.modal-title').text('Receta a ejecutar: ' + nombre_receta);
-  			//modal.find('.modal-body input').val(recipient);
-			});
+ 		 	
+  			});
 		});
 		//Aceptar ejecutar receta
 		function aceptar(){

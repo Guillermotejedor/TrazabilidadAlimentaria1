@@ -16,9 +16,12 @@ import com.trazabilidad.modelo.Lote;
 import com.trazabilidad.servicios.LoteServicios;
 import com.trazabilidad.servicios.ProductosPrimariosServicios;
 import com.trazabilidad.servicios.RecetaServicios;
+import com.trazabilidad.servicios.UsuarioServicios;
 
 @Controller
 public class ControladorPrincipal {
+	@Autowired
+	UsuarioServicios  usuarioservicios;
 	
 	@Autowired
 	ProductosPrimariosServicios productosservicios;
@@ -41,6 +44,8 @@ public class ControladorPrincipal {
 	
 	@GetMapping("/AdministracionUsuario")
 	public String AdministracionUsuario(Model model) {
+		List<Usuario> usuarios=usuarioservicios.TodosUsuarios();
+		model.addAttribute("usuarios", usuarios);
 		return "admin/AdministracionUsuario";
 	}
 	
@@ -57,6 +62,8 @@ public class ControladorPrincipal {
 	@GetMapping("/ListaRecetas")
 	public String Receta(Model model) {
 		List<Receta> recetas=recetaservicios.RecetasActivadas();
+		List<ProductoPrimario> productos=productosservicios.ProductosPrimariosActivados();
+		model.addAttribute("productos", productos);
 		model.addAttribute("recetas", recetas);
 		model.addAttribute("mensajeerror", "");
 		return "ListaRecetas";
