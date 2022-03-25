@@ -1,5 +1,7 @@
 package com.trazabilidad.servicios;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,5 +22,7 @@ public class MovimientoLoteServicios {
 		return repositorio.findByIdmovimientol(idmovimientol);
 	}
 	
-
+	public List<MovimientoLote> MovimientoPorLote(String lote){
+		return repositorio.findBylote(lote);
+	}
 }

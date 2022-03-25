@@ -10,7 +10,7 @@
 <title>Receta</title>
 </head>
 <body>
-		<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+		<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark fijar-menu">
             
             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0" th:action="@{/logout}" method="post">
                 <div class="input-group float-right">
@@ -24,7 +24,7 @@
         
          <div class="container">
 
-      <div class="starter-template">
+      <div class="container my-5">
         <h1 th:text="${receta.idreceta !=0}? 'Editar Receta':'Nueva Receta'">Nueva Receta</h1>
        		<div class="row">
        			<div class="col-md-offset-2 col-md-8">
@@ -37,8 +37,8 @@
 							  <label class="col-md-4 control-label" for="textinput">Nombre Receta</label>  
 							  <div class="col-md-4">
 							  <input id="nombrereceta" name="nombrereceta" type="text" placeholder="Nombre receta" class="form-control input-md" th:field="*{nombrereceta}" th:attrappend="readonly=${receta.idreceta !=0}? 'readonly':null">
-							  <span th:if="${#fields.hasErrors('nombrereceta')}" th:errors="*{nombrereceta}" class="help-block" id="id-error">Errores</span>  
 							  </div>
+							  <span th:if="${#fields.hasErrors('nombrereceta')}" th:errors="*{nombrereceta}" class="help-block" id="id-error">Errores</span>
 							</div>
 							
 							<!-- Text input-->
@@ -46,8 +46,8 @@
 							  <label class="col-md-4 control-label" for="nombre">Caducidad</label>  
 							  <div class="col-md-4">
 							  <input id="caducidad" name="caducidad" type="text" placeholder="Caducidad" class="form-control input-md" th:field="*{caducidad}">
-							   <span th:if="${#fields.hasErrors('caducidad')}" th:errors="*{caducidad}" class="help-block" id="id-error">Errores</span> 
 							  </div>
+							  <span th:if="${#fields.hasErrors('caducidad')}" th:errors="*{caducidad}" class="help-block" id="id-error">Errores</span>
 							</div>					
 							
 						<fieldset  class="border p-2"> <!--Añadir ingrediente --> 
@@ -90,7 +90,7 @@
 									<div class="panel-heading">
 										Ingrediente y Cantidad  nº <span th:text="${stat.count}"></span>
 										<button type="button" class="close" aria-label="Close"
-											name="eliminarOferta" th:value="${stat.index}"
+											name="eliminarIngrediente" th:value="${stat.index}"
 											th:onclick="|javascript:remove_element(${stat.index},${receta.cantidadingrediente[__${stat.index}__].primaryKeyRelRecetasPrimarios.idprimarias})|">
 											<span aria-hidden="true">×</span>
 										</button>
@@ -121,8 +121,7 @@
 							<!-- Ingrediente base -->
 							<div class="form-group">
 							<div th:classappend="${#fields.hasErrors('productobase')}? 'has-error'">
-							<span th:if="${#fields.hasErrors('productobase')}" th:errors="*{productobase}" class="help-block" id="id-error">Errores</span>
-				            <label>Ingrediente base</label>
+							<label class="col-md-4 control-label">Ingrediente base</label>
 				               <div class="custom-control custom-control-inline">				                	
 				                	<select id="productobase" name="productobase" th:field="*{productobase}" >
 				                	<option  th:value="0" 
@@ -132,6 +131,8 @@
 									          th:text="${componentebase.nombreprimario}">Wireframe</option>
 									</select>	                    
 				                </div>
+				                <br>
+				                <span th:if="${#fields.hasErrors('productobase')}" th:errors="*{productobase}" class="help-block" id="id-error">Errores</span>
 				                </div><!-- hasErros -->
 				        </div>
 					</fieldset> <!-- Ingredientes añadidos -->

@@ -57,35 +57,27 @@
 							  <div class="col-xs-2"><input type="text" class="form-control" th:field="${movimiento.cantidad}"></div>
 						
 							</div>
-							<span class="input-group-text">Componentes del lote</span>
-							<div th:each="componente,stat : ${movimiento.productores}">
-								<div class="panel panel-default">
-									<div class="panel-heading">
-										Ingrediente, Empresa y Registro Sanitario  nº <span th:text="${stat.count}"></span>
-										
-									</div> <!-- panel-heading -->
-									<div class="form-inline bg-secondary">
-											<input class="form-control bg-secondary text-white inp-border" 
-												type="text" th:attrappend="readonly='readonly'"
-												th:field="${movimiento.productores[__${stat.index}__].nombreprimario}" 
-												/>
-										<div class="col-md-5">
-											<input class="form-control bg-secondary text-white inp-border"
-													th:field="${movimiento.productores[__${stat.index}__].empresa}"
-													type="text" th:attrappend="readonly='readonly'" />
-											
-											</div>
-											<div class="col-md-2">
-												<input class="form-control bg-secondary text-white inp-border"
-													th:field="${movimiento.productores[__${stat.index}__].reg_sanitario}"
-													type="text" />
-
-											</div>
-										
-									</div><!-- panel-body -->
-								</div><!-- panel default -->
-							
-							</div><!-- th:each -->
+							<div class="row">
+							<span class="col-md-15 input-group-text">Componentes del lote</span>
+							</div>
+								<table class="table table-striped" id="datatablesSimple">
+						<thead>
+						<tr>
+							<th>Nº</th>
+							<th>Ingrediente</th>
+							<th>Empresa</th>
+							<th>Reg.Sanitario</th>
+						</tr>						
+						</thead>
+						<tbody>
+						<tr th:each="componente,stat : ${movimiento.productores}">
+							<td th:text="${stat.count}">Nº</td>
+							<td th:text="${movimiento.productores[__${stat.index}__].nombreprimario}">Ingrediente</td>
+							<td th:text="${movimiento.productores[__${stat.index}__].empresa}">Empresa</td>
+							<td th:text="${movimiento.productores[__${stat.index}__].reg_sanitario}">Reg.Sanitario</td>
+						</tr>
+						</tbody>
+						</table>
 							<!-- Button -->
 							<br>
 							<div class="btn-toolbar">

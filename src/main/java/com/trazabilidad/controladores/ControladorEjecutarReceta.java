@@ -115,6 +115,8 @@ public class ControladorEjecutarReceta {
 			if(!mensaje.isEmpty())
 				mensaje.add("No se ha podido ejecutar la receta");
 			List<Receta> recetas=recetaservicios.RecetasActivadas();
+			List<ProductoPrimario> productos=productoservicios.ProductosPrimariosActivados();
+			model.addAttribute("productos", productos);
 			model.addAttribute("recetas", recetas);
 			model.addAttribute("mensajeerror",mensaje);
 			return "ListaRecetas";

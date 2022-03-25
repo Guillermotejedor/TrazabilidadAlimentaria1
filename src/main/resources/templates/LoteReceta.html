@@ -10,7 +10,7 @@
 <title>Lote</title>
 </head>
 <body>
-		<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+		<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark fijar-menu">
             
             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0" th:action="@{/logout}" method="post">
                 <div class="input-group float-right">
@@ -24,7 +24,7 @@
         
            <div class="container">
 
-      <div class="starter-template">
+      <div class="container my-5">
         <h1 th:text="${ejecucion !=0}? 'Lote editado':'Lote ejecutado'">Nueva Lote</h1>
        		<div class="row">
        			<div class="col-md-offset-2 col-md-8">
@@ -32,41 +32,44 @@
        				<form role="form" id="form-lote" method="post" action="#" th:object="${lote}">
        						<input type="hidden" id="idreceta" th:field="*{idreceta}"/>
        						<!-- Text input-->
+							 <div class="form-row">
 							<div class="form-group" >
-							  <label class="col-md-4 control-label" for="textinput">Receta</label>  
-							  <div class="col-md-4">
-							  <span class="form-control"  th:attrappend="readonly='readonly'" th:text="${receta}">Receta</span>
+							  <label class="col-md-10 control-label" for="textinput">Receta</label>  
+							  <div class="col-md-10">
+							  <input class="form-control"  th:attrappend="readonly='readonly'" th:field="*{nombrereceta}">
 							  </div>
 							</div>
 							
        						<!-- Text input-->
 							<div class="form-group" >
-							  <label class="col-md-4 control-label" for="textinput">Lote</label>  
-							  <div class="col-md-4">
+							  <label class="col-md-10 control-label" for="textinput">Lote</label>  
+							  <div class="col-md-10">
 							  <input id="lote" name="lote" type="text" class="form-control input-md" th:field="*{lote}" th:attrappend="readonly='readonly'">
 							  </div>
 							</div>
-							
+							</div><!--  <div class="form-row"> -->
 							<!-- Text input-->
+							 <div class="form-row">
 							<div class="form-group">
-							  <label class="col-md-4 control-label" for="nombre">Fecha elaboracion</label>  
-							  <div class="col-md-4">
+							  <label class="col-md-10 control-label" for="nombre">Fecha elaboracion</label>  
+							  <div class="col-md-10">
 							  <input id="fechelaboracion" name="fechelaboracion" type="text"  class="form-control input-md" th:field="*{fechelaboracion}"  th:attrappend="readonly='readonly'">
 							  
 							  </div>
 							</div>					
 							<!-- Text input-->
 							<div class="form-group">
-							  <label class="col-md-4 control-label" for="nombre">Fecha caducidad</label>  
-							  <div class="col-md-4">
+							  <label class="col-md-10 control-label" for="nombre">Fecha caducidad</label>  
+							  <div class="col-md-10">
 							  <input id="fechcaducidad" name="fechcaducidad" type="text"  class="form-control input-md" th:field="*{fechcaducidad}"  th:attrappend="readonly='readonly'">
 							  
 							  </div>
 							</div>
+							</div> <!--  <div class="form-row"> -->
 							<!-- Text input-->
 							<div class="form-group">
-							  <label class="col-md-4 control-label" for="nombre">Cantidad</label>  
-							  <div class="col-md-4">
+							  <label class="col-md-3 control-label" for="nombre">Cantidad</label>  
+							  <div class="col-md-3">
 							  <input id="cantidad" name="cantidad" type="text"  class="form-control input-md" th:field="*{cantidadproducida}"  th:attrappend="readonly='readonly'">
 							  
 							  </div>

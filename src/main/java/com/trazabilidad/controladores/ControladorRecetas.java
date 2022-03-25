@@ -83,24 +83,30 @@ public class ControladorRecetas {
 			@RequestParam("idreceta") long idreceta, @RequestParam("idproducto") long idproducto, @RequestParam("cantidad") float cantidad,@RequestParam("nombre") String nombre) {
 		System.out.println("idreceta-->"+idreceta+" idproducto-->"+idproducto+" cantidad-->"+cantidad+"Receta nombre-->"+receta.getNombrereceta());
 		
-		
+		boolean repetido=false;
 		List<RelacionRecetaPrimario> añadidos=receta.getCantidadingrediente();
 		RelacionRecetaPrimario añadir=new RelacionRecetaPrimario(new PrimaryKeyRelRecetasPrimarios(idproducto,idreceta),cantidad,nombre);
-		if(añadidos.contains(añadir)) {
+		for(RelacionRecetaPrimario añadido:añadidos) {
+			if(nombre.equalsIgnoreCase(añadido.getNombreprimario()))
+				repetido=true;
+		}
+		if(repetido) {
 			model.addAttribute("mensaje", "Ingradiente ya añadido");
 		}else {
 			añadir.setNombreprimario(nombre);
 			System.out.println("añadir-->"+añadir.getNombreprimario());
 			receta.AñadirCantidadIngrediente(añadir);
-			List<RelacionRecetaPrimario> ver=receta.getCantidadingrediente();
+			
+			/*List<RelacionRecetaPrimario> ver=receta.getCantidadingrediente();
 			for(RelacionRecetaPrimario rela:ver) {
 				System.out.println("Valors de nom -->"+rela.getNombreprimario());
-			}
+			}*/
 		}
+		/*/
 		for(RelacionRecetaPrimario ver:añadidos) {
 			System.out.println("Valor de nombre -->"+ver.getNombreprimario()+" Camtidad -->"+ver.getCantidad());
 		}
-		
+		*/
 		model.addAttribute("productobase",receta.getProductobase());
 		model.addAttribute("ingredientesnom", productoservicios.ProductosPrimariosActivados());
 		model.addAttribute("ingredientes", productoservicios.ProductosPrimariosActivados());

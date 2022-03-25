@@ -17,7 +17,7 @@ public interface RecetaRepositorio extends JpaRepository<Receta,Long>{
 	List<Receta> findByActivadoFalse();
 	@Query("select distinct  r from Receta r join Lote l on r.idreceta=l.idreceta join MovimientoLote ml on l.lote=ml.lote ")
 	List<Receta> trazabilidadRecetas();
-	@Query("select r from Receta r")
+	@Query("select distinct r from Receta r join Lote l on r.idreceta=l.idreceta")
 	List<Receta> todasrecetas();
 	
 	@Modifying

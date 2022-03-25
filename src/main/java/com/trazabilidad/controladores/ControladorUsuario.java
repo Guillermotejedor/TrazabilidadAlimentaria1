@@ -29,7 +29,7 @@ public class ControladorUsuario {
 		return "/admin/Usuario";
 	}
 
-	@PostMapping({"/Usuario/new/Submit","/Usuario/edit/Submit"})
+	@PostMapping("/Usuario/new/Submit")
 	public String ProcesarUsuario(@Valid Usuario usuario,BindingResult validar,Model model) {
 				
 		if(validar.hasErrors()) {			
@@ -37,17 +37,29 @@ public class ControladorUsuario {
 		}else {
 			try {
 				
-				if(usuario.getId()==0)
+				//if(usuario.getId()==0)
+					System.out.println("ID-->"+usuario.getId());
 					usuarioservicios.registrar(usuario);
-				else
-					usuarioservicios.ActualizarUsuario(usuario.getRol(), usuario.getEmail(), usuario.getUser());
+					System.out.println("ID 1 -->"+usuario.getId());
+				//else
+				//	usuarioservicios.ActualizarUsuario(usuario.getRol(), usuario.getEmail(), usuario.getUser());
 				return "redirect:/AdministracionUsuario";				
 			}catch(Exception e) {				
 				model.addAttribute("errorduplicado", "El user esta duplicado");
+				usuario.setId(0);
+				model.addAttribute("usuario",usuario);
+				//System.out.println("ID 1 -->"+usuario.getId());
 				return "/admin/Usuario";
 			}		
 		}
 		
+	}
+	
+	@GetMapping("/Usuario/edit/Submit/{email}/{rol}/{user}")
+	public String UsuarioEditado(@PathVariable("user") String user,@PathVariable("email") String email,@PathVariable("rol") String rol) {
+		System.out.println("Valor user-->"+user);
+		usuarioservicios.ActualizarUsuario(rol, email, user);
+		return "redirect:/AdministracionUsuario";
 	}
 	
 	@GetMapping("/EliminarUsuario/{id}/eliminar")

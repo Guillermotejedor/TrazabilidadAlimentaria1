@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -15,16 +16,21 @@ public class Usuario {
 	private long id;
 	@Column(unique=true)
 	@NotNull
-	@Size(min=4,message="Especifique el User del User")
+	@Size(min=4,message="Especifique el User del Usuario")
 	private String user;
-	//@NotNull
-	//@Size(min=8,message="Especifique la password del User. Minimo 8 caracteres")
+	@NotNull
+	@Size(min=8,message="Especifique la password del Usuario. Minimo 8 caracteres")
 	private String password;
 	@NotNull
-	@Size(min=2,message="Especifique el nombre del User")
+	@Size(min=2,message="Especifique el nombre del Usuario")
 	private String nombre;
+	@NotNull
+	@Size(min=2,message="Especifique el apellido 1 del Usuario")
 	private String apellido1;
+	@NotNull
+	@Size(min=2,message="Especifique el apellido 2 del Usuario")
 	private String apellido2;
+	@NotEmpty(message="Especifique un rol")
 	private String rol;
 	@Email(message="Dirección de Email no validad")
 	private String email;
@@ -45,8 +51,6 @@ public class Usuario {
 		this.rol = roll;
 		this.email = email;
 	}
-	
-	
 	
 	
 	public long getId() {

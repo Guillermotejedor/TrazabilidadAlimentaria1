@@ -38,7 +38,7 @@ public class Receta {
 	@NotNull
 	@Size(min=2,message="Especifique el Nombre de la receta")
 	private String nombrereceta;
-	@Min(value=1,message="{Receta.cantidad}")
+	@Min(value=1,message="La caducidad no puede ser 0")
 	private int caducidad;
 	private boolean activado;
 	@Column(name="id_productobase")

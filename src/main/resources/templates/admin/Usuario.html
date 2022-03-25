@@ -13,7 +13,7 @@
 </head>
 <body>
   
-	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+	<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark fijar-menu">
             
             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0" th:action="@{/logout}" method="post">
                 <div class="input-group float-right">
@@ -49,20 +49,24 @@
                     <input type="text" id="nombre" placeholder="Pedro" class="form-control" th:field="*{nombre}" th:attrappend="readonly=${usuario.id !=0}? 'readonly':null">
                     <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}" class="help-block" id="id-error">Errores</span> 
                 </div>
-                <div class="col form-group">
+                <div class="col form-group" th:classappend="${#fields.hasErrors('apellido1')}? 'has-error'">
                     <label for="lastname">Apellido 1</label>
                     <input type="text" id="apellido1" class="form-control" placeholder="González" th:field="*{apellido1}" th:attrappend="readonly=${usuario.id !=0}? 'readonly':null">
+                	<span th:if="${#fields.hasErrors('apellido1')}" th:errors="*{apellido1}" class="help-block" id="id-error">Errores</span>
                 </div>
-                <div class="col form-group">
+                <div class="col form-group" th:classappend="${#fields.hasErrors('apellido2')}? 'has-error'">
                     <label for="lastname">Apellido 2</label>
                     <input type="text" id="apellido2" class="form-control" placeholder="González" th:field="*{apellido2}" th:attrappend="readonly=${usuario.id !=0}? 'readonly':null">
+                	<span th:if="${#fields.hasErrors('apellido2')}" th:errors="*{apellido2}" class="help-block" id="id-error">Errores</span>
                 </div>
-                <div class="col form-group">
-                    <label for="lastname">Roll</label>
-                    <select id="roll" class="form-control" th:field="*{rol}">
+                <div class="col form-group" th:classappend="${#fields.hasErrors('rol')}? 'has-error'">
+                    <label for="lastname">Rol</label>
+                    <select id="rol" class="form-control" th:field="*{rol}">
+                    	<option th:value="''" th:text="Seleccione_un_rol"></option>
    						<option th:value="'ADMIN'" th:text="Admin"></option>
     					<option th:value="'USER'" th:text="User"></option>
 					</select>
+					<span th:if="${#fields.hasErrors('rol')}" th:errors="*{rol}" class="help-block" id="id-error">Errores</span>
                 </div>
 
             </div>
@@ -76,8 +80,8 @@
                 </div>
             </div>
 
-            <!-- Match password -->
-            <div class="form-row my-3">
+         <!-- Match password -->
+            <div th:if="${usuario.id ==0}" class="form-row my-3">
                 <div class="col form-group" th:classappend="${#fields.hasErrors('password')}? 'has-error'">
                     <label for="password">Password</label>
                     <input type="password" id="password" class="form-control" th:field="*{password}">
@@ -90,11 +94,16 @@
 
 
             <!-- save user -->
-            <input type="submit" value="Guardar" class="btn btn-success btn-block">
+            <span th:if="${usuario.id ==0}">
+           		 <input type="submit" value="Guardar" class="btn btn-success btn-block">
+            </span>
+             <span th:if="${usuario.id !=0}">
+           		 <button type="button"   class="btn btn-success btn-block" th:onclick="validar()">Guardar</button>
+            </span>
         </form>
     </div>
 
-
+<script src="/js/Usuario.js"></script>
 
 </body>
 </html>

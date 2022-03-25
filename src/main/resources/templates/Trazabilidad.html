@@ -54,7 +54,7 @@
                     <div class="container-fluid px-4">
                    		<h1>Trazabilidad</h1>
                    		<div class="container-xxl">
-                   		<a class="btn btn-success btn-cabecera"  href="#!" th:href="@{/Receta}"><i>Exportar a Excel</i></a>
+                   		<a class="btn btn-success btn-cabecera"  href="#!" th:href="@{/Trazabilidad/Export/Excel/{lote}(lote=${lote})}"><i>Exportar a Excel</i></a>
                    		<a class="btn btn-primary btn-cabecera"  href="#!" th:onclick="Buscar()"><i>Buscar</i></a>
                    		<input type="text"  class="btn-cabecera" id="buscar" sice=20 placeholder="Lote"/>
                    		<h3><span th:text="${mensaje}"></span></h3>

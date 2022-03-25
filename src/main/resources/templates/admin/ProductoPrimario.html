@@ -9,7 +9,7 @@
 <title>Producto Primario</title>
 </head>
 <body>
-		<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+		<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark fijar-menu">
             
             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0" th:action="@{/logout}" method="post">
                 <div class="input-group float-right">
@@ -23,8 +23,8 @@
         
          <div class="container">
 
-      <div class="starter-template">
-        <h1 th:text="${productoprimario.id !=0}? 'Editar Producto':'Nuevo Producto'">Nuevo Producto</h1>
+      <div class="container my-5">
+        <h1 class="text-center" th:text="${productoprimario.id !=0}? 'Editar Producto':'Nuevo Producto'">Nuevo Producto</h1>
        		<div class="row">
        			<div class="col-md-offset-2 col-md-8">
        				<span class="has-error" th:text="${errorduplicado}"></span>

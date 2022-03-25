@@ -79,7 +79,8 @@
 							<th>Usuario</th>
 							<th>Nombre</th>
 							<th>Apellido</th>
-							<th>Accion</th>
+							<th>Rol</th>
+							<th>Acciones</th>
 						</tr>						
 						</thead>
 						<tfoot>
@@ -87,7 +88,8 @@
 							<th>Usuario</th>
 							<th>Nombre</th>
 							<th>Apellido</th>
-							<th>Accion</th>
+							<th>Rol</th>
+							<th>Acciones</th>
 						</tr>						
 						</tfoot>
 						<tbody>
@@ -95,6 +97,7 @@
 							<td th:text="${usuario.user}">User</td>
 							<td th:text="${usuario.nombre}">Nombre</td>
 							<td th:text="${usuario.apellido1}">Apellido</td>
+							<td th:text="${usuario.rol}">Rol</td>
 							<td><a href="#" th:href="@{/Usuario/{id}(id=${usuario.id})}" class="btn btn-success">Modificar</a>
 							<a href="#" data-toggle="modal" data-target="#delete-modal" th:data-id="${usuario.id}" th:data-nombre="${usuario.nombre}" class="btn btn-danger">Eliminar</a>
 							</td>
