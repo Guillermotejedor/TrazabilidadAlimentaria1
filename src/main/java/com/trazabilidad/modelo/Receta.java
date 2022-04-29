@@ -23,6 +23,8 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.Where;
+
 
 
 
@@ -57,7 +59,7 @@ public class Receta {
 	private List<RelacionRecetaPrimario> cantidadingrediente= new ArrayList<RelacionRecetaPrimario>();
 	//
 	@JoinColumn(name="id_receta",referencedColumnName="id_receta",insertable=false,updatable=false)
-	//@Where(clause ="cantidad_producida=cantidad_distribuida")
+	@Where(clause ="0!=cantidad_distribuida")
 	@OneToMany( cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
 	@OrderBy("lote DESC")
 	private List<Lote> lotes= new ArrayList<Lote>();

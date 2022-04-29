@@ -15,6 +15,16 @@ public class TrazabilidadAlimentariaApplication {
 		SpringApplication.run(TrazabilidadAlimentariaApplication.class, args);
 	}
 
+/*
+	@Bean
+	public CommandLineRunner initData(UsuarioServicios usuarioServicio) {
+		return args -> {
 
-	
+			Usuario usuario = new Usuario("guiller", "12345678","Guiller", "Tejedor", "Relea","ADMIN","gui@gui.es");
+			usuario = usuarioServicio.registrar(usuario);
+
+
+		};
+	}
+*/	
 }

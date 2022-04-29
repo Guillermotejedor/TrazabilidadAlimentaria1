@@ -3,7 +3,6 @@ package com.trazabilidad.configuracion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -36,24 +35,29 @@ public class ConfiguracionSeguridad extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 	http
 		.authorizeRequests()
-		.antMatchers("/").hasAuthority("ADMIN")
-		.antMatchers("/admin/**").hasRole("ADMIN")
-		.antMatchers("/resources/**").hasAuthority("ADMIN")
+		.antMatchers("/ProductoPrimario/**").hasRole("ADMIN")
+		.antMatchers("/ListaProductosPrimarios/**").hasRole("ADMIN")
+		.antMatchers("/Receta/**").hasRole("ADMIN")
+		.antMatchers("/AdministracionUsuario/**").hasRole("ADMIN")
+		.antMatchers("/HistoricoProductoPrimario/**").hasRole("ADMIN")
+		.antMatchers("/ActivarProductoPrimario/**").hasRole("ADMIN")
 		.antMatchers("/css/**").permitAll()
+		.antMatchers("/Login/**").permitAll()
 		.antMatchers("/RecuperarPassword/**").permitAll() 
 		.antMatchers("/ValidarEmail/**").permitAll() 
 		.antMatchers("/ModificarPassword/**").permitAll()
-		.anyRequest().authenticated()
+		.antMatchers("/ActializarPassword/**").permitAll() 
+		.anyRequest().authenticated() 
 		.and()
 		.formLogin()
 		.loginPage("/login")
 		.permitAll()
-		.defaultSuccessUrl("/index")
-		.and().logout().permitAll()
+		.defaultSuccessUrl("/ListaRecetas")
+		.and().logout().permitAll();
 		//.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 		//.logoutSuccessUrl("/")
-		.and()
-		.csrf().disable();
+		//.and()
+		//.csrf().disable();
 
 	
 		
