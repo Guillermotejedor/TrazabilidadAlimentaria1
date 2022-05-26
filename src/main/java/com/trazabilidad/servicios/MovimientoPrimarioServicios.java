@@ -19,5 +19,8 @@ public class MovimientoPrimarioServicios {
 	public MovimientoPrimario BucarPorId(long id) {
 		return repositorio.findById(id);
 	}
-
+	
+	public MovimientoPrimario CompraActiva(long id_primarias,boolean activo) {
+		return repositorio.fechacompra(id_primarias, activo);
+	}
 }

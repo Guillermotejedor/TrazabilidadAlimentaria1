@@ -91,7 +91,8 @@ public class ControladorEjecutarReceta {
 				}
 				total+=cantidadresultante;
 				producto.setCantidad(producto.getCantidad()-cantidadresultante);
-				MovimientoPrimario movimiento=new MovimientoPrimario(producto.getId(),LocalDate.now(),cantidadresultante,lote,"Ejecución");
+				MovimientoPrimario compraactiva=movimientoservicio.CompraActiva(producto.getId(), true);
+				MovimientoPrimario movimiento=new MovimientoPrimario(producto.getId(),LocalDate.now(),cantidadresultante,lote,"Ejecución",compraactiva.getFech_compra(),false);
 				productoservicios.Guardar(producto);
 				movimientoservicio.Actualizar(movimiento);
 				RelacionLotePrimario loteprimario=new RelacionLotePrimario(

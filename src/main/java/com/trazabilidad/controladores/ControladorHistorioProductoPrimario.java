@@ -57,10 +57,10 @@ public class ControladorHistorioProductoPrimario {
 			movimientos=producto.getMovimientos();
 			mensaje=producto.getNombreprimario();
 		}else {
-			mensaje="No se han encontrado productos por ese nombre";
+			mensaje="No se han encontrado producto por ese nombre";
 			movimientos=new ArrayList<MovimientoPrimario>();
 		}
-		model.addAttribute("productos", productos);
+		model.addAttribute("productos", productos); 
 		model.addAttribute("producto", mensaje);
 		model.addAttribute("movimientos", movimientos);
 		return "/admin/HistoricoProductosPrimarios";
@@ -75,6 +75,7 @@ public class ControladorHistorioProductoPrimario {
 		model.addAttribute("empresa", producto.getEmpresa());
 		model.addAttribute("tipomovimiento",movimiento.getTipo_modificacion());
 		model.addAttribute("fecha",movimiento.getFech_ejecucion());
+		model.addAttribute("fecha_compra",movimiento.getFech_compra());
 		model.addAttribute("cantidad",movimiento.getCantidad());
 		model.addAttribute("lote",movimiento.getLote());
 		

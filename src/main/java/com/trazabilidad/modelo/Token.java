@@ -11,7 +11,7 @@ import javax.persistence.Table;
 public class Token {
 	@Id
 	private String token;
-	private String email;
+	private long id;
 	private boolean enable;
 	
 	
@@ -22,12 +22,16 @@ public class Token {
 	}
 
 
-	public Token(String token, String email, boolean enable) {
+
+
+	public Token(String token, long id, boolean enable) {
 		super();
 		this.token = token;
-		this.email = email;
+		this.id = id;
 		this.enable = enable;
 	}
+
+
 
 
 	public String getToken() {
@@ -40,14 +44,21 @@ public class Token {
 	}
 
 
-	public String getEmail() {
-		return email;
+
+
+
+	public long getId() {
+		return id;
 	}
 
 
-	public void setEmail(String email) {
-		this.email = email;
+
+
+	public void setId(long id) {
+		this.id = id;
 	}
+
+
 
 
 	public boolean isEnable() {
@@ -60,10 +71,14 @@ public class Token {
 	}
 
 
+
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(email, enable, token);
+		return Objects.hash(enable, id, token);
 	}
+
+
 
 
 	@Override
@@ -75,15 +90,22 @@ public class Token {
 		if (getClass() != obj.getClass())
 			return false;
 		Token other = (Token) obj;
-		return Objects.equals(email, other.email) && enable == other.enable && Objects.equals(token, other.token);
+		return enable == other.enable && Objects.equals(id, other.id) && Objects.equals(token, other.token);
 	}
+
+
 
 
 	@Override
 	public String toString() {
-		return "Token [token=" + token + ", email=" + email + ", enable=" + enable + "]";
+		return "Token [token=" + token + ", id=" + id + ", enable=" + enable + "]";
 	}
+
+
 	
+
+
+
 	
 	
 

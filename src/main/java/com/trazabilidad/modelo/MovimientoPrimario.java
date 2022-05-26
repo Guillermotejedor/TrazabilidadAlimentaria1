@@ -29,6 +29,8 @@ public class MovimientoPrimario {
 	private float cantidad;
 	private String lote;
 	private String tipo_modificacion;
+	private LocalDate fech_compra;
+	private boolean activo;
 	/*
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_primarias", nullable=true)
@@ -46,6 +48,20 @@ public class MovimientoPrimario {
 		this.cantidad = cantidad;
 		this.lote = lote;
 		this.tipo_modificacion = tipomodificacion;
+	}
+	
+	
+
+	public MovimientoPrimario(long id_primarias, LocalDate fech_ejecucion, float cantidad, String lote,
+			String tipo_modificacion, LocalDate fech_compra, boolean activo) {
+		super();
+		this.id_primarias = id_primarias;
+		this.fech_ejecucion = fech_ejecucion;
+		this.cantidad = cantidad;
+		this.lote = lote;
+		this.tipo_modificacion = tipo_modificacion;
+		this.fech_compra = fech_compra;
+		this.activo = activo;
 	}
 
 	public long getId() {
@@ -95,7 +111,26 @@ public class MovimientoPrimario {
 	public void setTipo_modificacion(String tipomodificacion) {
 		this.tipo_modificacion = tipomodificacion;
 	}
-/*
+	
+	
+	
+public LocalDate getFech_compra() {
+		return fech_compra;
+	}
+
+	public void setFech_compra(LocalDate fech_compra) {
+		this.fech_compra = fech_compra;
+	}
+
+	public boolean isActivo() {
+		return activo;
+	}
+
+	public void setActivo(boolean activo) {
+		this.activo = activo;
+	}
+
+	/*
 	public ProductoPrimario getProducto() {
 		return ProductoPrimario;
 	}

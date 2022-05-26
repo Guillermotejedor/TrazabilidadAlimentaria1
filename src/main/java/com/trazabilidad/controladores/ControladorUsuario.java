@@ -101,7 +101,7 @@ public class ControladorUsuario {
 			String token=UUID.randomUUID().toString();
 			String Url="\r\n" +"http://localhost:8080/ActializarPassword?token="+token;
 			mail.send(null, email, "Cambio de Password", Url);
-			Token tokenobj=new Token(token,email,true);
+			Token tokenobj=new Token(token,user.getId(),true);
 			tokenservicios.Guardar(tokenobj);
 			encontrado=true;
 			model.addAttribute("errornoencontrado", "Le hemos enviado un Email. Abra el Email para continuar con el cambio de password");
@@ -119,16 +119,16 @@ public class ControladorUsuario {
 	public  String ActualizarPassword(@RequestParam("token") String token,Model model) {
 		System.out.println("token -->"+token);
 		String Url="";
-		//Usuario user=new Usuario();
 		ModificarPassword modificar=new ModificarPassword();
 		Token tokenobj=tokenservicios.TokenPorToken(token);
 		
 		if(tokenobj!=null) {
-			modificar.setEmail(tokenobj.getEmail());
+			Usuario user=usuarioservicios.findById(tokenobj.getId());			
+			modificar.setUser(user.getUser());
+			modificar.setEmail(user.getEmail());
 			if(tokenobj.isEnable()) {
 				tokenobj.setEnable(false);
 				tokenservicios.Guardar(tokenobj);
-				//user=usuarioservicios.findByEmail(tokenobj.getEmail());
 				model.addAttribute("modificarpassword",modificar);
 				Url="/RecuperarPassword";
 			}else {
@@ -138,30 +138,12 @@ public class ControladorUsuario {
 				Url= "/EnviarEmail";
 			}
 		}else {
-			
+			Url="/login";
 		}
 		
 		return Url;
 	}
 	
-	/*
-	@GetMapping("/ModificarPassword/{email}/{password}")
-	public String (@PathVariable String email,@PathVariable String password) {
-		usuarioservicios.ResetPassword(password, email);
-		return "/login";
-	}
-	
-	@PostMapping(path ="/ModificarPassword", params="email")
-	//@GetMapping("/ModificarPassword")
-	//@ResponseBody
-	public String ModificarPassword(@RequestParam("email") String email,@RequestParam("password1") String password) {
-		System.out.println("Email-->"+email);
-		System.out.println("pass-->"+password);
-		usuarioservicios.ResetPassword(password, email);
-		System.out.println("Email 1-->"+email);
-		return "/login";
-	}
-	*/
 	
 	@PostMapping("/ModificarPassword")
 	public String ModificarPassord(@Valid @ModelAttribute("modificarpassword") ModificarPassword modificarpassword,BindingResult validar,Model model) {
@@ -170,7 +152,7 @@ public class ControladorUsuario {
 			return "/RecuperarPassword";
 		}else {
 			if(modificarpassword.getPassword1().equals(modificarpassword.getPassword2())) {
-				usuarioservicios.ResetPassword(modificarpassword.getPassword1(),modificarpassword.getEmail() );
+				usuarioservicios.ResetPassword(modificarpassword.getPassword1(),modificarpassword.getUser());
 			}else {
 				model.addAttribute("modificarpassword", modificarpassword);
 				model.addAttribute("errornoencontrado", "Las Password no son iguales");

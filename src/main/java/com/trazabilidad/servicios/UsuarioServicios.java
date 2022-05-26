@@ -35,8 +35,8 @@ public class UsuarioServicios {
 		return usuariorepositorio.findFirstByEmail(email);
 	}
 	
-	public void ResetPassword(String pass,String email) {
-		usuariorepositorio.updatepassword(passwordencoder.encode(pass), email);
+	public void ResetPassword(String pass,String user) {
+		usuariorepositorio.updatepassword(passwordencoder.encode(pass), user);
 	}
 	
 	public List<Usuario> TodosUsuarios(){

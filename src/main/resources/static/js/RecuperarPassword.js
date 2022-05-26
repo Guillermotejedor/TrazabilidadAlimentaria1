@@ -51,7 +51,7 @@ function ValidadEmail(){
 		 var url="/ValidarEmail/"+email;
     	 window.location.href=url;
 	}else{
-		alert("Email no valido");
+		alert("Email no válido");
 	}
 	
 	

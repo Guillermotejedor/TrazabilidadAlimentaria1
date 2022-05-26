@@ -56,7 +56,10 @@ public class ControladorProductosPrimarios {
 			ProductoPrimario producto=productosservicios.ProductoPrimarioId(id);
 			producto.setCantidad(producto.getCantidad()+cantidad);
 			productosservicios.Guardar(producto);
-			MovimientoPrimario actualizacion=new MovimientoPrimario(id,LocalDate.now(),cantidad,"","Actualizar");
+			MovimientoPrimario antiguo=movimientoservicios.CompraActiva(id, true);
+			antiguo.setActivo(false);
+			movimientoservicios.Actualizar(antiguo);
+			MovimientoPrimario actualizacion=new MovimientoPrimario(id,LocalDate.now(),cantidad,"","Actualizar",LocalDate.now(),true);
 			movimientoservicios.Actualizar(actualizacion);
 		
 		return "redirect:/ListaProductosPrimarios";
@@ -99,7 +102,7 @@ public class ControladorProductosPrimarios {
 				producto.setFech_alta(LocalDate.now());
 				productosservicios.Guardar(producto);
 				System.out.println(producto);
-				MovimientoPrimario movimiento=new MovimientoPrimario(producto.getId(),LocalDate.now(),producto.getCantidad(),"","Alta");
+				MovimientoPrimario movimiento=new MovimientoPrimario(producto.getId(),LocalDate.now(),producto.getCantidad(),"","Alta",LocalDate.now(),true);
 				movimientoservicios.Actualizar(movimiento);
 			}else {
 				MovimientoPrimario movimiento=new MovimientoPrimario(producto.getId(),LocalDate.now(),producto.getCantidad(),"","Formulario");

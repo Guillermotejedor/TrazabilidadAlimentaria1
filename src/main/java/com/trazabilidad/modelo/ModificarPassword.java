@@ -13,6 +13,7 @@ public class ModificarPassword {
 	private String password1;
 	@Size(min=8,message="Confirme la password")
 	private String password2;
+	private String user;
 	private String email;
 	
 	
@@ -27,13 +28,14 @@ public class ModificarPassword {
 
 
 
-	public ModificarPassword(String password1, String password2, String email) {
+	public ModificarPassword(@Size(min = 8, message = "Especifique una password minimo 8 caracteres") String password1,
+			@Size(min = 8, message = "Confirme la password") String password2, String user, String email) {
 		super();
 		this.password1 = password1;
 		this.password2 = password2;
+		this.user = user;
 		this.email = email;
 	}
-
 
 
 
@@ -70,6 +72,32 @@ public class ModificarPassword {
 
 
 
+
+
+
+
+
+	public String getUser() {
+		return user;
+	}
+
+
+
+
+
+
+
+
+
+
+	public void setUser(String user) {
+		this.user = user;
+	}
+
+
+
+
+
 	public String getEmail() {
 		return email;
 	}
@@ -88,7 +116,7 @@ public class ModificarPassword {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(email, password1, password2);
+		return Objects.hash(email, password1, password2, user);
 	}
 
 
@@ -105,14 +133,18 @@ public class ModificarPassword {
 			return false;
 		ModificarPassword other = (ModificarPassword) obj;
 		return Objects.equals(email, other.email) && Objects.equals(password1, other.password1)
-				&& Objects.equals(password2, other.password2);
+				&& Objects.equals(password2, other.password2) && Objects.equals(user, other.user);
 	}
+
+
+
+
 
 	@Override
 	public String toString() {
-		return "ModificarPassword [password1=" + password1 + ", password2=" + password2 + ", email=" + email + "]";
+		return "ModificarPassword [password1=" + password1 + ", password2=" + password2 + ", user=" + user + ", email="
+				+ email + "]";
 	}
-	
-	
+
 
 }

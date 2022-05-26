@@ -60,25 +60,28 @@
 						<table class="table table-striped" id="datatablesSimple">
 						<thead>
 						<tr>
-							<th>Fecha Ejecucion</th>
+							<th>Lote</th>
+							<th>Fecha Compra</th>
+							<th>Fecha Ejecución</th>
 							<th>Tipo Movimiento</th>
-							<th>Cantidad</th>
-							<th>Accion</th>
+							<th>Acción</th>
 						</tr>						
 						</thead>
 						<tfoot>
 						<tr>
-							<th>Fecha Ejecucion</th>
+							<th>Lote</th>
+							<th>Fecha Compra</th>
+							<th>Fecha Ejecución</th>
 							<th>Tipo Movimiento</th>
-							<th>Cantidad</th>
-							<th>Accion</th>
+							<th>Acción</th>
 						</tr>						
 						</tfoot>
 						<tbody>
 						<tr th:each="movimiento : ${movimientos}">
-							<td th:text="${movimiento.fech_ejecucion}">Fecha</td>
+							<td th:text="${movimiento.lote}">Fecha</td>
+							<td th:text="${movimiento.fech_compra}">Movimiento</td>
+							<td th:text="${movimiento.fech_ejecucion}">1</td>
 							<td th:text="${movimiento.tipo_modificacion}">Movimiento</td>
-							<td th:text="${movimiento.cantidad}">1</td>
 							<td><a href="#" th:href="@{/MovimientoProductoPrimario/{id}(id=${movimiento.id})}" class="btn btn-warning">Abrir</a></td>			
 						</tr>
 						</tbody>

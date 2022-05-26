@@ -37,13 +37,21 @@ public class ControladorTrazabilidad {
 			
 		
 		List<Receta> recetas=recetaservicios.TrazabilidadReceta();
-		Receta receta=recetas.get(0);
-		String	nombrereceta=receta.getNombrereceta();
-		List<Lote> lote=receta.getLotes();
-		Lote lote1=lote.get(0);
-		String nomlote=lote1.getLote();
-		String mensaje=nombrereceta+" Lote: "+nomlote;
-		List<MovimientoLote> movimientos=lote1.getMovimientos();
+		List<MovimientoLote> movimientos=new ArrayList<MovimientoLote>();
+		String mensaje="";
+		String nomlote="";
+		if(!recetas.isEmpty()) {
+			Receta receta=recetas.get(0);
+			String	nombrereceta=receta.getNombrereceta();
+			List<Lote> lote=receta.getLotes();
+			Lote lote1=lote.get(0);
+			nomlote=lote1.getLote();
+			mensaje=nombrereceta+" Lote: "+nomlote;
+			movimientos=lote1.getMovimientos();
+		}else {
+			recetas=new ArrayList<Receta>();
+		}
+	
 		model.addAttribute("lote", nomlote);
 		model.addAttribute("mensaje",mensaje );
 		model.addAttribute("movimientos", movimientos);
